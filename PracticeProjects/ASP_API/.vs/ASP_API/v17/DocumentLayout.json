@@ -1,0 +1,113 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\practiceprojects\\asp_api\\asp_api\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|solutionrelative:asp_api\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\practiceprojects\\asp_api\\asp_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|solutionrelative:asp_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\practiceprojects\\asp_api\\asp_api\\asp_api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|solutionrelative:asp_api\\asp_api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\practiceprojects\\asp_api\\asp_api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|solutionrelative:asp_api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\practiceprojects\\asp_api\\asp_api\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C67C1F3-EC52-420E-9258-82F1E955AE46}|ASP_API\\ASP_API.csproj|solutionrelative:asp_api\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ASP_API.http",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\ASP_API.http",
+              "RelativeDocumentMoniker": "ASP_API\\ASP_API.http",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\ASP_API.http",
+              "RelativeToolTip": "ASP_API\\ASP_API.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-01-08T18:02:18.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "ASP_API\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "ASP_API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-08T18:00:40.937Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "ASP_API\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "ASP_API\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T17:59:45.563Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "ASP_API\\WeatherForecast.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\WeatherForecast.cs",
+              "RelativeToolTip": "ASP_API\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T17:59:24.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\Program.cs",
+              "RelativeDocumentMoniker": "ASP_API\\Program.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\PracticeProjects\\ASP_API\\ASP_API\\Program.cs",
+              "RelativeToolTip": "ASP_API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-08T17:59:09.685Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
