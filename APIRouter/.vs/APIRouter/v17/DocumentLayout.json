@@ -1,0 +1,78 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\APIRouter\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2CA8E38A-2693-4D55-B50B-453B00B8DC1F}|APIRouter\\APIRouter.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\apirouter\\apirouter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CA8E38A-2693-4D55-B50B-453B00B8DC1F}|APIRouter\\APIRouter.csproj|solutionrelative:apirouter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CA8E38A-2693-4D55-B50B-453B00B8DC1F}|APIRouter\\APIRouter.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\apirouter\\apirouter\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2CA8E38A-2693-4D55-B50B-453B00B8DC1F}|APIRouter\\APIRouter.csproj|solutionrelative:apirouter\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CA8E38A-2693-4D55-B50B-453B00B8DC1F}|APIRouter\\APIRouter.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\apirouter\\apirouter\\models\\bullseyecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CA8E38A-2693-4D55-B50B-453B00B8DC1F}|APIRouter\\APIRouter.csproj|solutionrelative:apirouter\\models\\bullseyecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\APIRouter\\APIRouter\\Program.cs",
+              "RelativeDocumentMoniker": "APIRouter\\Program.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\APIRouter\\APIRouter\\Program.cs",
+              "RelativeToolTip": "APIRouter\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-11T02:46:28.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\APIRouter\\APIRouter\\appsettings.json",
+              "RelativeDocumentMoniker": "APIRouter\\appsettings.json",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\APIRouter\\APIRouter\\appsettings.json",
+              "RelativeToolTip": "APIRouter\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-11T02:41:27.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BullseyeContext.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\APIRouter\\APIRouter\\Models\\BullseyeContext.cs",
+              "RelativeDocumentMoniker": "APIRouter\\Models\\BullseyeContext.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\APIRouter\\APIRouter\\Models\\BullseyeContext.cs",
+              "RelativeToolTip": "APIRouter\\Models\\BullseyeContext.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAqwDcAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-11T02:37:37.756Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
