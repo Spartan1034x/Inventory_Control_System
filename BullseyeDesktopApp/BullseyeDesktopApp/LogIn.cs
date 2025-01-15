@@ -21,7 +21,6 @@ namespace BullseyeDesktopApp
     public partial class LogIn : Form
     {
         BullseyeContext context;
-        Employee employee;
         private static int loginAttemptsRemaining = 3;
 
         public LogIn()
@@ -34,7 +33,8 @@ namespace BullseyeDesktopApp
         {
             this.AcceptButton = btnLogin; //Sets enter button to login
             context = new BullseyeContext(); //Instatiates context
-            LoadContextData();
+            LoadContextData(); // Loads employee context
+            StaticHelpers.UserSession.CurrentUser = new Employee(); // Wipes employee session variable
         }
 
 
@@ -47,20 +47,20 @@ namespace BullseyeDesktopApp
 
 
         //
-        //
+        // Queries the db using linq and EF to check password and username against db, if it doesnt match displays error if match logs in and goes to main page
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
             var user = context.Employees.FirstOrDefault(e => e.Username == username);
-            employee = user;
+            StaticHelpers.UserSession.CurrentUser = user;
 
             if (user == null) //User not found
             {
+                loginAttemptsRemaining--;
                 MessageBox.Show($"Username and/or Password incorrect!\nYou have {loginAttemptsRemaining} attempts" +
                     $" left", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                loginAttemptsRemaining--;
             }
             else if (user.Locked == 1) //User is already locked
             {
@@ -74,11 +74,14 @@ namespace BullseyeDesktopApp
             }
             else
             {
-                //If password matches use hashing
+                // Checks to make sure passwords match then goes to main page
                 if (StaticHelpers.Hasher.VerifyPassword(user.Password, password))
                 {
-                    MessageBox.Show("Log in success");
-                    loginAttemptsRemaining = 3;
+                    loginAttemptsRemaining = 3; // Resets attempts
+                    StaticHelpers.UserSession.CurrentUser = user; // Sets user session var to user logged in
+                    Main form = new Main(); // Sends employee to 
+                    form.Show(); 
+                    this.Hide();    
                 }
                 else //Invalid password
                 {
@@ -104,10 +107,10 @@ namespace BullseyeDesktopApp
 
 
         //
-        //
+        // Shows forgot password form
         private void lnkForgot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string username = (employee == null) ? string.Empty : employee.Username;
+            string username = (StaticHelpers.UserSession.CurrentUser == null) ? string.Empty : StaticHelpers.UserSession.CurrentUser.Username;
             ResetPass form = new ResetPass(username);
             form.ShowDialog();
 
@@ -115,10 +118,10 @@ namespace BullseyeDesktopApp
 
 
         //
-        // Exit button closes the form
+        // Exit button closes the App
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
 
@@ -126,7 +129,7 @@ namespace BullseyeDesktopApp
         //Hashes all passwords in the db for me only
         private void btnHashAll_Click(object sender, EventArgs e)
         {
-            /* var employees = context.Employees.ToList();
+           /*  var employees = context.Employees.ToList();
 
             foreach (var employee in employees)
             {
