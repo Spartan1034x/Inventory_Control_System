@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
-using System.Configuration;
 
 namespace BullseyeDesktopApp.Models;
 
@@ -20,6 +19,8 @@ public partial class BullseyeContext : DbContext
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Delivery> Deliveries { get; set; }
+
+    public virtual DbSet<Deliverymethod> Deliverymethods { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
 
@@ -48,7 +49,8 @@ public partial class BullseyeContext : DbContext
     public virtual DbSet<Vehicle> Vehicles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql(ConfigurationManager.ConnectionStrings["BullseyeDB"].ConnectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.3.0-mysql"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySql("server=localhost;database=bullseyedb2025;user=root;password=Rafe!", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.3.0-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -65,6 +67,9 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(32)
                 .HasColumnName("categoryName");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
         });
 
         modelBuilder.Entity<Delivery>(entity =>
@@ -76,6 +81,9 @@ public partial class BullseyeContext : DbContext
             entity.HasIndex(e => e.VehicleType, "vehicleType");
 
             entity.Property(e => e.DeliveryId).HasColumnName("deliveryID");
+            entity.Property(e => e.DeliveryDate)
+                .HasColumnType("datetime")
+                .HasColumnName("deliveryDate");
             entity.Property(e => e.DistanceCost)
                 .HasPrecision(10, 2)
                 .HasColumnName("distanceCost");
@@ -92,6 +100,55 @@ public partial class BullseyeContext : DbContext
                 .HasConstraintName("delivery_ibfk_1");
         });
 
+        modelBuilder.Entity<Deliverymethod>(entity =>
+        {
+            entity.HasKey(e => e.DeliveryMethodId).HasName("PRIMARY");
+
+            entity.ToTable("deliverymethod");
+
+            entity.HasIndex(e => e.ProvinceId, "provinceID");
+
+            entity.Property(e => e.DeliveryMethodId).HasColumnName("deliveryMethodID");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
+            entity.Property(e => e.Address1)
+                .HasMaxLength(50)
+                .HasColumnName("address1");
+            entity.Property(e => e.Address2)
+                .HasMaxLength(50)
+                .HasColumnName("address2");
+            entity.Property(e => e.City)
+                .HasMaxLength(50)
+                .HasColumnName("city");
+            entity.Property(e => e.Contact)
+                .HasMaxLength(100)
+                .HasColumnName("contact");
+            entity.Property(e => e.Country)
+                .HasMaxLength(50)
+                .HasColumnName("country");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.Notes)
+                .HasMaxLength(255)
+                .HasColumnName("notes");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(14)
+                .HasColumnName("phone");
+            entity.Property(e => e.Postalcode)
+                .HasMaxLength(11)
+                .HasColumnName("postalcode");
+            entity.Property(e => e.ProvinceId)
+                .HasMaxLength(2)
+                .HasColumnName("provinceID");
+
+            entity.HasOne(d => d.Province).WithMany(p => p.Deliverymethods)
+                .HasForeignKey(d => d.ProvinceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("deliverymethod_ibfk_1");
+        });
+
         modelBuilder.Entity<Employee>(entity =>
         {
             entity.HasKey(e => e.EmployeeId).HasName("PRIMARY");
@@ -103,13 +160,24 @@ public partial class BullseyeContext : DbContext
             entity.HasIndex(e => e.SiteId, "siteID");
 
             entity.Property(e => e.EmployeeId).HasColumnName("employeeID");
-            entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FirstName).HasMaxLength(20);
             entity.Property(e => e.LastName).HasMaxLength(20);
+            entity.Property(e => e.Locked)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("locked");
+            entity.Property(e => e.Notes)
+                .HasMaxLength(255)
+                .HasColumnName("notes");
             entity.Property(e => e.Password).HasMaxLength(32);
             entity.Property(e => e.PositionId).HasColumnName("PositionID");
             entity.Property(e => e.SiteId).HasColumnName("siteID");
+            entity.Property(e => e.Username)
+                .HasMaxLength(255)
+                .HasColumnName("username");
 
             entity.HasOne(d => d.Position).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.PositionId)
@@ -124,9 +192,9 @@ public partial class BullseyeContext : DbContext
 
         modelBuilder.Entity<Inventory>(entity =>
         {
-            entity.HasKey(e => new { e.ItemId, e.SiteId })
+            entity.HasKey(e => new { e.ItemId, e.SiteId, e.ItemLocation })
                 .HasName("PRIMARY")
-                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
 
             entity.ToTable("inventory");
 
@@ -136,8 +204,12 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.SiteId).HasColumnName("siteID");
             entity.Property(e => e.ItemLocation)
                 .HasMaxLength(9)
+                .HasDefaultValueSql("'Stock'")
                 .HasColumnName("itemLocation");
-            entity.Property(e => e.MaxReorderWarning).HasColumnName("maxReorderWarning");
+            entity.Property(e => e.Notes)
+                .HasMaxLength(255)
+                .HasColumnName("notes");
+            entity.Property(e => e.OptimumThreshold).HasColumnName("optimumThreshold");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.ReorderThreshold).HasColumnName("reorderThreshold");
 
@@ -163,7 +235,9 @@ public partial class BullseyeContext : DbContext
             entity.HasIndex(e => e.SupplierId, "supplierID");
 
             entity.Property(e => e.ItemId).HasColumnName("itemID");
-            entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
             entity.Property(e => e.CaseSize).HasColumnName("caseSize");
             entity.Property(e => e.Category)
                 .HasMaxLength(32)
@@ -209,6 +283,9 @@ public partial class BullseyeContext : DbContext
             entity.ToTable("posn");
 
             entity.Property(e => e.PositionId).HasColumnName("positionID");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
             entity.Property(e => e.PermissionLevel)
                 .HasMaxLength(20)
                 .HasColumnName("permissionLevel");
@@ -223,6 +300,9 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.ProvinceId)
                 .HasMaxLength(2)
                 .HasColumnName("provinceID");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
             entity.Property(e => e.CountryCode)
                 .HasMaxLength(50)
                 .HasColumnName("countryCode");
@@ -240,6 +320,9 @@ public partial class BullseyeContext : DbContext
             entity.HasIndex(e => e.ProvinceId, "provinceID");
 
             entity.Property(e => e.SiteId).HasColumnName("siteID");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
             entity.Property(e => e.Address)
                 .HasMaxLength(50)
                 .HasColumnName("address");
@@ -256,9 +339,6 @@ public partial class BullseyeContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("dayOfWeek");
             entity.Property(e => e.DistanceFromWh).HasColumnName("distanceFromWH");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
             entity.Property(e => e.Notes)
                 .HasMaxLength(255)
                 .HasColumnName("notes");
@@ -271,6 +351,9 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.ProvinceId)
                 .HasMaxLength(2)
                 .HasColumnName("provinceID");
+            entity.Property(e => e.SiteName)
+                .HasMaxLength(50)
+                .HasColumnName("siteName");
 
             entity.HasOne(d => d.Province).WithMany(p => p.Sites)
                 .HasForeignKey(d => d.ProvinceId)
@@ -287,6 +370,9 @@ public partial class BullseyeContext : DbContext
             entity.HasIndex(e => e.Province, "province");
 
             entity.Property(e => e.SupplierId).HasColumnName("supplierID");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
             entity.Property(e => e.Address1)
                 .HasMaxLength(50)
                 .HasColumnName("address1");
@@ -305,6 +391,9 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.Notes)
+                .HasMaxLength(255)
+                .HasColumnName("notes");
             entity.Property(e => e.Phone)
                 .HasMaxLength(14)
                 .HasColumnName("phone");
@@ -329,11 +418,13 @@ public partial class BullseyeContext : DbContext
 
             entity.HasIndex(e => e.DeliveryId, "deliveryID");
 
+            entity.HasIndex(e => e.EmployeeId, "employeeID");
+
             entity.HasIndex(e => e.SiteIdfrom, "siteIDFrom");
 
             entity.HasIndex(e => e.SiteIdto, "siteIDTo");
 
-            entity.HasIndex(e => e.Status, "status");
+            entity.HasIndex(e => e.TxnStatus, "txnStatus");
 
             entity.HasIndex(e => e.TxnType, "txnType");
 
@@ -342,45 +433,55 @@ public partial class BullseyeContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("barCode");
             entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("datetime")
                 .HasColumnName("createdDate");
             entity.Property(e => e.DeliveryId).HasColumnName("deliveryID");
             entity.Property(e => e.EmergencyDelivery).HasColumnName("emergencyDelivery");
+            entity.Property(e => e.EmployeeId).HasColumnName("employeeID");
+            entity.Property(e => e.Notes)
+                .HasMaxLength(255)
+                .HasColumnName("notes");
             entity.Property(e => e.ShipDate)
                 .HasColumnType("datetime")
                 .HasColumnName("shipDate");
             entity.Property(e => e.SiteIdfrom).HasColumnName("siteIDFrom");
             entity.Property(e => e.SiteIdto).HasColumnName("siteIDTo");
-            entity.Property(e => e.Status)
+            entity.Property(e => e.TxnStatus)
                 .HasMaxLength(20)
-                .HasColumnName("status");
+                .HasColumnName("txnStatus");
             entity.Property(e => e.TxnType)
                 .HasMaxLength(20)
                 .HasColumnName("txnType");
 
             entity.HasOne(d => d.Delivery).WithMany(p => p.Txns)
                 .HasForeignKey(d => d.DeliveryId)
-                .HasConstraintName("txn_ibfk_5");
+                .HasConstraintName("txn_ibfk_6");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.Txns)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("txn_ibfk_1");
 
             entity.HasOne(d => d.SiteIdfromNavigation).WithMany(p => p.TxnSiteIdfromNavigations)
                 .HasForeignKey(d => d.SiteIdfrom)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("txn_ibfk_2");
+                .HasConstraintName("txn_ibfk_3");
 
             entity.HasOne(d => d.SiteIdtoNavigation).WithMany(p => p.TxnSiteIdtoNavigations)
                 .HasForeignKey(d => d.SiteIdto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("txn_ibfk_1");
+                .HasConstraintName("txn_ibfk_2");
 
-            entity.HasOne(d => d.StatusNavigation).WithMany(p => p.Txns)
-                .HasForeignKey(d => d.Status)
+            entity.HasOne(d => d.TxnStatusNavigation).WithMany(p => p.Txns)
+                .HasForeignKey(d => d.TxnStatus)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("txn_ibfk_3");
+                .HasConstraintName("txn_ibfk_4");
 
             entity.HasOne(d => d.TxnTypeNavigation).WithMany(p => p.Txns)
                 .HasForeignKey(d => d.TxnType)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("txn_ibfk_4");
+                .HasConstraintName("txn_ibfk_5");
         });
 
         modelBuilder.Entity<Txnaudit>(entity =>
@@ -393,10 +494,20 @@ public partial class BullseyeContext : DbContext
 
             entity.HasIndex(e => e.DeliveryId, "deliveryID");
 
+            entity.HasIndex(e => e.EmployeeId, "employeeID");
+
             entity.HasIndex(e => e.TxnType, "txnType");
 
             entity.Property(e => e.TxnAuditId).HasColumnName("txnAuditID");
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime")
+                .HasColumnName("createdDate");
             entity.Property(e => e.DeliveryId).HasColumnName("deliveryID");
+            entity.Property(e => e.EmployeeId).HasColumnName("employeeID");
+            entity.Property(e => e.Notes)
+                .HasMaxLength(255)
+                .HasColumnName("notes");
             entity.Property(e => e.SiteId).HasColumnName("SiteID");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
@@ -411,17 +522,22 @@ public partial class BullseyeContext : DbContext
 
             entity.HasOne(d => d.Delivery).WithMany(p => p.Txnaudits)
                 .HasForeignKey(d => d.DeliveryId)
-                .HasConstraintName("txnaudit_ibfk_3");
+                .HasConstraintName("txnaudit_ibfk_4");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.Txnaudits)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("txnaudit_ibfk_1");
 
             entity.HasOne(d => d.Site).WithMany(p => p.Txnaudits)
                 .HasForeignKey(d => d.SiteId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("txnaudit_ibfk_2");
+                .HasConstraintName("txnaudit_ibfk_3");
 
             entity.HasOne(d => d.TxnTypeNavigation).WithMany(p => p.Txnaudits)
                 .HasForeignKey(d => d.TxnType)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("txnaudit_ibfk_1");
+                .HasConstraintName("txnaudit_ibfk_2");
         });
 
         modelBuilder.Entity<Txnitem>(entity =>
@@ -436,6 +552,9 @@ public partial class BullseyeContext : DbContext
 
             entity.Property(e => e.TxnId).HasColumnName("txnID");
             entity.Property(e => e.ItemId).HasColumnName("ItemID");
+            entity.Property(e => e.Notes)
+                .HasMaxLength(255)
+                .HasColumnName("notes");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
 
             entity.HasOne(d => d.Item).WithMany(p => p.Txnitems)
@@ -458,6 +577,9 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.StatusName)
                 .HasMaxLength(20)
                 .HasColumnName("statusName");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
             entity.Property(e => e.StatusDescription)
                 .HasMaxLength(100)
                 .HasColumnName("statusDescription");
@@ -472,6 +594,9 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.TxnType1)
                 .HasMaxLength(20)
                 .HasColumnName("txnType");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
         });
 
         modelBuilder.Entity<Vehicle>(entity =>
@@ -483,6 +608,9 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.VehicleType)
                 .HasMaxLength(20)
                 .HasColumnName("vehicleType");
+            entity.Property(e => e.Active)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("active");
             entity.Property(e => e.CostPerKm)
                 .HasPrecision(10, 2)
                 .HasColumnName("costPerKm");

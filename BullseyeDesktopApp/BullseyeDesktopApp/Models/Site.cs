@@ -7,15 +7,15 @@ public partial class Site
 {
     public int SiteId { get; set; }
 
-    public string Name { get; set; } = null!;
-
-    public string ProvinceId { get; set; } = null!;
+    public string SiteName { get; set; } = null!;
 
     public string Address { get; set; } = null!;
 
     public string? Address2 { get; set; }
 
     public string City { get; set; } = null!;
+
+    public string ProvinceId { get; set; } = null!;
 
     public string Country { get; set; } = null!;
 
@@ -28,6 +28,8 @@ public partial class Site
     public int DistanceFromWh { get; set; }
 
     public string? Notes { get; set; }
+
+    public sbyte Active { get; set; }
 
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 
