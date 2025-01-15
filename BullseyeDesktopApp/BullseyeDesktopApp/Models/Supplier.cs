@@ -25,6 +25,10 @@ public partial class Supplier
 
     public string? Contact { get; set; }
 
+    public string? Notes { get; set; }
+
+    public sbyte Active { get; set; }
+
     public virtual ICollection<Item> Items { get; set; } = new List<Item>();
 
     public virtual Province ProvinceNavigation { get; set; } = null!;

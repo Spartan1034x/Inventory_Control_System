@@ -1,4 +1,5 @@
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.exe
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.dll.config
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.deps.json
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.runtimeconfig.json
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.dll
@@ -85,6 +86,9 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\B
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.csproj.AssemblyReference.cache
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Dashboard.resources
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.LogIn.resources
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Properties.Resources.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.csproj.GenerateResource.cache
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.GeneratedMSBuildEditorConfig.editorconfig
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.AssemblyInfoInputs.cache
@@ -97,7 +101,5 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\B
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.pdb
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.genruntimeconfig.cache
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\ref\BullseyeDesktopApp.dll
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.dll.config
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Dashboard.resources
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Properties.Resources.resources
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.LogIn.resources
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BCrypt.Net-Next.dll
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.ResetPass.resources
