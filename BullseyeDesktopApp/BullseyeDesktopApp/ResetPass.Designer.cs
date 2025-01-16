@@ -41,8 +41,10 @@
             picNew = new PictureBox();
             picConfirm = new PictureBox();
             btnGenerate = new Button();
+            picConfirmError = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)picNew).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picConfirm).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picConfirmError).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -117,7 +119,6 @@
             // 
             // btnConfirm
             // 
-            btnConfirm.DialogResult = DialogResult.OK;
             btnConfirm.Font = new Font("Segoe UI", 10.8F);
             btnConfirm.Location = new Point(207, 297);
             btnConfirm.Name = "btnConfirm";
@@ -172,11 +173,23 @@
             btnGenerate.UseVisualStyleBackColor = true;
             btnGenerate.Click += btnGenerate_Click;
             // 
+            // picConfirmError
+            // 
+            picConfirmError.Image = (Image)resources.GetObject("picConfirmError.Image");
+            picConfirmError.Location = new Point(592, 196);
+            picConfirmError.Name = "picConfirmError";
+            picConfirmError.Size = new Size(28, 31);
+            picConfirmError.SizeMode = PictureBoxSizeMode.Zoom;
+            picConfirmError.TabIndex = 16;
+            picConfirmError.TabStop = false;
+            picConfirmError.Visible = false;
+            // 
             // ResetPass
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(716, 349);
+            Controls.Add(picConfirmError);
             Controls.Add(btnGenerate);
             Controls.Add(picConfirm);
             Controls.Add(picNew);
@@ -194,6 +207,7 @@
             Text = "ResetPass";
             ((System.ComponentModel.ISupportInitialize)picNew).EndInit();
             ((System.ComponentModel.ISupportInitialize)picConfirm).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picConfirmError).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -212,5 +226,6 @@
         private PictureBox picNew;
         private PictureBox picConfirm;
         private Button btnGenerate;
+        private PictureBox picConfirmError;
     }
 }

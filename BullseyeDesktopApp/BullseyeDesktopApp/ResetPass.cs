@@ -52,18 +52,47 @@ namespace BullseyeDesktopApp
             this.Close();
         }
 
+        //       CONFIRM BUTTON
+        //
+        //
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            picConfirmError.Visible = false;
+            //Checks to see if passwords match
+            if (txtNew.Text != txtConfirm.Text)
+            {
+                MessageBox.Show("Passwords must match", "Mismatch Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                picConfirmError.Visible = true;
+                return;
+            }
+
+            //If no valid user is logged in throws error
             if (StaticHelpers.UserSession.CurrentUser == null)
             {
                 MessageBox.Show("Must be an active user to reset password, contact admin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else
+            else //If valid user logged in
             {
-
+                try
+                {
+                    using (var context = new Models.BullseyeContext())
+                    {
+                        var dbUser = context.Employees.Where(u => u.EmployeeId == StaticHelpers.UserSession.CurrentUser.EmployeeId).FirstOrDefault();
+                        if (dbUser != null)
+                        {
+                            dbUser.Password = StaticHelpers.PasswordHelper.HashPassword(txtConfirm.Text);
+                            context.SaveChanges();
+                            MessageBox.Show("Password updated", "Success", MessageBoxButtons.OK);
+                            this.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "DB Error");
+                }
             }
 
-            this.Close();
         }
 
 
