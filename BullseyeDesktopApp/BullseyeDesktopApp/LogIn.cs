@@ -34,7 +34,7 @@ namespace BullseyeDesktopApp
             this.AcceptButton = btnLogin; //Sets enter button to login
             context = new BullseyeContext(); //Instatiates context
             LoadContextData(); // Loads employee context
-            StaticHelpers.UserSession.CurrentUser = new Employee(); // Wipes employee session variable
+            StaticHelpers.UserSession.CurrentUser = null; // Wipes employee session variable, sets to null
         }
 
 
@@ -56,34 +56,38 @@ namespace BullseyeDesktopApp
             var user = context.Employees.FirstOrDefault(e => e.Username == username);
             StaticHelpers.UserSession.CurrentUser = user;
 
-            if (user == null) //User not found
+            if (user == null) //USER NOT FOUND
             {
                 loginAttemptsRemaining--;
                 MessageBox.Show($"Username and/or Password incorrect!\nYou have {loginAttemptsRemaining} attempts" +
                     $" left", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (user.Locked == 1) //User is already locked
+            else if (user.Locked == 1) //USER IS LOCKED
             {
                 MessageBox.Show($"Your account has been locked because of too many incorrect login attempts. Please " +
                     $"contact your Administrator at admin@bullseye.ca for assistance", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else if (user.Active == 0) //User has become inactive
+            else if (user.Active == 0) //USER IS INACTIVE
             {
                 MessageBox.Show($"Invalid username and/or password. Please contact your Administrator" +
                     $" admin@bullseye.ca for assistance", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                // Checks to make sure passwords match then goes to main page
-                if (StaticHelpers.Hasher.VerifyPassword(user.Password, password))
+                // PASSWORDS MATCH
+                if (StaticHelpers.PasswordHelper.VerifyPassword(user.Password, password))
                 {
                     loginAttemptsRemaining = 3; // Resets attempts
                     StaticHelpers.UserSession.CurrentUser = user; // Sets user session var to user logged in
-                    Main form = new Main(); // Sends employee to 
+
+                    if (user.FirstInsert == true) //Users first log in must change password
+                        OpenResetPassword();
+
+                    Main form = new Main();
                     form.Show(); 
                     this.Hide();    
                 }
-                else //Invalid password
+                else // PASSWORD DOES NOT MATCH
                 {
                     loginAttemptsRemaining--;
 
@@ -110,10 +114,13 @@ namespace BullseyeDesktopApp
         // Shows forgot password form
         private void lnkForgot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string username = (StaticHelpers.UserSession.CurrentUser == null) ? string.Empty : StaticHelpers.UserSession.CurrentUser.Username;
-            ResetPass form = new ResetPass(username);
-            form.ShowDialog();
+            OpenResetPassword();
 
+        }
+        private static void OpenResetPassword()
+        {
+            ResetPass form = new ResetPass();
+            form.ShowDialog();
         }
 
 

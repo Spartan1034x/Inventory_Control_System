@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\resetpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\resetpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\resetpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\resetpass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\statichelpers\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\statichelpers\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\addedituser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\addedituser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\bullseyedesktopapp\\addedituser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\addedituser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,30 +46,71 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Main.cs [Design]",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Main.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs [Design]",
-              "RelativeToolTip": "BullseyeDesktopApp\\Main.cs [Design]",
+              "DocumentIndex": 1,
+              "Title": "ResetPass.cs [Design]",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\ResetPass.cs",
+              "RelativeDocumentMoniker": "BullseyeDesktopApp\\ResetPass.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\ResetPass.cs [Design]",
+              "RelativeToolTip": "BullseyeDesktopApp\\ResetPass.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T22:12:03.396Z"
+              "WhenOpened": "2025-01-16T20:39:55.82Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PasswordHelper.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\StaticHelpers\\PasswordHelper.cs",
+              "RelativeDocumentMoniker": "BullseyeDesktopApp\\StaticHelpers\\PasswordHelper.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\StaticHelpers\\PasswordHelper.cs",
+              "RelativeToolTip": "BullseyeDesktopApp\\StaticHelpers\\PasswordHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T19:37:51.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ResetPass.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\ResetPass.cs",
+              "RelativeDocumentMoniker": "BullseyeDesktopApp\\ResetPass.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\ResetPass.cs",
+              "RelativeToolTip": "BullseyeDesktopApp\\ResetPass.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAvwEcAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T19:49:41.313Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Main.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Main.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\Main.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAswEUAAAAfAAAAAAAAAA==",
+              "Title": "LogIn.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\LogIn.cs",
+              "RelativeDocumentMoniker": "BullseyeDesktopApp\\LogIn.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\LogIn.cs",
+              "RelativeToolTip": "BullseyeDesktopApp\\LogIn.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAxwCQAAABqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T00:28:33.408Z"
+              "WhenOpened": "2025-01-16T19:32:42.105Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
+              "Title": "AddEditUser.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\AddEditUser.cs",
+              "RelativeDocumentMoniker": "BullseyeDesktopApp\\AddEditUser.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\AddEditUser.cs",
+              "RelativeToolTip": "BullseyeDesktopApp\\AddEditUser.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAswHgAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T21:59:58.975Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "AddEditUser.cs [Design]",
               "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\AddEditUser.cs",
               "RelativeDocumentMoniker": "BullseyeDesktopApp\\AddEditUser.cs",
@@ -70,19 +119,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T21:58:43.82Z",
               "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AddEditUser.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\AddEditUser.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\AddEditUser.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\AddEditUser.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\AddEditUser.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAUwBoAAABPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T21:59:58.975Z",
-              "EditorCaption": ""
             }
           ]
         }

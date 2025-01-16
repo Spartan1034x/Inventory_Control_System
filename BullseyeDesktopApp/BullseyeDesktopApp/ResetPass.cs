@@ -12,30 +12,25 @@ namespace BullseyeDesktopApp
 {
     public partial class ResetPass : Form
     {
+        //Flags for the hiding and showing passwords
         private bool newFlag = true;
         private bool conFlag = true;
 
-        public ResetPass(string username)
+        public ResetPass()
         {
             InitializeComponent();
-            getUsername(username);
+            getUsername();
             this.AcceptButton = btnConfirm;
         }
 
         //Sent: string
         //Returned: nil
         //Desc: If username is sent then populates lbl if not txt to enter username appears
-        private void getUsername(string username)
+        private void getUsername()
         {
-            if (username == string.Empty)
+            if (StaticHelpers.UserSession.CurrentUser != null)
             {
-                txtUsername.Visible = true;
-                txtUsername.PlaceholderText = "jsmith";
-                lblUsername.Visible = false;
-            }
-            else
-            {
-                lblUsername.Text = username;
+                lblUsername.Text = StaticHelpers.UserSession.CurrentUser.Username;
             }
         }
 
@@ -45,7 +40,6 @@ namespace BullseyeDesktopApp
             txtNew.PasswordChar = newFlag ? '\0' : '*';
             newFlag = !newFlag;
         }
-
         // Shows text by removing the char or hiding password, flips flag
         private void picConfirm_Click(object sender, EventArgs e)
         {
@@ -60,8 +54,26 @@ namespace BullseyeDesktopApp
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Pass Reset");
+            if (StaticHelpers.UserSession.CurrentUser == null)
+            {
+                MessageBox.Show("Must be an active user to reset password, contact admin.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+
+            }
+
             this.Close();
+        }
+
+
+        //        GENERATE BUTTON
+        //
+        // Auto generates password and autofills password inputs
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+            txtNew.Text = StaticHelpers.PasswordHelper.Generate();
+            txtConfirm.Text = txtNew.Text;
         }
     }
 }

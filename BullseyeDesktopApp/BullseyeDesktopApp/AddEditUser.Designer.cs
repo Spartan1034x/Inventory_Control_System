@@ -181,6 +181,7 @@
             // txtFName
             // 
             txtFName.Location = new Point(124, 285);
+            txtFName.MaxLength = 20;
             txtFName.Name = "txtFName";
             txtFName.Size = new Size(261, 27);
             txtFName.TabIndex = 34;
@@ -188,6 +189,7 @@
             // txtLName
             // 
             txtLName.Location = new Point(124, 345);
+            txtLName.MaxLength = 20;
             txtLName.Name = "txtLName";
             txtLName.Size = new Size(261, 27);
             txtLName.TabIndex = 35;
@@ -205,6 +207,7 @@
             cmbPosition.Location = new Point(124, 464);
             cmbPosition.Name = "cmbPosition";
             cmbPosition.Size = new Size(261, 28);
+            cmbPosition.Sorted = true;
             cmbPosition.TabIndex = 37;
             // 
             // cmbLocation
@@ -213,6 +216,7 @@
             cmbLocation.Location = new Point(124, 524);
             cmbLocation.Name = "cmbLocation";
             cmbLocation.Size = new Size(261, 28);
+            cmbLocation.Sorted = true;
             cmbLocation.TabIndex = 38;
             // 
             // chkActive
@@ -235,6 +239,7 @@
             btnSave.TabIndex = 40;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnExit
             // 
@@ -244,6 +249,7 @@
             btnExit.TabIndex = 41;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // txtPassword
             // 

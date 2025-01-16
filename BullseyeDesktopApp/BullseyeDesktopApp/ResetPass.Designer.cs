@@ -40,7 +40,7 @@
             btnExit = new Button();
             picNew = new PictureBox();
             picConfirm = new PictureBox();
-            txtUsername = new TextBox();
+            btnGenerate = new Button();
             ((System.ComponentModel.ISupportInitialize)picNew).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picConfirm).BeginInit();
             SuspendLayout();
@@ -69,7 +69,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(32, 143);
+            label3.Location = new Point(32, 137);
             label3.Name = "label3";
             label3.Size = new Size(141, 28);
             label3.TabIndex = 5;
@@ -79,7 +79,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(87, 209);
+            label4.Location = new Point(87, 197);
             label4.Name = "label4";
             label4.Size = new Size(86, 28);
             label4.TabIndex = 6;
@@ -91,13 +91,15 @@
             lblUsername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblUsername.Location = new Point(191, 77);
             lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(0, 28);
+            lblUsername.Size = new Size(48, 28);
             lblUsername.TabIndex = 7;
+            lblUsername.Text = "N/A";
             // 
             // txtNew
             // 
             txtNew.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtNew.Location = new Point(191, 143);
+            txtNew.Location = new Point(191, 134);
+            txtNew.MaxLength = 200;
             txtNew.Name = "txtNew";
             txtNew.PasswordChar = '*';
             txtNew.Size = new Size(386, 34);
@@ -106,7 +108,8 @@
             // txtConfirm
             // 
             txtConfirm.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtConfirm.Location = new Point(191, 209);
+            txtConfirm.Location = new Point(191, 194);
+            txtConfirm.MaxLength = 200;
             txtConfirm.Name = "txtConfirm";
             txtConfirm.PasswordChar = '*';
             txtConfirm.Size = new Size(386, 34);
@@ -115,9 +118,10 @@
             // btnConfirm
             // 
             btnConfirm.DialogResult = DialogResult.OK;
-            btnConfirm.Location = new Point(233, 282);
+            btnConfirm.Font = new Font("Segoe UI", 10.8F);
+            btnConfirm.Location = new Point(207, 297);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(94, 29);
+            btnConfirm.Size = new Size(114, 35);
             btnConfirm.TabIndex = 2;
             btnConfirm.Text = "Confirm";
             btnConfirm.UseVisualStyleBackColor = true;
@@ -125,9 +129,10 @@
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(395, 282);
+            btnExit.Font = new Font("Segoe UI", 10.8F);
+            btnExit.Location = new Point(393, 297);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(94, 29);
+            btnExit.Size = new Size(114, 35);
             btnExit.TabIndex = 3;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
@@ -137,7 +142,7 @@
             // 
             picNew.Cursor = Cursors.Hand;
             picNew.Image = (Image)resources.GetObject("picNew.Image");
-            picNew.Location = new Point(545, 147);
+            picNew.Location = new Point(545, 138);
             picNew.Name = "picNew";
             picNew.Size = new Size(30, 26);
             picNew.SizeMode = PictureBoxSizeMode.Zoom;
@@ -149,7 +154,7 @@
             // 
             picConfirm.Cursor = Cursors.Hand;
             picConfirm.Image = (Image)resources.GetObject("picConfirm.Image");
-            picConfirm.Location = new Point(545, 213);
+            picConfirm.Location = new Point(545, 198);
             picConfirm.Name = "picConfirm";
             picConfirm.Size = new Size(30, 26);
             picConfirm.SizeMode = PictureBoxSizeMode.Zoom;
@@ -157,22 +162,22 @@
             picConfirm.TabStop = false;
             picConfirm.Click += picConfirm_Click;
             // 
-            // txtUsername
+            // btnGenerate
             // 
-            txtUsername.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUsername.Location = new Point(189, 77);
-            txtUsername.Name = "txtUsername";
-            txtUsername.PasswordChar = '*';
-            txtUsername.Size = new Size(386, 34);
-            txtUsername.TabIndex = 14;
-            txtUsername.Visible = false;
+            btnGenerate.Location = new Point(298, 244);
+            btnGenerate.Name = "btnGenerate";
+            btnGenerate.Size = new Size(117, 29);
+            btnGenerate.TabIndex = 14;
+            btnGenerate.Text = "Auto Generate";
+            btnGenerate.UseVisualStyleBackColor = true;
+            btnGenerate.Click += btnGenerate_Click;
             // 
             // ResetPass
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(716, 349);
-            Controls.Add(txtUsername);
+            Controls.Add(btnGenerate);
             Controls.Add(picConfirm);
             Controls.Add(picNew);
             Controls.Add(btnExit);
@@ -206,6 +211,6 @@
         private Button btnExit;
         private PictureBox picNew;
         private PictureBox picConfirm;
-        private TextBox txtUsername;
+        private Button btnGenerate;
     }
 }
