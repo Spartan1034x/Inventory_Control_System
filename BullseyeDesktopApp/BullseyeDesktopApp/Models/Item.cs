@@ -29,6 +29,8 @@ public partial class Item
 
     public sbyte Active { get; set; }
 
+    public string? ImageLocation { get; set; }
+
     public virtual Category CategoryNavigation { get; set; } = null!;
 
     public virtual ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
