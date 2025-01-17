@@ -32,8 +32,15 @@ namespace BullseyeDesktopApp
         private void LogIn_Load(object sender, EventArgs e)
         {
             this.AcceptButton = btnLogin; //Sets enter button to login
-            context = new BullseyeContext(); //Instatiates context
-            LoadContextData(); // Loads employee context
+            try 
+            {
+                context = new BullseyeContext(); //Instatiates context
+                LoadContextData(); // Loads employee context
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error!");
+            }
             StaticHelpers.UserSession.CurrentUser = null; // Wipes employee session variable, sets to null
         }
 

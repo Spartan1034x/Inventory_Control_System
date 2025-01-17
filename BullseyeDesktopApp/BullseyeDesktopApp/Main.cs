@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Timers;
 using MySqlConnector;
 using System.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace BullseyeDesktopApp
 {
@@ -34,8 +35,18 @@ namespace BullseyeDesktopApp
             HideAllTabs();
             ShowTabs();
             PopulateLabels();
-            Form f = new AddEditUser(true);
-            f.ShowDialog();
+            FormatDGVs();
+        }
+
+
+        //          FORMAT DGVs
+        //
+        //
+        private void FormatDGVs()
+        {
+            //Admin employee dgv
+            dgvEmployees.ColumnHeadersDefaultCellStyle.Font = new Font(dgvEmployees.Font.FontFamily, 14, FontStyle.Bold);
+            dgvEmployees.AutoResizeColumns();
         }
 
 
@@ -45,19 +56,20 @@ namespace BullseyeDesktopApp
         private void ShowTabs()
         {
             int permissionLevel = StaticHelpers.UserSession.CurrentUser?.PositionId ?? -1;
-            
+
             //Admin
-            if (permissionLevel == 9999) {
-                tabPages.TabPages.Add(tabAdmin);
+            if (permissionLevel == 9999)
+            {
+                tabctrlMain.TabPages.Add(tabAdmin);
             }
         }
         //
         // Hides all Tabs
         private void HideAllTabs()
         {
-            foreach (TabPage tab in tabPages.TabPages.Cast<TabPage>().ToList())
+            foreach (TabPage tab in tabctrlMain.TabPages.Cast<TabPage>().ToList())
             {
-                tabPages.TabPages.Remove(tab);
+                tabctrlMain.TabPages.Remove(tab);
             }
         }
 
@@ -72,7 +84,7 @@ namespace BullseyeDesktopApp
 
             lblLocation.Text = StaticHelpers.UserSession.UserLocation ?? "";
             lblLocation.ForeColor = Color.Red;
-            
+
         }
 
 
@@ -134,7 +146,8 @@ namespace BullseyeDesktopApp
                     lblStatus.ForeColor = Color.Green;
                 }
             }
-            catch {
+            catch
+            {
                 lblStatus.Text = "Disconnected";
                 lblStatus.ForeColor = Color.Red;
             }
@@ -153,11 +166,53 @@ namespace BullseyeDesktopApp
         }
 
 
+        //            EXIT BUTTON
         //
         // Closes form
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close(); 
+            this.Close();
+        }
+
+
+        //            ADMIN TAB
+        //
+        //           EMPLOYEE TAB
+        //
+        private void btnAdminEmployeesRefresh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {   //Populates employee dgv
+                    var employeeData = context.Employees.Include(e => e.Position).Include(e => e.Site).Select(e => new
+                    {
+                        e.EmployeeId,
+                        e.Username,
+                        e.FirstName,
+                        e.LastName,
+                        e.Email,
+                        e.Active,
+                        e.Position,
+                        e.Site
+                    }).ToList();
+                    employeeBindingSource.DataSource = employeeData;
+                    dgvEmployees.AutoResizeColumns();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+            }
+        }
+        //Resizes form and dgv if employee tab is selected
+        private void tabctrlAdminUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selection = tabctrlAdminUsers.SelectedTab;
+
+            this.Size = (selection == tabAdminUsersEmployees) ? new Size(1550, 850) : new Size(1350, 850);
+            dgvEmployees.Size = (selection == tabAdminUsersEmployees) ? new Size(1425, 426) : new Size(1225, 426);
+
         }
     }
 }

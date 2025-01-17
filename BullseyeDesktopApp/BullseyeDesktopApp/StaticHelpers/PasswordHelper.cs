@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BullseyeDesktopApp.StaticHelpers
@@ -107,6 +108,14 @@ namespace BullseyeDesktopApp.StaticHelpers
         }
 
 
+        //   PASSWORD VERIFIER
+        //
+        // Returns true if password matches requirements
+        public static bool VerifyPasswordRequirements(string pass)
+        {
+            string pattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[^0-9])[A-Za-z\\d\\S]{8,}$";
 
+            return Regex.IsMatch(pass, pattern);
+        }
     }
 }

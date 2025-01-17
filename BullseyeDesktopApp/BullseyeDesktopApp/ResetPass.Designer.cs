@@ -42,9 +42,11 @@
             picConfirm = new PictureBox();
             btnGenerate = new Button();
             picConfirmError = new PictureBox();
+            picLogo = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)picNew).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picConfirm).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picConfirmError).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -184,11 +186,22 @@
             picConfirmError.TabStop = false;
             picConfirmError.Visible = false;
             // 
+            // picLogo
+            // 
+            picLogo.Image = (Image)resources.GetObject("picLogo.Image");
+            picLogo.Location = new Point(1, 1);
+            picLogo.Name = "picLogo";
+            picLogo.Size = new Size(96, 73);
+            picLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            picLogo.TabIndex = 17;
+            picLogo.TabStop = false;
+            // 
             // ResetPass
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(716, 349);
+            Controls.Add(picLogo);
             Controls.Add(picConfirmError);
             Controls.Add(btnGenerate);
             Controls.Add(picConfirm);
@@ -202,12 +215,16 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ResetPass";
             StartPosition = FormStartPosition.CenterParent;
             Text = "ResetPass";
+            FormClosing += ResetPass_FormClosing;
+            Load += ResetPass_Load;
             ((System.ComponentModel.ISupportInitialize)picNew).EndInit();
             ((System.ComponentModel.ISupportInitialize)picConfirm).EndInit();
             ((System.ComponentModel.ISupportInitialize)picConfirmError).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -227,5 +244,6 @@
         private PictureBox picConfirm;
         private Button btnGenerate;
         private PictureBox picConfirmError;
+        private PictureBox picLogo;
     }
 }
