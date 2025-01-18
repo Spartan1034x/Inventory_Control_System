@@ -5,6 +5,11 @@ namespace BullseyeDesktopApp.Models;
 
 public partial class Site
 {
+    //Overrides the tostring for cmb display
+    public override string ToString()
+    {
+        return this.SiteName;
+    }
     public int SiteId { get; set; }
 
     public string SiteName { get; set; } = null!;

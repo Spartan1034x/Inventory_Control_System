@@ -27,6 +27,8 @@ public partial class Employee
 
     public sbyte Active { get; set; }
 
+    public bool? FirstInsert { get; set; }
+
     public virtual Posn Position { get; set; } = null!;
 
     public virtual Site Site { get; set; } = null!;

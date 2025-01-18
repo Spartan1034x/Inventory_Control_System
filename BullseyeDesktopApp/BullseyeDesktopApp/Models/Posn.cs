@@ -5,6 +5,11 @@ namespace BullseyeDesktopApp.Models;
 
 public partial class Posn
 {
+    public override string ToString()
+    {
+        return this.PermissionLevel;
+    }
+
     public int PositionId { get; set; }
 
     public string PermissionLevel { get; set; } = null!;

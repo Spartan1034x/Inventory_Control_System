@@ -53,6 +53,7 @@
             btnExit = new Button();
             txtPassword = new TextBox();
             label10 = new Label();
+            chkLocked = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             SuspendLayout();
             // 
@@ -173,6 +174,7 @@
             // 
             // txtUsername
             // 
+            txtUsername.Enabled = false;
             txtUsername.Location = new Point(124, 165);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(261, 27);
@@ -181,19 +183,24 @@
             // txtFName
             // 
             txtFName.Location = new Point(124, 285);
+            txtFName.MaxLength = 20;
             txtFName.Name = "txtFName";
             txtFName.Size = new Size(261, 27);
             txtFName.TabIndex = 34;
+            txtFName.TextChanged += txtFName_TextChanged;
             // 
             // txtLName
             // 
             txtLName.Location = new Point(124, 345);
+            txtLName.MaxLength = 20;
             txtLName.Name = "txtLName";
             txtLName.Size = new Size(261, 27);
             txtLName.TabIndex = 35;
+            txtLName.TextChanged += txtLName_TextChanged;
             // 
             // txtEmail
             // 
+            txtEmail.Enabled = false;
             txtEmail.Location = new Point(124, 405);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(261, 27);
@@ -205,6 +212,7 @@
             cmbPosition.Location = new Point(124, 464);
             cmbPosition.Name = "cmbPosition";
             cmbPosition.Size = new Size(261, 28);
+            cmbPosition.Sorted = true;
             cmbPosition.TabIndex = 37;
             // 
             // cmbLocation
@@ -213,6 +221,7 @@
             cmbLocation.Location = new Point(124, 524);
             cmbLocation.Name = "cmbLocation";
             cmbLocation.Size = new Size(261, 28);
+            cmbLocation.Sorted = true;
             cmbLocation.TabIndex = 38;
             // 
             // chkActive
@@ -220,7 +229,7 @@
             chkActive.AutoSize = true;
             chkActive.Checked = true;
             chkActive.CheckState = CheckState.Checked;
-            chkActive.Location = new Point(191, 569);
+            chkActive.Location = new Point(124, 572);
             chkActive.Name = "chkActive";
             chkActive.Size = new Size(72, 24);
             chkActive.TabIndex = 39;
@@ -235,6 +244,7 @@
             btnSave.TabIndex = 40;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnExit
             // 
@@ -244,6 +254,7 @@
             btnExit.TabIndex = 41;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // txtPassword
             // 
@@ -261,11 +272,23 @@
             label10.TabIndex = 42;
             label10.Text = "Password:";
             // 
+            // chkLocked
+            // 
+            chkLocked.AutoSize = true;
+            chkLocked.Enabled = false;
+            chkLocked.Location = new Point(239, 572);
+            chkLocked.Name = "chkLocked";
+            chkLocked.Size = new Size(78, 24);
+            chkLocked.TabIndex = 44;
+            chkLocked.Text = "Locked";
+            chkLocked.UseVisualStyleBackColor = true;
+            // 
             // AddEditUser
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(442, 671);
+            Controls.Add(chkLocked);
             Controls.Add(txtPassword);
             Controls.Add(label10);
             Controls.Add(btnExit);
@@ -293,6 +316,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddEditUser";
             StartPosition = FormStartPosition.CenterScreen;
+            FormClosing += AddEditUser_FormClosing;
             Load += AddEditUser_Load;
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ResumeLayout(false);
@@ -325,5 +349,6 @@
         private Button btnExit;
         private TextBox txtPassword;
         private Label label10;
+        private CheckBox chkLocked;
     }
 }

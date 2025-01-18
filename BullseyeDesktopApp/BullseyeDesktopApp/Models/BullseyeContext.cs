@@ -159,11 +159,16 @@ public partial class BullseyeContext : DbContext
 
             entity.HasIndex(e => e.SiteId, "siteID");
 
+            entity.HasIndex(e => e.Username, "username_constraint").IsUnique();
+
             entity.Property(e => e.EmployeeId).HasColumnName("employeeID");
             entity.Property(e => e.Active)
                 .HasDefaultValueSql("'1'")
                 .HasColumnName("active");
             entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.FirstInsert)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("firstInsert");
             entity.Property(e => e.FirstName).HasMaxLength(20);
             entity.Property(e => e.LastName).HasMaxLength(20);
             entity.Property(e => e.Locked)
@@ -172,12 +177,10 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.Notes)
                 .HasMaxLength(255)
                 .HasColumnName("notes");
-            entity.Property(e => e.Password).HasMaxLength(32);
+            entity.Property(e => e.Password).HasMaxLength(255);
             entity.Property(e => e.PositionId).HasColumnName("PositionID");
             entity.Property(e => e.SiteId).HasColumnName("siteID");
-            entity.Property(e => e.Username)
-                .HasMaxLength(255)
-                .HasColumnName("username");
+            entity.Property(e => e.Username).HasColumnName("username");
 
             entity.HasOne(d => d.Position).WithMany(p => p.Employees)
                 .HasForeignKey(d => d.PositionId)
@@ -248,6 +251,9 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
+            entity.Property(e => e.ImageLocation)
+                .HasMaxLength(255)
+                .HasColumnName("imageLocation");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");

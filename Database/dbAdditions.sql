@@ -1,3 +1,6 @@
+/*
+    ***NOT USED SECTION****
+*/
 ALTER TABLE employee DROP COLUMN userName;
 ALTER TABLE employee ADD COLUMN userName VARCHAR(25) DEFAULT NULL;
 
@@ -11,11 +14,24 @@ SET userName = CONCAT(LEFT(FirstName, 1), LastName)
 WHERE employeeID IS NOT NULL
 LIMIT 20; /* Satifies Safe mode error but limits the amount of users changed, ensure this number is higher than total users */
 
-/*Trigger for creating username and email */
+
+
+/* 
+    *** USED SECTION *****
+*/
+/* Adds firstInsert column to employee table */
+ALTER TABLE employee ADD COLUMN firstInsert BOOLEAN DEFAULT TRUE;
+
+/* Sets every record in the employee table to have firstInsert = FALSE */
+SET SQL_SAFE_UPDATES = 0;
+UPDATE employee SET firstInsert = FALSE;
+SET SQL_SAFE_UPDATES = 1;
+
+/*Trigger for creating username and email if first insert is true */
 DROP TRIGGER IF EXISTS employee_insert;
 DELIMITER #
 CREATE TRIGGER employee_insert
-    AFTER INSERT ON employee
+    BEFORE INSERT ON employee
     FOR EACH ROW
 BEGIN
     DECLARE baseUserName VARCHAR(26);
@@ -24,22 +40,50 @@ BEGIN
     DECLARE newUserName VARCHAR(26);
     DECLARE newEmail VARCHAR(50);
 
-    SET baseUserName = CONCAT(LEFT(NEW.FirstName, 1), NEW.LastName);
-    SET baseEmail = CONCAT(LEFT(NEW.FirstName, 1), NEW.LastName, '@bullseye.com');
+    IF NEW.firstInsert = TRUE THEN
+        SET baseUserName = CONCAT(LOWER(LEFT(NEW.FirstName, 1)), LOWER(NEW.LastName));
+        SET baseEmail = CONCAT(LOWER(LEFT(NEW.FirstName, 1)), LOWER(NEW.LastName), '@bullseye.com');
+        SET newUserName = baseUserName;
+        SET newEmail = baseEmail;
+
+        WHILE EXISTS (SELECT 1 FROM employee WHERE username = newUserName OR Email = newEmail) DO
+            SET counter = counter + 1;
+            SET newUserName = CONCAT(baseUserName, counter);
+            SET newEmail = CONCAT(LOWER(LEFT(NEW.FirstName, 1)), LOWER(NEW.LastName), counter, '@bullseye.com');
+        END WHILE;
+
+        SET NEW.username = newUserName;
+        SET NEW.Email = newEmail;
+    END IF;
+END #
+DELIMITER ;
+
+/* Creates username and email for updates on employee */
+DROP TRIGGER IF EXISTS employee_update;
+DELIMITER #
+CREATE TRIGGER employee_update
+    BEFORE UPDATE ON employee
+    FOR EACH ROW
+BEGIN
+    DECLARE baseUserName VARCHAR(26);
+    DECLARE baseEmail VARCHAR(50);
+    DECLARE counter INT DEFAULT 0;
+    DECLARE newUserName VARCHAR(26);
+    DECLARE newEmail VARCHAR(50);
+
+    SET baseUserName = CONCAT(LOWER(LEFT(NEW.FirstName, 1)), LOWER(NEW.LastName));
+    SET baseEmail = CONCAT(LOWER(LEFT(NEW.FirstName, 1)), LOWER(NEW.LastName), '@bullseye.com');
     SET newUserName = baseUserName;
     SET newEmail = baseEmail;
 
-    WHILE EXISTS (SELECT 1 FROM employee WHERE userName = newUserName OR Email = newEmail) DO
+    WHILE EXISTS (SELECT 1 FROM employee WHERE username = newUserName OR Email = newEmail) DO
         SET counter = counter + 1;
         SET newUserName = CONCAT(baseUserName, counter);
-        SET newEmail = CONCAT(LEFT(NEW.FirstName, 1), NEW.LastName, counter, '@bullseye.com');
+        SET newEmail = CONCAT(LOWER(LEFT(NEW.FirstName, 1)), LOWER(NEW.LastName), counter, '@bullseye.com');
     END WHILE;
 
-    UPDATE employee
-    SET userName = newUserName,
-        Email = newEmail
-    WHERE EmployeeID = NEW.EmployeeID;
-
+    SET NEW.username = newUserName;
+    SET NEW.Email = newEmail;
 END #
 DELIMITER ;
 
@@ -47,3 +91,4 @@ DELIMITER ;
 UPDATE employee
 SET locked = 0
 WHERE employeeID = 1000;
+
