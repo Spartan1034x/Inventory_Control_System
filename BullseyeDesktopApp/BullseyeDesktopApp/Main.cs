@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Timers;
 using MySqlConnector;
 using System.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace BullseyeDesktopApp
 {
@@ -34,30 +35,43 @@ namespace BullseyeDesktopApp
             HideAllTabs();
             ShowTabs();
             PopulateLabels();
-            Form f = new AddEditUser(true);
-            f.ShowDialog();
+            FormatDGVs();
+        }
+
+
+        //          FORMAT DGVs
+        //
+        //
+        private void FormatDGVs()
+        {
+            //Admin employee dgv
+            dgvEmployees.ColumnHeadersDefaultCellStyle.Font = new Font(dgvEmployees.Font.FontFamily, 14, FontStyle.Bold);
+            dgvEmployees.AutoResizeColumns();
         }
 
 
         //           SHOW TABS
         //
-        //
+        // Shows tabs depending on users permissions
         private void ShowTabs()
         {
             int permissionLevel = StaticHelpers.UserSession.CurrentUser?.PositionId ?? -1;
-            
+
             //Admin
-            if (permissionLevel == 9999) {
-                tabPages.TabPages.Add(tabAdmin);
+            if (permissionLevel == 9999)
+            {
+                tabctrlMain.TabPages.Add(tabAdmin);
+                // Manually resize form for splash admin page
+                ResizeEmployeeTab();
             }
         }
         //
         // Hides all Tabs
         private void HideAllTabs()
         {
-            foreach (TabPage tab in tabPages.TabPages.Cast<TabPage>().ToList())
+            foreach (TabPage tab in tabctrlMain.TabPages.Cast<TabPage>().ToList())
             {
-                tabPages.TabPages.Remove(tab);
+                tabctrlMain.TabPages.Remove(tab);
             }
         }
 
@@ -72,7 +86,7 @@ namespace BullseyeDesktopApp
 
             lblLocation.Text = StaticHelpers.UserSession.UserLocation ?? "";
             lblLocation.ForeColor = Color.Red;
-            
+
         }
 
 
@@ -134,7 +148,8 @@ namespace BullseyeDesktopApp
                     lblStatus.ForeColor = Color.Green;
                 }
             }
-            catch {
+            catch
+            {
                 lblStatus.Text = "Disconnected";
                 lblStatus.ForeColor = Color.Red;
             }
@@ -153,11 +168,13 @@ namespace BullseyeDesktopApp
         }
 
 
+        //            EXIT BUTTON
         //
         // Closes form
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close(); 
+            this.Close();
         }
+
     }
 }
