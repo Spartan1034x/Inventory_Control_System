@@ -186,6 +186,7 @@
             btnAdminEmployeeDelete.TabIndex = 3;
             btnAdminEmployeeDelete.Text = "Delete";
             btnAdminEmployeeDelete.UseVisualStyleBackColor = true;
+            btnAdminEmployeeDelete.Click += btnAdminEmployeeDelete_Click;
             // 
             // btnAdminEmployeeEdit
             // 
@@ -198,10 +199,12 @@
             btnAdminEmployeeEdit.TabIndex = 2;
             btnAdminEmployeeEdit.Text = "Edit";
             btnAdminEmployeeEdit.UseVisualStyleBackColor = true;
+            btnAdminEmployeeEdit.Click += btnAdminEmployeeEdit_Click;
             // 
             // btnAdminEmployeeAdd
             // 
             btnAdminEmployeeAdd.Anchor = AnchorStyles.Bottom;
+            btnAdminEmployeeAdd.Enabled = false;
             btnAdminEmployeeAdd.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnAdminEmployeeAdd.Location = new Point(393, 448);
             btnAdminEmployeeAdd.Name = "btnAdminEmployeeAdd";
@@ -209,10 +212,12 @@
             btnAdminEmployeeAdd.TabIndex = 1;
             btnAdminEmployeeAdd.Text = "Add New";
             btnAdminEmployeeAdd.UseVisualStyleBackColor = true;
+            btnAdminEmployeeAdd.Click += btnAdminEmployeeAdd_Click;
             // 
             // dgvEmployees
             // 
-            dgvEmployees.AllowUserToOrderColumns = true;
+            dgvEmployees.AllowUserToResizeColumns = false;
+            dgvEmployees.AllowUserToResizeRows = false;
             dgvEmployees.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dgvEmployees.AutoGenerateColumns = false;
             dgvEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -223,8 +228,10 @@
             dgvEmployees.Name = "dgvEmployees";
             dgvEmployees.RowHeadersVisible = false;
             dgvEmployees.RowHeadersWidth = 51;
+            dgvEmployees.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEmployees.Size = new Size(1225, 426);
             dgvEmployees.TabIndex = 0;
+            dgvEmployees.SelectionChanged += dgvEmployees_SelectionChanged;
             // 
             // employeeIdDataGridViewTextBoxColumn
             // 

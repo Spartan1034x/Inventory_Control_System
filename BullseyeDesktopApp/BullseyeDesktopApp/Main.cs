@@ -52,7 +52,7 @@ namespace BullseyeDesktopApp
 
         //           SHOW TABS
         //
-        //
+        // Shows tabs depending on users permissions
         private void ShowTabs()
         {
             int permissionLevel = StaticHelpers.UserSession.CurrentUser?.PositionId ?? -1;
@@ -61,6 +61,8 @@ namespace BullseyeDesktopApp
             if (permissionLevel == 9999)
             {
                 tabctrlMain.TabPages.Add(tabAdmin);
+                // Manually resize form for splash admin page
+                ResizeEmployeeTab();
             }
         }
         //
@@ -174,45 +176,5 @@ namespace BullseyeDesktopApp
             this.Close();
         }
 
-
-        //            ADMIN TAB
-        //
-        //           EMPLOYEE TAB
-        //
-        private void btnAdminEmployeesRefresh_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (var context = new BullseyeContext())
-                {   //Populates employee dgv
-                    var employeeData = context.Employees.Include(e => e.Position).Include(e => e.Site).Select(e => new
-                    {
-                        e.EmployeeId,
-                        e.Username,
-                        e.FirstName,
-                        e.LastName,
-                        e.Email,
-                        e.Active,
-                        e.Position,
-                        e.Site
-                    }).ToList();
-                    employeeBindingSource.DataSource = employeeData;
-                    dgvEmployees.AutoResizeColumns();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "DB Error");
-            }
-        }
-        //Resizes form and dgv if employee tab is selected
-        private void tabctrlAdminUsers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var selection = tabctrlAdminUsers.SelectedTab;
-
-            this.Size = (selection == tabAdminUsersEmployees) ? new Size(1550, 850) : new Size(1350, 850);
-            dgvEmployees.Size = (selection == tabAdminUsersEmployees) ? new Size(1425, 426) : new Size(1225, 426);
-
-        }
     }
 }
