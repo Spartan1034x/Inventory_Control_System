@@ -81,7 +81,8 @@ namespace BullseyeDesktopApp
         private void btnAdminEmployeeDelete_Click(object sender, EventArgs e)
         {
             // If a row is selected find employee from db matching selected one and change active to 0
-            if (dgvEmployees.SelectedRows.Count > 0) {
+            if (dgvEmployees.SelectedRows.Count > 0)
+            {
                 Employee employee = StaticHelpers.DBOperations.FindEmployee(Convert.ToInt32(dgvEmployees.SelectedCells[0].Value));
                 try
                 {
@@ -101,7 +102,7 @@ namespace BullseyeDesktopApp
                 {
                     MessageBox.Show(ex.Message, "DB Error");
                 }
-                    
+
             }
         }
 
@@ -118,10 +119,10 @@ namespace BullseyeDesktopApp
         private static void ShowEditForm(bool add)
         {
             //Ensures user trying to access edit/add form is admin
-            if (StaticHelpers.UserSession.CurrentUser != null && StaticHelpers.UserSession.CurrentUser.PositionId == 9999) 
-            { 
+            if (StaticHelpers.UserSession.CurrentUser != null && StaticHelpers.UserSession.CurrentUser.PositionId == 9999)
+            {
                 Form userForm = new AddEditUser(add);
-                userForm.ShowDialog(); 
+                userForm.ShowDialog();
             }
         }
 
