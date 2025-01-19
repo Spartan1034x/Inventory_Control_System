@@ -2351,11 +2351,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj",
+      "projectUniqueName": "C:\\Users\\Spart\\Desktop\\isdp2025_gregory_keirstead-UserPermissions\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj",
       "projectName": "BullseyeDesktopApp",
-      "projectPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj",
+      "projectPath": "C:\\Users\\Spart\\Desktop\\isdp2025_gregory_keirstead-UserPermissions\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj",
       "packagesPath": "C:\\Users\\Spart\\.nuget\\packages\\",
-      "outputPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\obj\\",
+      "outputPath": "C:\\Users\\Spart\\Desktop\\isdp2025_gregory_keirstead-UserPermissions\\BullseyeDesktopApp\\BullseyeDesktopApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
