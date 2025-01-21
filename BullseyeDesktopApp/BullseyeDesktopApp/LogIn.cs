@@ -138,23 +138,6 @@ namespace BullseyeDesktopApp
             Application.Exit();
         }
 
-
-        //
-        //Hashes all passwords in the db for me only
-        private void btnHashAll_Click(object sender, EventArgs e)
-        {
-           /*  var employees = context.Employees.ToList();
-
-            foreach (var employee in employees)
-            {
-                employee.Password = StaticHelpers.Hasher.HashPassword(employee.Password);
-            }
-
-            context.SaveChanges();
-            MessageBox.Show("PAsswords hashed"); */
-        }
-
-
         //
         //Closes the context as the page ends
         private void LogIn_FormClosing(object sender, FormClosingEventArgs e)

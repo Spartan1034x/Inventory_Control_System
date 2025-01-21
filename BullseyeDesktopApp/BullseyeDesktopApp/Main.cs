@@ -32,7 +32,8 @@ namespace BullseyeDesktopApp
             StartConnectionMonitor();
             UpdateConnectionStatus();
             MonitorActivity();
-            HideAllTabs();
+            HideAllTabs(tabctrlMain); // Hides all main tabs
+            HideAllTabs(tabctrlAdminUsers); // Hides all admin tabs
             ShowTabs();
             PopulateLabels();
             FormatDGVs();
@@ -45,8 +46,10 @@ namespace BullseyeDesktopApp
         private void FormatDGVs()
         {
             //Admin employee dgv
-            dgvEmployees.ColumnHeadersDefaultCellStyle.Font = new Font(dgvEmployees.Font.FontFamily, 14, FontStyle.Bold);
+            Font dgvHeader = new Font(dgvEmployees.Font.FontFamily, 14, FontStyle.Bold);
+            dgvEmployees.ColumnHeadersDefaultCellStyle.Font = dgvHeader;
             dgvEmployees.AutoResizeColumns();
+            dgvPermissions.ColumnHeadersDefaultCellStyle.Font = dgvHeader;
         }
 
 
@@ -57,21 +60,35 @@ namespace BullseyeDesktopApp
         {
             int permissionLevel = StaticHelpers.UserSession.CurrentUser?.PositionId ?? -1;
 
-            //Admin
+            // Enables or disables admin buttons depending on user
+            bool admin = permissionLevel == 9999;
+            btnAdminEmployeeDelete.Enabled = admin;
+            btnAdminEmployeeEdit.Enabled = admin;
+            btnAdminEmployeeAdd.Enabled = admin;
+
+            // ADMIN
             if (permissionLevel == 9999)
             {
+                //Add admin tab
                 tabctrlMain.TabPages.Add(tabAdmin);
-                // Manually resize form for splash admin page
+
+                // Add employee and permission tab if admin
+                tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
+                tabctrlAdminUsers.TabPages.Add(tabAdminUsersPermissions);
+
+                // Manually resize form for splash admin page and call populate first dgv
                 ResizeEmployeeTab();
+                RefreshEmployeesDGV();
             }
         }
         //
         // Hides all Tabs
-        private void HideAllTabs()
+        private void HideAllTabs(TabControl tabControl)
         {
-            foreach (TabPage tab in tabctrlMain.TabPages.Cast<TabPage>().ToList())
+            // Removes all tabs from the received tabCtrl
+            foreach (TabPage tab in tabControl.TabPages.Cast<TabPage>().ToList())
             {
-                tabctrlMain.TabPages.Remove(tab);
+                tabControl.TabPages.Remove(tab);
             }
         }
 
@@ -114,7 +131,7 @@ namespace BullseyeDesktopApp
             activityTimer.Start();
         }
         //Closes form
-        private void Logout(object sender, EventArgs e)
+        private void Logout(object? sender, EventArgs e)
         {
             this.Close();
         }
@@ -131,7 +148,7 @@ namespace BullseyeDesktopApp
         }
         //
         // Event handler for tick, calls update conn status
-        private void CheckConnection(object sender, EventArgs e)
+        private void CheckConnection(object? sender, EventArgs e)
         {
             UpdateConnectionStatus();
         }

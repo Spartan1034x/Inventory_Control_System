@@ -14,16 +14,68 @@ using BullseyeDesktopApp.Models;
 
 namespace BullseyeDesktopApp
 {
-    public partial class Main : Form
+                                                               // ****   ADMIN TAB   ****
+    public partial class Main
     {
-        //           EMPLOYEE TAB
+        //            PASSWORD HASH ALL
         //
-        //   REFRESH CLICK
+        // Hashes all passwords in the db
+        private void btnHashAll_Click(object sender, EventArgs e)
+        {
+            /*
+             BullseyeContext context = new BullseyeContext();
+             var employees = context.Employees.ToList();
+
+             foreach (var employee in employees)
+             {
+                 employee.Password = StaticHelpers.PasswordHelper.HashPassword(employee.Password);
+             }
+
+             context.SaveChanges();
+             MessageBox.Show("PAsswords hashed"); 
+            context.Dispose(); */
+        }
+
+
+        //           SELECTED INDEX GHANGED TABS
+        //
+        // Refreshes dgv when tab is selected
+        private void tabctrlAdminUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ResizeEmployeeTab();
+            // Refreshes dgv when selected tab
+            if (tabctrlAdminUsers.SelectedTab == tabAdminUsersEmployees)
+                RefreshEmployeesDGV();
+            else
+                RefreshPermissionDGV();
+
+        }
+
+
+        //                FORM RESIZE
+        //
+        // Resizes form and dgv depending on selection
+        private void ResizeEmployeeTab()
+        {
+            var selection = tabctrlAdminUsers.SelectedTab;
+
+            this.Size = (selection == tabAdminUsersEmployees) ? new Size(1550, 850) : new Size(1350, 850);
+            dgvEmployees.Size = (selection == tabAdminUsersEmployees) ? new Size(1425, 426) : new Size(1225, 426);
+        }
+
+
+        //            **** EMPLOYEE TAB ****
+        //
+        //
+        //                 REFRESH CLICK
         private void btnAdminEmployeesRefresh_Click(object sender, EventArgs e)
         {
-            // Enables add button is user is admin
-            if (StaticHelpers.UserSession.CurrentUser != null && StaticHelpers.UserSession.CurrentUser.PositionId == 9999)
-                btnAdminEmployeeAdd.Enabled = true;
+            RefreshEmployeesDGV();
+        }
+        //
+        //
+        private void RefreshEmployeesDGV()
+        {
             try
             {
                 using (var context = new BullseyeContext())
@@ -50,40 +102,14 @@ namespace BullseyeDesktopApp
         }
 
 
-        //   FORM RESIZE
-        private void tabctrlAdminUsers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ResizeEmployeeTab();
-
-        }
-        // Resizes form and dgv depending on selection
-        private void ResizeEmployeeTab()
-        {
-            var selection = tabctrlAdminUsers.SelectedTab;
-
-            this.Size = (selection == tabAdminUsersEmployees) ? new Size(1550, 850) : new Size(1350, 850);
-            dgvEmployees.Size = (selection == tabAdminUsersEmployees) ? new Size(1425, 426) : new Size(1225, 426);
-        }
-
-        //    Selection changed dgv to enable buttons if permissions allow
-        private void dgvEmployees_SelectionChanged(object sender, EventArgs e)
-        {
-            if (StaticHelpers.UserSession.CurrentUser != null && StaticHelpers.UserSession.CurrentUser.PositionId == 9999 && dgvEmployees.SelectedRows.Count > 0)
-            {
-                btnAdminEmployeeDelete.Enabled = true;
-                btnAdminEmployeeEdit.Enabled = true;
-            }
-        }
-
-        //    DELETE USER
-        //
+        //                 DELETE USER
         //
         private void btnAdminEmployeeDelete_Click(object sender, EventArgs e)
         {
             // If a row is selected find employee from db matching selected one and change active to 0
             if (dgvEmployees.SelectedRows.Count > 0)
             {
-                Employee employee = StaticHelpers.DBOperations.FindEmployee(Convert.ToInt32(dgvEmployees.SelectedCells[0].Value));
+                Employee employee = StaticHelpers.DBOperations.FindEmployeeByID(Convert.ToInt32(dgvEmployees.SelectedCells[0].Value));
                 try
                 {
                     using (var context = new BullseyeContext())
@@ -107,8 +133,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //     ADD USER BUTTON
-        //
+        //                ADD USER BUTTON
         //
         private void btnAdminEmployeeAdd_Click(object sender, EventArgs e)
         {
@@ -127,12 +152,11 @@ namespace BullseyeDesktopApp
         }
 
 
-        //   EDIT USER BUTTON
-        //
+        //                 EDIT USER BUTTON
         //
         private void btnAdminEmployeeEdit_Click(object sender, EventArgs e)
         {
-            Employee employee = StaticHelpers.DBOperations.FindEmployee(Convert.ToInt32(dgvEmployees.SelectedCells[0].Value));
+            Employee employee = StaticHelpers.DBOperations.FindEmployeeByID(Convert.ToInt32(dgvEmployees.SelectedCells[0].Value));
             if (employee.EmployeeId != 0) // If an actual employee was found
             {
                 StaticHelpers.UserSession.SelectedUser = employee; // Sets selected user to user selected
@@ -141,6 +165,126 @@ namespace BullseyeDesktopApp
             else
                 MessageBox.Show("User is already deactivated, or not found in DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
+        }
+
+
+        //            **** PERMISSIONS TAB ****
+        //
+        //
+        //              REFRESH PERMISSION DGV
+        //
+        private void btnAdminPermissionRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshPermissionDGV();
+        }
+        //
+        private void RefreshPermissionDGV()
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    var employeePositions = from emp in context.Employees
+                                            join posn in context.Posns on emp.PositionId equals posn.PositionId
+                                            select new
+                                            {
+                                                FirstName = emp.FirstName,
+                                                LastName = emp.LastName,
+                                                Username = emp.Username,
+                                                Position = emp.Position
+                                            };
+                    dgvPermissions.DataSource = employeePositions.ToList();
+                    dgvPermissions.AutoResizeColumns();
+                    dgvPermissions.Width = dgvPermissions.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 25;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+            }
+        }
+
+
+        //             EDIT EMPLOYEE PERMISSIONS
+        //
+        private void btnAdminPermissionEdit_Click(object sender, EventArgs e)
+        {
+            // If a row is selected find employee from db matching selected one and change active to 0
+            if (dgvPermissions.SelectedRows.Count > 0)
+            {
+                if (dgvPermissions.SelectedCells.Count > 2) // Ensures more than 2 cells selected
+                {
+                    string username = dgvPermissions.SelectedCells[2].Value.ToString() ?? "";
+
+                    if (!string.IsNullOrEmpty(username)) // Ensures string is not null or empty
+                    {
+                        StaticHelpers.UserSession.SelectedUser = StaticHelpers.DBOperations.FindEmployeeByUsername(username); // Set selected user to one selected
+
+                        if (StaticHelpers.UserSession.SelectedUser.EmployeeId != 0) //Ensures an actual employee was returned default is 0 for not found
+                        {
+                            try
+                            {
+                                using (var context = new BullseyeContext())
+                                {   // Populate data
+                                    grpAdminPermissionEdit.Enabled = true;
+                                    if (cmbAdminPermissionsEditPositions.Items.Count == 0) // If cmb is empty populate
+                                        context.Posns.ToList().ForEach(pos => cmbAdminPermissionsEditPositions.Items.Add(pos));
+                                    lblAdminPermissionsEditUser.Text = username;                                   
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message, "DB Error");
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        //                   SAVE PERMISSIONS
+        //                   
+        private void btnAdminPermissionsEditSave_Click(object sender, EventArgs e)
+        {
+            if (cmbAdminPermissionsEditPositions.SelectedItem != null)
+            {
+                //Variable for easier coding
+                Employee updatedUser = StaticHelpers.UserSession.SelectedUser ?? new Employee();
+
+                try
+                {
+                    using (var context = new BullseyeContext())
+                    {
+                        //Attach user in static class to context for updating
+                        context.Employees.Attach(updatedUser);
+
+                        Posn position = (Posn)cmbAdminPermissionsEditPositions.SelectedItem;
+                        updatedUser.PositionId = position.PositionId;
+                        if (context.SaveChanges() == 1)
+                        {
+                            StaticHelpers.UserSession.SelectedUser = null; // Reset selected user
+                            ResetPermissionsEdit();
+                            MessageBox.Show("Users position has been updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            RefreshPermissionDGV();
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "DB Error");
+                }
+            }
+            else 
+                MessageBox.Show("Please select a position", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        //
+        //           RESET PERMISSIONS EDIT
+        private void ResetPermissionsEdit()
+        {
+            lblAdminPermissionsEditUser.Text = "Nil";
+            cmbAdminPermissionsEditPositions.SelectedIndex = -1;
+            grpAdminPermissionEdit.Enabled = false;
         }
 
     }
