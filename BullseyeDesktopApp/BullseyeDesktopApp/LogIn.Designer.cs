@@ -39,7 +39,6 @@
             lnkForgot = new LinkLabel();
             btnLogin = new Button();
             btnExit = new Button();
-            btnHashAll = new Button();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             SuspendLayout();
             // 
@@ -136,7 +135,7 @@
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(114, 43);
             btnLogin.TabIndex = 2;
-            btnLogin.Text = "Log In";
+            btnLogin.Text = "&Log In";
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
             // 
@@ -147,27 +146,15 @@
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(114, 43);
             btnExit.TabIndex = 3;
-            btnExit.Text = "Exit";
+            btnExit.Text = "E&xit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
-            // 
-            // btnHashAll
-            // 
-            btnHashAll.Location = new Point(694, 358);
-            btnHashAll.Name = "btnHashAll";
-            btnHashAll.Size = new Size(94, 29);
-            btnHashAll.TabIndex = 11;
-            btnHashAll.Text = "Hash All";
-            btnHashAll.UseVisualStyleBackColor = true;
-            btnHashAll.Visible = false;
-            btnHashAll.Click += btnHashAll_Click;
             // 
             // LogIn
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 399);
-            Controls.Add(btnHashAll);
             Controls.Add(btnExit);
             Controls.Add(btnLogin);
             Controls.Add(lnkForgot);
@@ -201,6 +188,5 @@
         private LinkLabel lnkForgot;
         private Button btnLogin;
         private Button btnExit;
-        private Button btnHashAll;
     }
 }

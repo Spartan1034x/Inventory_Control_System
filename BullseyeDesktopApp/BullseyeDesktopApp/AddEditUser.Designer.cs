@@ -242,7 +242,7 @@
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(94, 29);
             btnSave.TabIndex = 40;
-            btnSave.Text = "Save";
+            btnSave.Text = "&Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
@@ -252,7 +252,7 @@
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(94, 29);
             btnExit.TabIndex = 41;
-            btnExit.Text = "Exit";
+            btnExit.Text = "E&xit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 

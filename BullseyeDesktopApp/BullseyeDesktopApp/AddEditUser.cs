@@ -253,7 +253,7 @@ namespace BullseyeDesktopApp
         //
         //
         //Event handler that only allows control keys, letter keys and Hiphons
-        private void NameTextboxHandler(object sender, KeyPressEventArgs e)
+        private void NameTextboxHandler(object? sender, KeyPressEventArgs e)
         {
             if (!char.IsLetter(e.KeyChar) && e.KeyChar != '-' && !char.IsControl(e.KeyChar))
             {

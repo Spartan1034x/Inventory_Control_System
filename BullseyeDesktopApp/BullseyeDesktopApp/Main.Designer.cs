@@ -53,6 +53,17 @@
             siteDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             employeeBindingSource = new BindingSource(components);
             tabAdminUsersPermissions = new TabPage();
+            grpAdminPermissionEdit = new GroupBox();
+            lblAdminPermissionsEditUser = new Label();
+            label5 = new Label();
+            btnAdminPermissionsEditCancel = new Button();
+            btnAdminPermissionsEditSave = new Button();
+            cmbAdminPermissionsEditPositions = new ComboBox();
+            label9 = new Label();
+            btnAdminPermissionEdit = new Button();
+            btnAdminPermissionRefresh = new Button();
+            dgvPermissions = new DataGridView();
+            posnBindingSource = new BindingSource(components);
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
@@ -62,12 +73,18 @@
             btnExit = new Button();
             lblLocation = new Label();
             lblUser = new Label();
+            btnHashAll = new Button();
+            btnViewAudits = new Button();
             tabctrlMain.SuspendLayout();
             tabAdmin.SuspendLayout();
             tabctrlAdminUsers.SuspendLayout();
             tabAdminUsersEmployees.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEmployees).BeginInit();
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).BeginInit();
+            tabAdminUsersPermissions.SuspendLayout();
+            grpAdminPermissionEdit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPermissions).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)posnBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             SuspendLayout();
             // 
@@ -171,7 +188,7 @@
             btnAdminEmployeesRefresh.Name = "btnAdminEmployeesRefresh";
             btnAdminEmployeesRefresh.Size = new Size(114, 29);
             btnAdminEmployeesRefresh.TabIndex = 4;
-            btnAdminEmployeesRefresh.Text = "Refresh";
+            btnAdminEmployeesRefresh.Text = "&Refresh";
             btnAdminEmployeesRefresh.UseVisualStyleBackColor = true;
             btnAdminEmployeesRefresh.Click += btnAdminEmployeesRefresh_Click;
             // 
@@ -184,7 +201,7 @@
             btnAdminEmployeeDelete.Name = "btnAdminEmployeeDelete";
             btnAdminEmployeeDelete.Size = new Size(114, 29);
             btnAdminEmployeeDelete.TabIndex = 3;
-            btnAdminEmployeeDelete.Text = "Delete";
+            btnAdminEmployeeDelete.Text = "&Deactivate";
             btnAdminEmployeeDelete.UseVisualStyleBackColor = true;
             btnAdminEmployeeDelete.Click += btnAdminEmployeeDelete_Click;
             // 
@@ -197,7 +214,7 @@
             btnAdminEmployeeEdit.Name = "btnAdminEmployeeEdit";
             btnAdminEmployeeEdit.Size = new Size(114, 29);
             btnAdminEmployeeEdit.TabIndex = 2;
-            btnAdminEmployeeEdit.Text = "Edit";
+            btnAdminEmployeeEdit.Text = "&Edit";
             btnAdminEmployeeEdit.UseVisualStyleBackColor = true;
             btnAdminEmployeeEdit.Click += btnAdminEmployeeEdit_Click;
             // 
@@ -210,7 +227,7 @@
             btnAdminEmployeeAdd.Name = "btnAdminEmployeeAdd";
             btnAdminEmployeeAdd.Size = new Size(114, 29);
             btnAdminEmployeeAdd.TabIndex = 1;
-            btnAdminEmployeeAdd.Text = "Add New";
+            btnAdminEmployeeAdd.Text = "&Add New";
             btnAdminEmployeeAdd.UseVisualStyleBackColor = true;
             btnAdminEmployeeAdd.Click += btnAdminEmployeeAdd_Click;
             // 
@@ -231,7 +248,6 @@
             dgvEmployees.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvEmployees.Size = new Size(1225, 426);
             dgvEmployees.TabIndex = 0;
-            dgvEmployees.SelectionChanged += dgvEmployees_SelectionChanged;
             // 
             // employeeIdDataGridViewTextBoxColumn
             // 
@@ -304,6 +320,10 @@
             // 
             // tabAdminUsersPermissions
             // 
+            tabAdminUsersPermissions.Controls.Add(grpAdminPermissionEdit);
+            tabAdminUsersPermissions.Controls.Add(btnAdminPermissionEdit);
+            tabAdminUsersPermissions.Controls.Add(btnAdminPermissionRefresh);
+            tabAdminUsersPermissions.Controls.Add(dgvPermissions);
             tabAdminUsersPermissions.Location = new Point(4, 29);
             tabAdminUsersPermissions.Name = "tabAdminUsersPermissions";
             tabAdminUsersPermissions.Padding = new Padding(3);
@@ -312,11 +332,132 @@
             tabAdminUsersPermissions.Text = "Permissions";
             tabAdminUsersPermissions.UseVisualStyleBackColor = true;
             // 
+            // grpAdminPermissionEdit
+            // 
+            grpAdminPermissionEdit.BackColor = Color.MistyRose;
+            grpAdminPermissionEdit.Controls.Add(lblAdminPermissionsEditUser);
+            grpAdminPermissionEdit.Controls.Add(label5);
+            grpAdminPermissionEdit.Controls.Add(btnAdminPermissionsEditCancel);
+            grpAdminPermissionEdit.Controls.Add(btnAdminPermissionsEditSave);
+            grpAdminPermissionEdit.Controls.Add(cmbAdminPermissionsEditPositions);
+            grpAdminPermissionEdit.Controls.Add(label9);
+            grpAdminPermissionEdit.Enabled = false;
+            grpAdminPermissionEdit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            grpAdminPermissionEdit.Location = new Point(853, 19);
+            grpAdminPermissionEdit.Name = "grpAdminPermissionEdit";
+            grpAdminPermissionEdit.Size = new Size(323, 282);
+            grpAdminPermissionEdit.TabIndex = 7;
+            grpAdminPermissionEdit.TabStop = false;
+            grpAdminPermissionEdit.Text = "Edit Position";
+            // 
+            // lblAdminPermissionsEditUser
+            // 
+            lblAdminPermissionsEditUser.AutoSize = true;
+            lblAdminPermissionsEditUser.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAdminPermissionsEditUser.ForeColor = Color.FromArgb(0, 192, 0);
+            lblAdminPermissionsEditUser.Location = new Point(89, 48);
+            lblAdminPermissionsEditUser.Name = "lblAdminPermissionsEditUser";
+            lblAdminPermissionsEditUser.Size = new Size(37, 28);
+            lblAdminPermissionsEditUser.TabIndex = 43;
+            lblAdminPermissionsEditUser.Text = "Nil";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(28, 48);
+            label5.Name = "label5";
+            label5.Size = new Size(55, 28);
+            label5.TabIndex = 42;
+            label5.Text = "User:";
+            // 
+            // btnAdminPermissionsEditCancel
+            // 
+            btnAdminPermissionsEditCancel.Location = new Point(195, 220);
+            btnAdminPermissionsEditCancel.Name = "btnAdminPermissionsEditCancel";
+            btnAdminPermissionsEditCancel.Size = new Size(94, 29);
+            btnAdminPermissionsEditCancel.TabIndex = 41;
+            btnAdminPermissionsEditCancel.Text = "&Cancel";
+            btnAdminPermissionsEditCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnAdminPermissionsEditSave
+            // 
+            btnAdminPermissionsEditSave.Location = new Point(28, 220);
+            btnAdminPermissionsEditSave.Name = "btnAdminPermissionsEditSave";
+            btnAdminPermissionsEditSave.Size = new Size(94, 29);
+            btnAdminPermissionsEditSave.TabIndex = 40;
+            btnAdminPermissionsEditSave.Text = "&Save";
+            btnAdminPermissionsEditSave.UseVisualStyleBackColor = true;
+            btnAdminPermissionsEditSave.Click += btnAdminPermissionsEditSave_Click;
+            // 
+            // cmbAdminPermissionsEditPositions
+            // 
+            cmbAdminPermissionsEditPositions.FormattingEnabled = true;
+            cmbAdminPermissionsEditPositions.Location = new Point(28, 153);
+            cmbAdminPermissionsEditPositions.Name = "cmbAdminPermissionsEditPositions";
+            cmbAdminPermissionsEditPositions.Size = new Size(261, 31);
+            cmbAdminPermissionsEditPositions.Sorted = true;
+            cmbAdminPermissionsEditPositions.TabIndex = 39;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Location = new Point(115, 103);
+            label9.Name = "label9";
+            label9.Size = new Size(86, 28);
+            label9.TabIndex = 38;
+            label9.Text = "Position:";
+            // 
+            // btnAdminPermissionEdit
+            // 
+            btnAdminPermissionEdit.Anchor = AnchorStyles.Bottom;
+            btnAdminPermissionEdit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminPermissionEdit.Location = new Point(633, 446);
+            btnAdminPermissionEdit.Name = "btnAdminPermissionEdit";
+            btnAdminPermissionEdit.Size = new Size(114, 29);
+            btnAdminPermissionEdit.TabIndex = 6;
+            btnAdminPermissionEdit.Text = "&Edit";
+            btnAdminPermissionEdit.UseVisualStyleBackColor = true;
+            btnAdminPermissionEdit.Click += btnAdminPermissionEdit_Click;
+            // 
+            // btnAdminPermissionRefresh
+            // 
+            btnAdminPermissionRefresh.Anchor = AnchorStyles.Bottom;
+            btnAdminPermissionRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminPermissionRefresh.Location = new Point(222, 446);
+            btnAdminPermissionRefresh.Name = "btnAdminPermissionRefresh";
+            btnAdminPermissionRefresh.Size = new Size(114, 29);
+            btnAdminPermissionRefresh.TabIndex = 5;
+            btnAdminPermissionRefresh.Text = "&Refresh";
+            btnAdminPermissionRefresh.UseVisualStyleBackColor = true;
+            btnAdminPermissionRefresh.Click += btnAdminPermissionRefresh_Click;
+            // 
+            // dgvPermissions
+            // 
+            dgvPermissions.AllowUserToAddRows = false;
+            dgvPermissions.AllowUserToDeleteRows = false;
+            dgvPermissions.AllowUserToResizeColumns = false;
+            dgvPermissions.AllowUserToResizeRows = false;
+            dgvPermissions.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPermissions.Location = new Point(134, 6);
+            dgvPermissions.Name = "dgvPermissions";
+            dgvPermissions.ReadOnly = true;
+            dgvPermissions.RowHeadersVisible = false;
+            dgvPermissions.RowHeadersWidth = 51;
+            dgvPermissions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPermissions.Size = new Size(665, 398);
+            dgvPermissions.TabIndex = 0;
+            // 
+            // posnBindingSource
+            // 
+            posnBindingSource.DataSource = typeof(Models.Posn);
+            // 
             // label3
             // 
             label3.Anchor = AnchorStyles.Top;
             label3.AutoSize = true;
-            label3.Location = new Point(874, 33);
+            label3.Location = new Point(902, 33);
             label3.Name = "label3";
             label3.Size = new Size(69, 20);
             label3.TabIndex = 12;
@@ -326,7 +467,7 @@
             // 
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
-            label2.Location = new Point(902, 9);
+            label2.Location = new Point(930, 9);
             label2.Name = "label2";
             label2.Size = new Size(41, 20);
             label2.TabIndex = 11;
@@ -337,7 +478,7 @@
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(473, 12);
+            label1.Location = new Point(529, 12);
             label1.Name = "label1";
             label1.Size = new Size(182, 41);
             label1.TabIndex = 10;
@@ -358,7 +499,7 @@
             // 
             lblStatus.Anchor = AnchorStyles.Bottom;
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(552, 762);
+            lblStatus.Location = new Point(676, 762);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(70, 20);
             lblStatus.TabIndex = 17;
@@ -368,7 +509,7 @@
             // 
             label4.Anchor = AnchorStyles.Bottom;
             label4.AutoSize = true;
-            label4.Location = new Point(427, 762);
+            label4.Location = new Point(551, 762);
             label4.Name = "label4";
             label4.Size = new Size(119, 20);
             label4.TabIndex = 16;
@@ -382,7 +523,7 @@
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(122, 43);
             btnExit.TabIndex = 15;
-            btnExit.Text = "Exit";
+            btnExit.Text = "&Exit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
@@ -390,7 +531,7 @@
             // 
             lblLocation.Anchor = AnchorStyles.Top;
             lblLocation.AutoSize = true;
-            lblLocation.Location = new Point(949, 33);
+            lblLocation.Location = new Point(977, 33);
             lblLocation.Name = "lblLocation";
             lblLocation.Size = new Size(0, 20);
             lblLocation.TabIndex = 18;
@@ -399,16 +540,43 @@
             // 
             lblUser.Anchor = AnchorStyles.Top;
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(949, 9);
+            lblUser.Location = new Point(977, 9);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(0, 20);
             lblUser.TabIndex = 19;
+            // 
+            // btnHashAll
+            // 
+            btnHashAll.Anchor = AnchorStyles.Bottom;
+            btnHashAll.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnHashAll.Location = new Point(559, 698);
+            btnHashAll.Name = "btnHashAll";
+            btnHashAll.Size = new Size(122, 43);
+            btnHashAll.TabIndex = 20;
+            btnHashAll.Text = "Hash All";
+            btnHashAll.UseVisualStyleBackColor = true;
+            btnHashAll.Visible = false;
+            btnHashAll.Click += btnHashAll_Click;
+            // 
+            // btnViewAudits
+            // 
+            btnViewAudits.Anchor = AnchorStyles.Bottom;
+            btnViewAudits.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnViewAudits.Location = new Point(45, 718);
+            btnViewAudits.Name = "btnViewAudits";
+            btnViewAudits.Size = new Size(122, 43);
+            btnViewAudits.TabIndex = 21;
+            btnViewAudits.Text = "&View Audits";
+            btnViewAudits.UseVisualStyleBackColor = true;
+            btnViewAudits.Click += btnViewAudits_Click;
             // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 803);
+            Controls.Add(btnViewAudits);
+            Controls.Add(btnHashAll);
             Controls.Add(lblUser);
             Controls.Add(lblLocation);
             Controls.Add(tabctrlMain);
@@ -432,6 +600,11 @@
             tabAdminUsersEmployees.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvEmployees).EndInit();
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).EndInit();
+            tabAdminUsersPermissions.ResumeLayout(false);
+            grpAdminPermissionEdit.ResumeLayout(false);
+            grpAdminPermissionEdit.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPermissions).EndInit();
+            ((System.ComponentModel.ISupportInitialize)posnBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -471,5 +644,18 @@
         private DataGridViewTextBoxColumn activeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn positionDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn siteDataGridViewTextBoxColumn;
+        private DataGridView dgvPermissions;
+        private BindingSource posnBindingSource;
+        private Button btnHashAll;
+        private Button btnAdminPermissionRefresh;
+        private Button btnAdminPermissionEdit;
+        private GroupBox grpAdminPermissionEdit;
+        private Button btnAdminPermissionsEditCancel;
+        private Button btnAdminPermissionsEditSave;
+        private ComboBox cmbAdminPermissionsEditPositions;
+        private Label label9;
+        private Label lblAdminPermissionsEditUser;
+        private Label label5;
+        private Button btnViewAudits;
     }
 }
