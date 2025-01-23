@@ -14,6 +14,31 @@ SET userName = CONCAT(LEFT(FirstName, 1), LastName)
 WHERE employeeID IS NOT NULL
 LIMIT 20; /* Satifies Safe mode error but limits the amount of users changed, ensure this number is higher than total users */
 
+/* txnAudit entry */
+INSERT INTO `txnaudit` (
+  `txnID`, 
+  `employeeID`, 
+  `txnType`, 
+  `status`, 
+  `txnDate`, 
+  `SiteID`, 
+  `deliveryID`, 
+  `notes`
+) VALUES (
+  1001,
+  10008,        
+  'Correction',   
+  'Pending',       
+  NOW(),           
+  1,               
+  NULL,            
+  'Correction for inventory mismatch' 
+);
+
+DELETE FROM `txnaudit`
+WHERE `txnAuditID` = 32094823844039;
+
+
 
 
 /* 

@@ -193,5 +193,14 @@ namespace BullseyeDesktopApp
             this.Close();
         }
 
+
+        //          AUDITS BUTTON
+        //
+        //
+        private void btnViewAudits_Click(object sender, EventArgs e)
+        {
+            Form audit = new AuditRecords();
+            audit.ShowDialog();
+        }
     }
 }

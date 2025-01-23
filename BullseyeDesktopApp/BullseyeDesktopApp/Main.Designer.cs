@@ -74,6 +74,7 @@
             lblLocation = new Label();
             lblUser = new Label();
             btnHashAll = new Button();
+            btnViewAudits = new Button();
             tabctrlMain.SuspendLayout();
             tabAdmin.SuspendLayout();
             tabctrlAdminUsers.SuspendLayout();
@@ -323,10 +324,10 @@
             tabAdminUsersPermissions.Controls.Add(btnAdminPermissionEdit);
             tabAdminUsersPermissions.Controls.Add(btnAdminPermissionRefresh);
             tabAdminUsersPermissions.Controls.Add(dgvPermissions);
-            tabAdminUsersPermissions.Location = new Point(4, 37);
+            tabAdminUsersPermissions.Location = new Point(4, 29);
             tabAdminUsersPermissions.Name = "tabAdminUsersPermissions";
             tabAdminUsersPermissions.Padding = new Padding(3);
-            tabAdminUsersPermissions.Size = new Size(1224, 499);
+            tabAdminUsersPermissions.Size = new Size(1224, 507);
             tabAdminUsersPermissions.TabIndex = 1;
             tabAdminUsersPermissions.Text = "Permissions";
             tabAdminUsersPermissions.UseVisualStyleBackColor = true;
@@ -412,7 +413,7 @@
             // 
             btnAdminPermissionEdit.Anchor = AnchorStyles.Bottom;
             btnAdminPermissionEdit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdminPermissionEdit.Location = new Point(633, 438);
+            btnAdminPermissionEdit.Location = new Point(633, 446);
             btnAdminPermissionEdit.Name = "btnAdminPermissionEdit";
             btnAdminPermissionEdit.Size = new Size(114, 29);
             btnAdminPermissionEdit.TabIndex = 6;
@@ -424,7 +425,7 @@
             // 
             btnAdminPermissionRefresh.Anchor = AnchorStyles.Bottom;
             btnAdminPermissionRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdminPermissionRefresh.Location = new Point(222, 438);
+            btnAdminPermissionRefresh.Location = new Point(222, 446);
             btnAdminPermissionRefresh.Name = "btnAdminPermissionRefresh";
             btnAdminPermissionRefresh.Size = new Size(114, 29);
             btnAdminPermissionRefresh.TabIndex = 5;
@@ -548,7 +549,7 @@
             // 
             btnHashAll.Anchor = AnchorStyles.Bottom;
             btnHashAll.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnHashAll.Location = new Point(48, 718);
+            btnHashAll.Location = new Point(559, 698);
             btnHashAll.Name = "btnHashAll";
             btnHashAll.Size = new Size(122, 43);
             btnHashAll.TabIndex = 20;
@@ -557,11 +558,24 @@
             btnHashAll.Visible = false;
             btnHashAll.Click += btnHashAll_Click;
             // 
+            // btnViewAudits
+            // 
+            btnViewAudits.Anchor = AnchorStyles.Bottom;
+            btnViewAudits.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnViewAudits.Location = new Point(45, 718);
+            btnViewAudits.Name = "btnViewAudits";
+            btnViewAudits.Size = new Size(122, 43);
+            btnViewAudits.TabIndex = 21;
+            btnViewAudits.Text = "&View Audits";
+            btnViewAudits.UseVisualStyleBackColor = true;
+            btnViewAudits.Click += btnViewAudits_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 803);
+            Controls.Add(btnViewAudits);
             Controls.Add(btnHashAll);
             Controls.Add(lblUser);
             Controls.Add(lblLocation);
@@ -642,5 +656,6 @@
         private Label label9;
         private Label lblAdminPermissionsEditUser;
         private Label label5;
+        private Button btnViewAudits;
     }
 }
