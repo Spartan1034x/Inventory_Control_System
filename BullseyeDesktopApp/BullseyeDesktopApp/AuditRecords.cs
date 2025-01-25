@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BullseyeDesktopApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -49,6 +50,34 @@ namespace BullseyeDesktopApp
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+
+        //            CELL MOUSE CLICK
+        //
+        //
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow dataGridViewRow = dataGridView1.Rows[e.RowIndex];
+
+                Txnaudit audit = dataGridViewRow.DataBoundItem as Txnaudit ?? new Txnaudit();
+                if (audit.TxnAuditId != 0)
+                {
+                    lblTxnAuditID.Text = audit.TxnAuditId.ToString();
+                    lblDeliveryID.Text = audit?.DeliveryId.ToString();
+                    lblEmployeeID.Text = audit?.EmployeeId.ToString();
+                    lblSiteID.Text = audit?.SiteId.ToString();
+                    lblStaus.Text = audit?.Status.ToString();
+                    lblTxnDate.Text = audit?.TxnDate.ToString();
+                    lblTxnID.Text = audit?.TxnId.ToString();
+                    lblTxnType.Text = audit?.TxnType.ToString();
+                    lblCreateDate.Text = audit?.CreatedDate.ToString();
+                   
+                }
+            }
+
         }
     }
 }
