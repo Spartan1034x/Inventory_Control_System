@@ -1,4 +1,5 @@
 ﻿using BullseyeDesktopApp.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,9 @@ namespace BullseyeDesktopApp.StaticHelpers
             {
                 using (var context = new BullseyeContext())
                 {
-                    Employee employee = context.Employees.FirstOrDefault(x => x.Username == username) ?? new Employee();
+                    Employee employee = context.Employees
+                                        .Include(e => e.Position) // Loads position as well
+                                        .FirstOrDefault(x => x.Username == username) ?? new Employee();
                     return employee;
                 }
             }

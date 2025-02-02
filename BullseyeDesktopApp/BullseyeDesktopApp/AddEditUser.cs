@@ -189,7 +189,9 @@ namespace BullseyeDesktopApp
                             updatedUser.LastName = CapitolizeName(lastName);
 
                             context.SaveChanges();
-                            MessageBox.Show("User updated!", "Success", MessageBoxButtons.OK);
+                            //MessageBox.Show("User updated!", "Success", MessageBoxButtons.OK);
+                            
+                            this.Close(); // Closes form on successful Save
                         }
 
 

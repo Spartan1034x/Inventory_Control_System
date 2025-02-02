@@ -104,7 +104,6 @@ namespace BullseyeDesktopApp
                                 if (context.SaveChanges() > 0)
                                 {
                                     canClose = true; // Can close once password if changed
-                                    MessageBox.Show("Password updated", "Success", MessageBoxButtons.OK);
                                     this.Close();
                                 }
                                 else

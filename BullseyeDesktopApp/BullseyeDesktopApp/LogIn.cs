@@ -63,11 +63,15 @@ namespace BullseyeDesktopApp
             var user = context.Employees.FirstOrDefault(e => e.Username == username);
             StaticHelpers.UserSession.CurrentUser = user;
 
-            if (user == null) //USER NOT FOUND
+            if (user == null && loginAttemptsRemaining != 0) //USER NOT FOUND
             {
                 loginAttemptsRemaining--;
                 MessageBox.Show($"Username and/or Password incorrect!\nYou have {loginAttemptsRemaining} attempts" +
                     $" left", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (user == null && loginAttemptsRemaining == 0) // USER NOT FOUND NO ATTEMPTS REMAINING
+            {
+                MessageBox.Show("You are out of log in attempts", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (user.Locked == 1) //USER IS LOCKED
             {

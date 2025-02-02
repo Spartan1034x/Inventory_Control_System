@@ -80,6 +80,16 @@ namespace BullseyeDesktopApp
                 ResizeEmployeeTab();
                 RefreshEmployeesDGV();
             }
+            // WAREHOUSE MANAGER
+            else if (permissionLevel == 3)
+            {
+                // Add tabs for main control
+                tabctrlMain.TabPages.Add(tabAdmin);
+
+                // Show allowed Admin tabs
+                tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
+                tabctrlAdminUsers.TabPages.Add(tabAdminItems);
+            }
         }
         //
         // Hides all Tabs
@@ -201,6 +211,16 @@ namespace BullseyeDesktopApp
         {
             Form audit = new AuditRecords();
             audit.ShowDialog();
+        }
+
+
+        //          RESET PASSWORD LINK
+        //
+        //
+        private void lnkResetPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ResetPass form = new ResetPass();
+            form.ShowDialog();
         }
     }
 }
