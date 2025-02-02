@@ -15,5 +15,7 @@ public partial class Vehicle
 
     public string Notes { get; set; } = null!;
 
+    public sbyte Active { get; set; }
+
     public virtual ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
 }

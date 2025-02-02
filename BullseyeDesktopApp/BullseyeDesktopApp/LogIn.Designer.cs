@@ -102,16 +102,20 @@
             txtUsername.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUsername.Location = new Point(215, 113);
             txtUsername.Name = "txtUsername";
+            txtUsername.PlaceholderText = "jsmith";
             txtUsername.Size = new Size(465, 47);
-            txtUsername.TabIndex = 6;
+            txtUsername.TabIndex = 0;
+            txtUsername.Text = "admin";
             // 
             // txtPassword
             // 
             txtPassword.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtPassword.Location = new Point(215, 191);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(465, 47);
-            txtPassword.TabIndex = 7;
+            txtPassword.TabIndex = 1;
+            txtPassword.Text = "P@ssw0rd-";
             // 
             // lnkForgot
             // 
@@ -119,7 +123,7 @@
             lnkForgot.Location = new Point(35, 356);
             lnkForgot.Name = "lnkForgot";
             lnkForgot.Size = new Size(127, 20);
-            lnkForgot.TabIndex = 8;
+            lnkForgot.TabIndex = 4;
             lnkForgot.TabStop = true;
             lnkForgot.Text = "Forgot password?";
             lnkForgot.LinkClicked += lnkForgot_LinkClicked;
@@ -130,8 +134,8 @@
             btnLogin.Location = new Point(273, 284);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(114, 43);
-            btnLogin.TabIndex = 9;
-            btnLogin.Text = "Log In";
+            btnLogin.TabIndex = 2;
+            btnLogin.Text = "&Log In";
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
             // 
@@ -141,8 +145,8 @@
             btnExit.Location = new Point(488, 284);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(114, 43);
-            btnExit.TabIndex = 10;
-            btnExit.Text = "Exit";
+            btnExit.TabIndex = 3;
+            btnExit.Text = "E&xit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
@@ -165,6 +169,7 @@
             Name = "LogIn";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bullseye Inventory Management System - Login";
+            FormClosing += LogIn_FormClosing;
             Load += LogIn_Load;
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ResumeLayout(false);

@@ -9,13 +9,15 @@ public partial class Inventory
 
     public int SiteId { get; set; }
 
-    public int Quantity { get; set; }
-
     public string ItemLocation { get; set; } = null!;
+
+    public int Quantity { get; set; }
 
     public int? ReorderThreshold { get; set; }
 
-    public int MaxReorderWarning { get; set; }
+    public int OptimumThreshold { get; set; }
+
+    public string? Notes { get; set; }
 
     public virtual Item Item { get; set; } = null!;
 
