@@ -36,6 +36,10 @@ namespace BullseyeDesktopApp.StaticHelpers
             }
             set { UserLocation = value; }
         }
+
+        // Path to current users Pictures folder
+        private static string rootDirectory = Application.StartupPath;
+        public static string PictureDirectoryPath = Path.Combine(rootDirectory, "Pictures");
    
     }
 }

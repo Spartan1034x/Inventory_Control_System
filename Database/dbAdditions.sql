@@ -101,7 +101,7 @@ BEGIN
     SET newUserName = baseUserName;
     SET newEmail = baseEmail;
 
-    WHILE EXISTS (SELECT 1 FROM employee WHERE username = newUserName OR Email = newEmail) DO
+    WHILE EXISTS (SELECT 1 FROM employee WHERE (username = newUserName OR Email = newEmail) AND employeeID <> NEW.employeeID) DO
         SET counter = counter + 1;
         SET newUserName = CONCAT(baseUserName, counter);
         SET newEmail = CONCAT(LOWER(LEFT(NEW.FirstName, 1)), LOWER(NEW.LastName), counter, '@bullseye.com');

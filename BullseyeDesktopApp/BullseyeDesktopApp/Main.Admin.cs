@@ -43,11 +43,14 @@ namespace BullseyeDesktopApp
         private void tabctrlAdminUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResizeEmployeeTab();
+
             // Refreshes dgv when selected tab
             if (tabctrlAdminUsers.SelectedTab == tabAdminUsersEmployees)
                 RefreshEmployeesDGV();
-            else
+            else if (tabctrlAdminUsers.SelectedTab == tabAdminUsersPermissions)
                 RefreshPermissionDGV();
+            else
+                RefreshItemsDGV(20);
 
         }
 
@@ -112,16 +115,21 @@ namespace BullseyeDesktopApp
                 Employee employee = StaticHelpers.DBOperations.FindEmployeeByID(Convert.ToInt32(dgvEmployees.SelectedCells[0].Value));
                 try
                 {
-                    using (var context = new BullseyeContext())
+                    DialogResult var = MessageBox.Show("Deactivate user: " + employee.Username, "Deactivate?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (var == DialogResult.Yes)
                     {
-                        if (employee.EmployeeId != 0 && employee.Active != 0)
+                        using (var context = new BullseyeContext())
                         {
-                            employee.Active = 0;
-                            context.SaveChanges();
-                            MessageBox.Show("User Deactivated", "Success");
+                            if (employee.EmployeeId != 0 && employee.Active != 0)
+                            {
+                                context.Employees.Attach(employee);
+                                employee.Active = 0;
+                                context.SaveChanges();
+                                RefreshEmployeesDGV();
+                            }
+                            else
+                                MessageBox.Show("User is already deactivated", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
-                        else
-                            MessageBox.Show("User is already deactivated, or not found in DB", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 catch (Exception ex)
@@ -141,13 +149,15 @@ namespace BullseyeDesktopApp
         }
         //
         // Shows edit form
-        private static void ShowEditForm(bool add)
+        private void ShowEditForm(bool add)
         {
             //Ensures user trying to access edit/add form is admin
             if (StaticHelpers.UserSession.CurrentUser != null && StaticHelpers.UserSession.CurrentUser.PositionId == 9999)
             {
                 Form userForm = new AddEditUser(add);
-                userForm.ShowDialog();
+                userForm.ShowDialog();              
+                RefreshEmployeesDGV();
+                
             }
         }
 
@@ -207,7 +217,7 @@ namespace BullseyeDesktopApp
 
         //             EDIT EMPLOYEE PERMISSIONS
         //
-        private void btnAdminPermissionEdit_Click(object sender, EventArgs e)
+        private void dgvPermissions_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // If a row is selected find employee from db matching selected one and change active to 0
             if (dgvPermissions.SelectedRows.Count > 0)
@@ -227,10 +237,19 @@ namespace BullseyeDesktopApp
                                 using (var context = new BullseyeContext())
                                 {   // Populate data
                                     grpAdminPermissionEdit.Enabled = true;
-                                    if (cmbAdminPermissionsEditPositions.Items.Count == 0) // If cmb is empty populate
-                                        context.Posns.ToList().ForEach(pos => cmbAdminPermissionsEditPositions.Items.Add(pos));
-                                    lblAdminPermissionsEditUser.Text = username;                                   
+
+                                    if (cmbAdminPermissionsEditPositions.Items.Count == 0)// If cmb is empty populate
+                                    {
+                                        var pos = context.Posns.ToList();
+                                        cmbAdminPermissionsEditPositions.Items.AddRange(pos.ToArray());
+                                    }
+                                    lblAdminPermissionsEditUser.Text = username;
                                 }
+                                // Select the selected employees position in the cmb
+                                cmbAdminPermissionsEditPositions.SelectedItem = cmbAdminPermissionsEditPositions.Items
+                                                                                .Cast<Posn>()
+                                                                                .FirstOrDefault(p => p.PositionId == StaticHelpers.UserSession.SelectedUser.Position.PositionId);
+
                             }
                             catch (Exception ex)
                             {
@@ -264,7 +283,6 @@ namespace BullseyeDesktopApp
                         {
                             StaticHelpers.UserSession.SelectedUser = null; // Reset selected user
                             ResetPermissionsEdit();
-                            MessageBox.Show("Users position has been updated!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             RefreshPermissionDGV();
                         }
 
@@ -279,7 +297,7 @@ namespace BullseyeDesktopApp
                 MessageBox.Show("Please select a position", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         //
-        //           RESET PERMISSIONS EDIT
+        //              RESET PERMISSIONS EDIT
         private void ResetPermissionsEdit()
         {
             lblAdminPermissionsEditUser.Text = "Nil";
@@ -287,5 +305,62 @@ namespace BullseyeDesktopApp
             grpAdminPermissionEdit.Enabled = false;
         }
 
+
+        //               **** ITEMS TABS *****
+        //
+        //
+        //                 REFRESH ITEMS DGV
+        private void RefreshItemsDGV(int itemAmount)
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    if (itemAmount > 0) //
+                    {
+                        itemBindingSource.DataSource = context.Items.Include(i => i.CategoryNavigation).Take(itemAmount).ToList();
+                    }
+                    else 
+                    {
+                        itemBindingSource.DataSource = context.Items.Include(i => i.CategoryNavigation).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("DB ERROR", ex.Message);
+            }
+
+        }
+
+
+        //
+        //       REFRESH ITEMS BUTTON     
+        private void btnAdminItemsRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshItemsDGV(20);
+        }
+
+
+        //
+        //     LOAD ALL ITEMS BUTTON
+        private void btnAdminItemsLoadAll_Click(object sender, EventArgs e)
+        {
+            RefreshItemsDGV(0); // 0 Loads all in refresh ftn
+        }
+
+
+        //
+        //     DGV ITEM DOUBLE CLICK
+        private void dgvItems_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Item selectedItem = (Item)dgvItems.SelectedRows[0].DataBoundItem;
+            Form editItemForm = new EditItem(selectedItem);
+
+            if (editItemForm.ShowDialog() == DialogResult.OK)
+            {
+                RefreshItemsDGV(20); // Refresh only if changes were made
+            }
+        }
     }
 }
