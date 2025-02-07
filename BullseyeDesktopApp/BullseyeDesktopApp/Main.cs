@@ -69,8 +69,12 @@ namespace BullseyeDesktopApp
             // ADMIN
             if (permissionLevel == 9999)
             {
-                //Add admin tab
+                //Add all tabs
                 tabctrlMain.TabPages.Add(tabAdmin);
+                tabctrlMain.TabPages.Add(tabOrders);
+                tabctrlMain.TabPages.Add(tabReports);
+                tabctrlMain.TabPages.Add(tabInventory);
+                tabctrlMain.TabPages.Add(tabLoss);
 
                 // Add employee and permission tab if admin
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
@@ -89,6 +93,20 @@ namespace BullseyeDesktopApp
                 // Show allowed Admin tabs
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
+            }
+            // STORE MANAGER
+            else if (permissionLevel == 4)
+            {
+                //Add all tabs
+                tabctrlMain.TabPages.Add(tabAdmin);
+                tabctrlMain.TabPages.Add(tabOrders);
+                tabctrlMain.TabPages.Add(tabReports);
+                tabctrlMain.TabPages.Add(tabInventory);
+                tabctrlMain.TabPages.Add(tabLoss);
+
+                // Show allowed admin tabs
+                tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
+                tabctrlAdminUsers.TabPages.Add(tabAdminUsersPermissions);
             }
         }
         //
@@ -222,5 +240,6 @@ namespace BullseyeDesktopApp
             ResetPass form = new ResetPass();
             form.ShowDialog();
         }
+
     }
 }

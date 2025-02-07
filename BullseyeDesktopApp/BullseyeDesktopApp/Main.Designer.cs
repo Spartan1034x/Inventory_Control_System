@@ -32,6 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             tabctrlMain = new TabControl();
             tabOrders = new TabPage();
+            button2 = new Button();
+            btnOrdersCreate = new Button();
+            btnOrdersRefresh = new Button();
+            dgvOrders = new DataGridView();
             tabInventory = new TabPage();
             tabLoss = new TabPage();
             tabReports = new TabPage();
@@ -85,6 +89,8 @@
             btnViewAudits = new Button();
             lnkResetPassword = new LinkLabel();
             tabctrlMain.SuspendLayout();
+            tabOrders.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
             tabAdmin.SuspendLayout();
             tabctrlAdminUsers.SuspendLayout();
             tabAdminUsersEmployees.SuspendLayout();
@@ -117,6 +123,10 @@
             // 
             // tabOrders
             // 
+            tabOrders.Controls.Add(button2);
+            tabOrders.Controls.Add(btnOrdersCreate);
+            tabOrders.Controls.Add(btnOrdersRefresh);
+            tabOrders.Controls.Add(dgvOrders);
             tabOrders.Location = new Point(4, 37);
             tabOrders.Name = "tabOrders";
             tabOrders.Padding = new Padding(3);
@@ -124,6 +134,51 @@
             tabOrders.TabIndex = 0;
             tabOrders.Text = "Orders";
             tabOrders.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Bottom;
+            button2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.Location = new Point(706, 462);
+            button2.Name = "button2";
+            button2.Size = new Size(141, 40);
+            button2.TabIndex = 7;
+            button2.Text = "&Refresh";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // btnOrdersCreate
+            // 
+            btnOrdersCreate.Anchor = AnchorStyles.Bottom;
+            btnOrdersCreate.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnOrdersCreate.Location = new Point(495, 462);
+            btnOrdersCreate.Name = "btnOrdersCreate";
+            btnOrdersCreate.Size = new Size(141, 40);
+            btnOrdersCreate.TabIndex = 6;
+            btnOrdersCreate.Text = "&Create Order";
+            btnOrdersCreate.UseVisualStyleBackColor = true;
+            btnOrdersCreate.Click += btnOrdersCreate_Click;
+            // 
+            // btnOrdersRefresh
+            // 
+            btnOrdersRefresh.Anchor = AnchorStyles.Bottom;
+            btnOrdersRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnOrdersRefresh.Location = new Point(19, 462);
+            btnOrdersRefresh.Name = "btnOrdersRefresh";
+            btnOrdersRefresh.Size = new Size(141, 40);
+            btnOrdersRefresh.TabIndex = 5;
+            btnOrdersRefresh.Text = "&Refresh";
+            btnOrdersRefresh.UseVisualStyleBackColor = true;
+            btnOrdersRefresh.Click += btnOrdersRefresh_Click;
+            // 
+            // dgvOrders
+            // 
+            dgvOrders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvOrders.Location = new Point(6, 6);
+            dgvOrders.Name = "dgvOrders";
+            dgvOrders.RowHeadersWidth = 51;
+            dgvOrders.Size = new Size(1220, 409);
+            dgvOrders.TabIndex = 0;
             // 
             // tabInventory
             // 
@@ -703,6 +758,8 @@
             FormClosing += Main_FormClosing;
             Load += Main_Load;
             tabctrlMain.ResumeLayout(false);
+            tabOrders.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
             tabAdmin.ResumeLayout(false);
             tabctrlAdminUsers.ResumeLayout(false);
             tabAdminUsersEmployees.ResumeLayout(false);
@@ -777,5 +834,9 @@
         private DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn activeDataGridViewTextBoxColumn1;
         private LinkLabel lnkResetPassword;
+        private Button btnOrdersRefresh;
+        private DataGridView dgvOrders;
+        private Button button2;
+        private Button btnOrdersCreate;
     }
 }
