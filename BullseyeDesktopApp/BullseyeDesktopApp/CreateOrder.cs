@@ -399,10 +399,10 @@ namespace BullseyeDesktopApp
             MessageBox.Show("Order Placed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
-        
+
         //        CALCULATE DELIVERY DATE
         //
-        //
+        // Receives delivery day, returns date of next delivery for that store
         private DateTime CalculateDeliveryDate(string day)
         {
             // Convert sent date into DayOfWeek object
