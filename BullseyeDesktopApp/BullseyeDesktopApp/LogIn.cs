@@ -60,7 +60,7 @@ namespace BullseyeDesktopApp
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            var user = context.Employees.FirstOrDefault(e => e.Username == username);
+            var user = context.Employees.Include(p => p.Position).Include(s => s.Site).FirstOrDefault(e => e.Username == username);
             StaticHelpers.UserSession.CurrentUser = user;
 
             if (user == null && loginAttemptsRemaining != 0) //USER NOT FOUND

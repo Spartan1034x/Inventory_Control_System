@@ -5,6 +5,23 @@ namespace BullseyeDesktopApp.Models;
 
 public partial class Txn
 {
+    public Txn(int employeeId, int siteIdto, int siteIdfrom, string txnStatus, string txnType, DateTime deliveryDate, string barCode, DateTime createdDate, sbyte? emergencyDelivery, string? notes)
+    {
+        EmployeeId = employeeId;
+        SiteIdto = siteIdto;
+        SiteIdfrom = siteIdfrom;
+        TxnStatus = txnStatus;
+        TxnType = txnType;
+        ShipDate = deliveryDate;
+        BarCode = barCode;
+        CreatedDate = createdDate;
+        EmergencyDelivery = emergencyDelivery;
+        Notes = notes;
+    }
+
+    public Txn() { }
+
+
     public int TxnId { get; set; }
 
     public int EmployeeId { get; set; }
