@@ -14,13 +14,19 @@ namespace BullseyeDesktopApp
 {
     public partial class CreateOrder : Form
     {
-        List<Inventory> inventory; // All inventory
-        List<InventoryDisplay> order; // Order inventory
+        List<Inventory> inventory = new List<Inventory>(); // All inventory
+        List<InventoryDisplay> order = new List<InventoryDisplay>(); // Order inventory
 
 
+        //              FORM LOAD
+        //
+        //
         public CreateOrder()
         {
             InitializeComponent();
+        }
+        private void CreateOrder_Load(object sender, EventArgs e)
+        {
             PopulateLabels();
             ResetOrderList();
         }
@@ -64,6 +70,7 @@ namespace BullseyeDesktopApp
             {
                 e.Handled = true;
             }
+
         }
 
         //           HIDE/SHOW EMERGENCY LBL
@@ -165,6 +172,7 @@ namespace BullseyeDesktopApp
             dgvOrders.Columns["Quantity"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvOrders.Columns["MinimumThreshold"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvOrders.Columns["OptimumThreshold"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvOrders.Columns["CaseSize"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvOrders.Columns["Ordered"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
 
@@ -260,7 +268,7 @@ namespace BullseyeDesktopApp
             // Find matching inventory item, if not found default object created and error shown
             Inventory selectedItem = inventory.FirstOrDefault(i => i.Item.Name.ToLower() == searchText.ToLower()) ?? new Inventory();
 
-            if (selectedItem.ItemId ==0)
+            if (selectedItem.ItemId == 0)
             {
                 MessageBox.Show("Item not found in inventory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -297,5 +305,123 @@ namespace BullseyeDesktopApp
             txtSearch.Clear();
         }
 
+
+        //              HELP BUTTON
+        //
+        //
+        private void picHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("\u2022Use up and down arrows to change order quantity by case size\n\u2022Search and item and press \"Add\" to add to order", "Info");
+        }
+
+
+        //            UP AND DOWN KEY PRESS
+        //
+        //
+        private void dgvOrders_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (dgvOrders.SelectedRows.Count == 0)
+                return;
+
+            InventoryDisplay item = dgvOrders.SelectedRows[0].DataBoundItem as InventoryDisplay ?? new InventoryDisplay();
+
+            if (item.ItemId != 0)
+            {
+                int caseSize = item.CaseSize ?? 0;
+                int quantity = item.Ordered ?? 0;
+
+                if (e.KeyCode == Keys.Up)
+                {
+                    item.Ordered = quantity + caseSize;
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    item.Ordered = Math.Max(0, quantity - caseSize);
+                }
+
+                e.Handled = true;
+                dgvOrders.RefreshEdit();
+            }
+        }
+
+
+        //               SUBMIT ORDER
+        //
+        //
+        async private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Employee user = StaticHelpers.UserSession.CurrentUser ?? new Employee();
+            int siteIDTo = user.SiteId;
+            int siteIDFrom = 2; // Warehouse for now
+            int employeeID = user.EmployeeId;
+            string status = "submitted".ToUpper();
+            DateTime deliveryDate = CalculateDeliveryDate(user.Site.DayOfWeek.ToUpper());
+            string orderType = radRegular.Checked ? "Store Order" : "Emergency Order";
+            sbyte emergencyOrder = (sbyte)(radEmergency.Checked ? 1 : 0);
+            string barCode = "FSDFFSE3342";
+            string notes = txtNotes.Text.Trim(); 
+            DateTime createdDate = DateTime.Now; // CREATED DATE MAYBE GOES HERE!!!!!!!!!!!
+
+            Txn newTxn = new Txn(employeeID, siteIDTo, siteIDFrom, status, orderType, deliveryDate, barCode, createdDate, emergencyOrder, notes);
+
+            // Create Item List and add to txn
+            List<Txnitem> txnItems = new List<Txnitem>();
+
+            foreach (InventoryDisplay item in order)
+            {
+                if (item.Ordered > 0)
+                {
+                    txnItems.Add(new Txnitem()
+                    {
+                        TxnId = 0,
+                        ItemId = item.ItemId,
+                        Quantity = item.Ordered ?? 0
+                    });
+                }
+            }
+
+            // Call DBHelper to send txn, txnItems, and Txn audit
+            string txnResult = await StaticHelpers.DBOperations.TransactionWithAudit(newTxn, txnItems, String.Empty);
+            if (txnResult == "ok")
+            {
+                OrderSuccess();
+            }
+            else
+            {
+                MessageBox.Show(txnResult, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        //
+        //
+        private void OrderSuccess() // Shows success and closes form
+        {
+            MessageBox.Show("Order Placed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+        }
+        
+        //        CALCULATE DELIVERY DATE
+        //
+        //
+        private DateTime CalculateDeliveryDate(string day)
+        {
+            // Convert sent date into DayOfWeek object
+            DayOfWeek deliveryDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day, true);
+
+            DateTime today = DateTime.Today;
+
+            // Days to add to delivery date is delivery day of the week subrtact current day of the week add and mod 7
+            int daysToAdd = ((int)deliveryDay - (int)today.DayOfWeek + 7) % 7;
+
+            DateTime returnDate = today.AddDays(daysToAdd).AddHours(8);
+
+            // If return date is before or today it goess next week
+            if (returnDate <= DateTime.Now)
+            {
+                returnDate = returnDate.AddDays(7);
+            }
+
+            return returnDate;
+        }
     }
 }
