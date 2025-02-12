@@ -1,10 +1,9 @@
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.csproj.AssemblyReference.cache
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.dll
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.exe
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.dll.config
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.deps.json
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.runtimeconfig.json
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.dll
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.pdb
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BCrypt.Net-Next.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Humanizer.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
@@ -12,7 +11,6 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\B
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.CodeAnalysis.CSharp.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.CodeAnalysis.Workspaces.dll
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Design.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Relational.dll
@@ -87,8 +85,12 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\B
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.csproj.AssemblyReference.cache
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.AddEditUser.resources
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.AuditRecords.resources
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.CreateOrder.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Dashboard.resources
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.EditItem.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.LogIn.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Main.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Properties.Resources.resources
@@ -104,7 +106,5 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\B
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\refint\BullseyeDesktopApp.dll
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.pdb
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.genruntimeconfig.cache
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\bin\Debug\net8.0-windows\BullseyeDesktopApp.pdb
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\ref\BullseyeDesktopApp.dll
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.AuditRecords.resources
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.EditItem.resources
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.CreateOrder.resources

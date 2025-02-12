@@ -32,7 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             tabctrlMain = new TabControl();
             tabOrders = new TabPage();
-            button2 = new Button();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            cmbOrdersLocation = new ComboBox();
+            cmbOrdersStatus = new ComboBox();
+            cmbOrdersType = new ComboBox();
+            btnOrdersReceive = new Button();
             btnOrdersCreate = new Button();
             btnOrdersRefresh = new Button();
             dgvOrders = new DataGridView();
@@ -75,6 +81,7 @@
             notesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             activeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             itemBindingSource = new BindingSource(components);
+            bdnOrderType = new BindingSource(components);
             posnBindingSource = new BindingSource(components);
             label3 = new Label();
             label2 = new Label();
@@ -88,6 +95,7 @@
             btnHashAll = new Button();
             btnViewAudits = new Button();
             lnkResetPassword = new LinkLabel();
+            picHelpOrders = new PictureBox();
             tabctrlMain.SuspendLayout();
             tabOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
@@ -102,8 +110,10 @@
             tabAdminItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bdnOrderType).BeginInit();
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picHelpOrders).BeginInit();
             SuspendLayout();
             // 
             // tabctrlMain
@@ -120,10 +130,17 @@
             tabctrlMain.SelectedIndex = 0;
             tabctrlMain.Size = new Size(1240, 581);
             tabctrlMain.TabIndex = 13;
+            tabctrlMain.SelectedIndexChanged += tabctrlMain_SelectedIndexChanged;
             // 
             // tabOrders
             // 
-            tabOrders.Controls.Add(button2);
+            tabOrders.Controls.Add(label8);
+            tabOrders.Controls.Add(label7);
+            tabOrders.Controls.Add(label6);
+            tabOrders.Controls.Add(cmbOrdersLocation);
+            tabOrders.Controls.Add(cmbOrdersStatus);
+            tabOrders.Controls.Add(cmbOrdersType);
+            tabOrders.Controls.Add(btnOrdersReceive);
             tabOrders.Controls.Add(btnOrdersCreate);
             tabOrders.Controls.Add(btnOrdersRefresh);
             tabOrders.Controls.Add(dgvOrders);
@@ -135,22 +152,84 @@
             tabOrders.Text = "Orders";
             tabOrders.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // label8
             // 
-            button2.Anchor = AnchorStyles.Bottom;
-            button2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(706, 462);
-            button2.Name = "button2";
-            button2.Size = new Size(141, 40);
-            button2.TabIndex = 7;
-            button2.Text = "&Refresh";
-            button2.UseVisualStyleBackColor = true;
+            label8.Anchor = AnchorStyles.Bottom;
+            label8.AutoSize = true;
+            label8.Location = new Point(848, 426);
+            label8.Name = "label8";
+            label8.Size = new Size(113, 28);
+            label8.TabIndex = 13;
+            label8.Text = "Order Type:";
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Bottom;
+            label7.AutoSize = true;
+            label7.Location = new Point(1064, 426);
+            label7.Name = "label7";
+            label7.Size = new Size(125, 28);
+            label7.TabIndex = 12;
+            label7.Text = "Order Status:";
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Bottom;
+            label6.AutoSize = true;
+            label6.Location = new Point(624, 426);
+            label6.Name = "label6";
+            label6.Size = new Size(116, 28);
+            label6.TabIndex = 11;
+            label6.Text = "Location To:";
+            // 
+            // cmbOrdersLocation
+            // 
+            cmbOrdersLocation.Anchor = AnchorStyles.Bottom;
+            cmbOrdersLocation.FormattingEnabled = true;
+            cmbOrdersLocation.Location = new Point(583, 464);
+            cmbOrdersLocation.Name = "cmbOrdersLocation";
+            cmbOrdersLocation.Size = new Size(199, 36);
+            cmbOrdersLocation.TabIndex = 10;
+            cmbOrdersLocation.SelectedIndexChanged += cmbOrdersLocation_SelectedIndexChanged;
+            // 
+            // cmbOrdersStatus
+            // 
+            cmbOrdersStatus.Anchor = AnchorStyles.Bottom;
+            cmbOrdersStatus.FormattingEnabled = true;
+            cmbOrdersStatus.Location = new Point(1027, 464);
+            cmbOrdersStatus.Name = "cmbOrdersStatus";
+            cmbOrdersStatus.Size = new Size(199, 36);
+            cmbOrdersStatus.TabIndex = 9;
+            cmbOrdersStatus.SelectedIndexChanged += cmbOrdersStatus_SelectedIndexChanged;
+            // 
+            // cmbOrdersType
+            // 
+            cmbOrdersType.Anchor = AnchorStyles.Bottom;
+            cmbOrdersType.FormattingEnabled = true;
+            cmbOrdersType.Location = new Point(805, 464);
+            cmbOrdersType.Name = "cmbOrdersType";
+            cmbOrdersType.Size = new Size(199, 36);
+            cmbOrdersType.TabIndex = 8;
+            cmbOrdersType.SelectedIndexChanged += cmbOrdersType_SelectedIndexChanged;
+            // 
+            // btnOrdersReceive
+            // 
+            btnOrdersReceive.Anchor = AnchorStyles.Bottom;
+            btnOrdersReceive.Enabled = false;
+            btnOrdersReceive.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnOrdersReceive.Location = new Point(371, 462);
+            btnOrdersReceive.Name = "btnOrdersReceive";
+            btnOrdersReceive.Size = new Size(141, 40);
+            btnOrdersReceive.TabIndex = 7;
+            btnOrdersReceive.Text = "&Receive Order";
+            btnOrdersReceive.UseVisualStyleBackColor = true;
             // 
             // btnOrdersCreate
             // 
             btnOrdersCreate.Anchor = AnchorStyles.Bottom;
+            btnOrdersCreate.Enabled = false;
             btnOrdersCreate.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOrdersCreate.Location = new Point(495, 462);
+            btnOrdersCreate.Location = new Point(195, 462);
             btnOrdersCreate.Name = "btnOrdersCreate";
             btnOrdersCreate.Size = new Size(141, 40);
             btnOrdersCreate.TabIndex = 6;
@@ -179,6 +258,7 @@
             dgvOrders.RowHeadersWidth = 51;
             dgvOrders.Size = new Size(1220, 409);
             dgvOrders.TabIndex = 0;
+            dgvOrders.ColumnHeaderMouseClick += dgvOrders_ColumnHeaderMouseClick;
             // 
             // tabInventory
             // 
@@ -599,6 +679,10 @@
             // 
             itemBindingSource.DataSource = typeof(Models.Item);
             // 
+            // bdnOrderType
+            // 
+            bdnOrderType.DataSource = typeof(Models.Txntype);
+            // 
             // posnBindingSource
             // 
             posnBindingSource.DataSource = typeof(Models.Posn);
@@ -732,11 +816,26 @@
             lnkResetPassword.Text = "Reset Password";
             lnkResetPassword.LinkClicked += lnkResetPassword_LinkClicked;
             // 
+            // picHelpOrders
+            // 
+            picHelpOrders.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            picHelpOrders.Cursor = Cursors.Hand;
+            picHelpOrders.Image = (Image)resources.GetObject("picHelpOrders.Image");
+            picHelpOrders.Location = new Point(1242, 99);
+            picHelpOrders.Name = "picHelpOrders";
+            picHelpOrders.Size = new Size(29, 29);
+            picHelpOrders.SizeMode = PictureBoxSizeMode.Zoom;
+            picHelpOrders.TabIndex = 37;
+            picHelpOrders.TabStop = false;
+            picHelpOrders.Visible = false;
+            picHelpOrders.Click += picHelpOrders_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 803);
+            Controls.Add(picHelpOrders);
             Controls.Add(lnkResetPassword);
             Controls.Add(btnViewAudits);
             Controls.Add(btnHashAll);
@@ -759,6 +858,7 @@
             Load += Main_Load;
             tabctrlMain.ResumeLayout(false);
             tabOrders.ResumeLayout(false);
+            tabOrders.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
             tabAdmin.ResumeLayout(false);
             tabctrlAdminUsers.ResumeLayout(false);
@@ -772,8 +872,10 @@
             tabAdminItems.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bdnOrderType).EndInit();
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picHelpOrders).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -836,7 +938,15 @@
         private LinkLabel lnkResetPassword;
         private Button btnOrdersRefresh;
         private DataGridView dgvOrders;
-        private Button button2;
+        private Button btnOrdersReceive;
         private Button btnOrdersCreate;
+        private ComboBox cmbOrdersStatus;
+        private ComboBox cmbOrdersType;
+        private BindingSource bdnOrderType;
+        private ComboBox cmbOrdersLocation;
+        private Label label6;
+        private Label label8;
+        private Label label7;
+        private PictureBox picHelpOrders;
     }
 }

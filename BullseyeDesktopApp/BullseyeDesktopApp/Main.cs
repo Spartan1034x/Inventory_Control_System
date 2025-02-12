@@ -12,6 +12,7 @@ using System.Timers;
 using MySqlConnector;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+using BullseyeDesktopApp.StaticHelpers;
 
 namespace BullseyeDesktopApp
 {
@@ -32,15 +33,21 @@ namespace BullseyeDesktopApp
             StartConnectionMonitor();
             UpdateConnectionStatus();
             MonitorActivity();
-            HideAllTabs(tabctrlMain); // Hides all main tabs
+            //HideAllTabs(tabctrlMain); // Hides all main tabs
             HideAllTabs(tabctrlAdminUsers); // Hides all admin tabs
             ShowTabs();
             PopulateLabels();
             FormatDGVs();
+
+            // If user is a warehouse manager start the timer for order notis
+            if (UserSession.CurrentUser.PositionId == 3)
+            {
+                DBOperations.StartOrderNotificationTimer();
+            }
         }
 
 
-        //          FORMAT DGVs
+        //                FORMAT DGVs
         //
         //
         private void FormatDGVs()
@@ -53,7 +60,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //           SHOW TABS
+        //                 SHOW TABS
         //
         // Shows tabs depending on users permissions
         private void ShowTabs()
@@ -69,45 +76,73 @@ namespace BullseyeDesktopApp
             // ADMIN
             if (permissionLevel == 9999)
             {
-                //Add all tabs
-                tabctrlMain.TabPages.Add(tabAdmin);
-                tabctrlMain.TabPages.Add(tabOrders);
-                tabctrlMain.TabPages.Add(tabReports);
-                tabctrlMain.TabPages.Add(tabInventory);
-                tabctrlMain.TabPages.Add(tabLoss);
-
                 // Add employee and permission tab if admin
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersPermissions);
+                tabctrlAdminUsers.TabPages.Add(tabAdminItems);
 
-                // Manually resize form for splash admin page and call populate first dgv
-                ResizeEmployeeTab();
-                RefreshEmployeesDGV();
+                // Enabled Create Order/Receive Order Button
+                btnOrdersCreate.Enabled = true;
+                btnOrdersReceive.Enabled = true;
+
             }
-            // WAREHOUSE MANAGER
-            else if (permissionLevel == 3)
+            // REGIONAL MANAGER
+            else if (permissionLevel == 1)
             {
-                // Add tabs for main control
-                tabctrlMain.TabPages.Add(tabAdmin);
+                // Remove required tabs
+
+                // Show allowed Admin tabs
+                tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
+                tabctrlAdminUsers.TabPages.Add(tabAdminItems);
+
+            }
+            // FINICIAL MANAGER
+            else if (permissionLevel == 2)
+            {
+                // Remove required tabs
 
                 // Show allowed Admin tabs
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
             }
+            // WAREHOUSE MANAGER
+            else if (permissionLevel == 3)
+            {
+                // Remove required tabs
+
+                // Show allowed Admin tabs
+                tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
+                tabctrlAdminUsers.TabPages.Add(tabAdminItems);
+
+                // Enabled Create Order/Receive Order Button
+                btnOrdersCreate.Enabled = true;
+                btnOrdersReceive.Enabled = true;
+            }
             // STORE MANAGER
             else if (permissionLevel == 4)
             {
-                //Add all tabs
-                tabctrlMain.TabPages.Add(tabAdmin);
-                tabctrlMain.TabPages.Add(tabOrders);
-                tabctrlMain.TabPages.Add(tabReports);
-                tabctrlMain.TabPages.Add(tabInventory);
-                tabctrlMain.TabPages.Add(tabLoss);
+                // Remove required tabs
 
                 // Show allowed admin tabs
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
-                tabctrlAdminUsers.TabPages.Add(tabAdminUsersPermissions);
+
+                // Enabled Create Order Button
+                btnOrdersCreate.Enabled = true;
             }
+            // WAREHOUSE WORKER
+            else if (permissionLevel == 5)
+            {
+                // Remove required tabs
+                tabctrlMain.TabPages.Remove(tabReports);
+
+                // Show allowed admin tabs
+                tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
+            }
+
+            // Manually resize form for splash admin page and call populate first dgv
+            tabctrlMain.SelectedTab = tabAdmin;
+            ResizeEmployeeTab();
+            RefreshEmployeesDGV();
         }
         //
         // Hides all Tabs
@@ -121,7 +156,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //           POPULATE LABELS
+        //                  POPULATE LABELS
         //
         // Populates labels with user data from static class
         private void PopulateLabels()
@@ -135,7 +170,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //           LOGOUT TIMER
+        //                   LOGOUT TIMER
         //
         // Starts 20 minute timer then logs user out changebale in future
         private void InitializeLogoutTimer()
@@ -165,7 +200,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //             DB CONNECTION MONITOR
+        //                 DB CONNECTION MONITOR
         //
         // Timer that calls update conn status method for every tick of the dbTimer, every 30 seconds
         private void StartConnectionMonitor()
@@ -201,19 +236,22 @@ namespace BullseyeDesktopApp
         }
 
 
-        //             FORM CLOSING
+        //                 FORM CLOSING
         //
         // Calls logout so final clean up and logout is complete when form is closing
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Stop Timers on logout
             activityTimer.Stop();
             dbTimer.Stop();
+            StaticHelpers.DBOperations.StopOrderTimer();
+
             LogIn form = new LogIn();
             form.Show();
         }
 
 
-        //            EXIT BUTTON
+        //                   EXIT BUTTON
         //
         // Closes form
         private void btnExit_Click(object sender, EventArgs e)
@@ -222,7 +260,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //          AUDITS BUTTON
+        //                  AUDITS BUTTON
         //
         //
         private void btnViewAudits_Click(object sender, EventArgs e)
@@ -232,7 +270,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //          RESET PASSWORD LINK
+        //                 RESET PASSWORD LINK
         //
         //
         private void lnkResetPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -241,5 +279,27 @@ namespace BullseyeDesktopApp
             form.ShowDialog();
         }
 
+
+        //              TAB MAIN SELECTION CHANGED
+        //
+        // Resizes form if admin tab is selected or not, Populates DGVs on first selection of tab, shows hides help buttons
+        private void tabctrlMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selection = tabctrlMain.SelectedTab;
+
+            // Show hide help buttons based on tab selection
+            picHelpOrders.Visible = selection == tabOrders;
+
+            // Resizes form is tab main is selected            
+            this.Size = (selection == tabAdmin) ? new Size(1550, 850) : new Size(1350, 850);
+            if (selection == tabAdmin)
+                ResizeEmployeeTab();
+
+            if (selection == tabOrders && defaultLoad)
+            {
+                PopulateCmbs();
+                RefreshOrders();
+            }
+        }
     }
 }

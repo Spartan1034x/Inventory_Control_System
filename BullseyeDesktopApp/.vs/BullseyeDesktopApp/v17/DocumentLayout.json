@@ -3,56 +3,20 @@
   "WorkspaceRootPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{81E53419-FC97-4DC0-9D06-2B99D4599E5C}|TestProject\\TestProject.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\testproject\\unittests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{81E53419-FC97-4DC0-9D06-2B99D4599E5C}|TestProject\\TestProject.csproj|solutionrelative:testproject\\unittests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\main.orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\main.orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\testablemethods\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\testablemethods\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\createorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\createorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\statichelpers\\usersession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\statichelpers\\usersession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\models\\txn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\models\\txn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\statichelpers\\dboperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\statichelpers\\dboperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\models\\txnitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\models\\txnitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\bullseyedesktopapp\\createorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\createorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\main.orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\main.orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|c:\\0 - programming\\projects\\idsp\\isdp2025_gregory_keirstead\\bullseyedesktopapp\\bullseyedesktopapp\\models\\orderdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08EA58DB-928B-4DD8-B684-AC4664AB46A2}|BullseyeDesktopApp\\BullseyeDesktopApp.csproj|solutionrelative:bullseyedesktopapp\\models\\orderdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -73,166 +37,55 @@
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Tests.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\TestableMethods\\Tests.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\TestableMethods\\Tests.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\TestableMethods\\Tests.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\TestableMethods\\Tests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "OrderDisplay.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Models\\OrderDisplay.cs",
+              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Models\\OrderDisplay.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Models\\OrderDisplay.cs",
+              "RelativeToolTip": "BullseyeDesktopApp\\Models\\OrderDisplay.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T22:49:46.238Z",
+              "WhenOpened": "2025-02-12T21:15:55.629Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UnitTests.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\TestProject\\UnitTests.cs",
-              "RelativeDocumentMoniker": "TestProject\\UnitTests.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\TestProject\\UnitTests.cs",
-              "RelativeToolTip": "TestProject\\UnitTests.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwC8AAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T22:35:18.89Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DBOperations.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\StaticHelpers\\DBOperations.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\StaticHelpers\\DBOperations.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\StaticHelpers\\DBOperations.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\StaticHelpers\\DBOperations.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAqwE0AAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T21:45:39.907Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Txn.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Models\\Txn.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Models\\Txn.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Models\\Txn.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\Models\\Txn.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T20:52:49.365Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Txnitem.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Models\\Txnitem.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Models\\Txnitem.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Models\\Txnitem.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\Models\\Txnitem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T20:55:18.523Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "CreateOrder.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\CreateOrder.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\CreateOrder.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\CreateOrder.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\CreateOrder.cs",
-              "ViewState": "AgIAAIQBAAAAAAAAAAAAAJQBAAALAAAAAAAAAA==",
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs",
+              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Main.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs",
+              "RelativeToolTip": "BullseyeDesktopApp\\Main.cs",
+              "ViewState": "AgIAABoBAAAAAAAAAAAAwC4BAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T16:23:20.245Z",
+              "WhenOpened": "2025-02-12T17:34:01.73Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "LogIn.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\LogIn.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\LogIn.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\LogIn.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\LogIn.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAgwD4AAABVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T20:34:41.517Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Employee.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Models\\Employee.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Models\\Employee.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Models\\Employee.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\Models\\Employee.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAA5wAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T20:35:12.29Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserSession.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\StaticHelpers\\UserSession.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\StaticHelpers\\UserSession.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\StaticHelpers\\UserSession.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\StaticHelpers\\UserSession.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T20:34:11.068Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "CreateOrder.cs [Design]",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\CreateOrder.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\CreateOrder.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\CreateOrder.cs [Design]",
-              "RelativeToolTip": "BullseyeDesktopApp\\CreateOrder.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T16:06:38.04Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Main.Orders.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.Orders.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Main.Orders.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.Orders.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\Main.Orders.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T15:59:22.582Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 1,
               "Title": "Main.cs [Design]",
               "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs",
               "RelativeDocumentMoniker": "BullseyeDesktopApp\\Main.cs",
               "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs [Design]",
               "RelativeToolTip": "BullseyeDesktopApp\\Main.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-05T13:35:34.606Z"
+              "WhenOpened": "2025-02-12T13:54:49.571Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Main.cs",
-              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs",
-              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Main.cs",
-              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.cs",
-              "RelativeToolTip": "BullseyeDesktopApp\\Main.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAIwFcAAAATAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Main.Orders.cs",
+              "DocumentMoniker": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.Orders.cs",
+              "RelativeDocumentMoniker": "BullseyeDesktopApp\\Main.Orders.cs",
+              "ToolTip": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\Main.Orders.cs",
+              "RelativeToolTip": "BullseyeDesktopApp\\Main.Orders.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAABhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-02T19:38:53.925Z"
+              "WhenOpened": "2025-02-12T13:36:13.564Z",
+              "EditorCaption": ""
             }
           ]
         }

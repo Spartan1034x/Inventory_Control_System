@@ -105,7 +105,7 @@
             txtUsername.PlaceholderText = "jsmith";
             txtUsername.Size = new Size(465, 47);
             txtUsername.TabIndex = 0;
-            txtUsername.Text = "admin";
+            txtUsername.Text = "aadmin";
             // 
             // txtPassword
             // 

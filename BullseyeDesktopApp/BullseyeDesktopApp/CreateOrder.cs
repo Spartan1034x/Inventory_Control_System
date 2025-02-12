@@ -29,6 +29,23 @@ namespace BullseyeDesktopApp
         {
             PopulateLabels();
             ResetOrderList();
+            CheckPastOrders();
+        }
+
+        //             CHECK PAST ORDERS
+        //
+        //
+        private void CheckPastOrders()
+        {
+            if (StaticHelpers.UserSession.CurrentUser.PositionId != 9999)
+            {
+                // If user cannot submit another standard order
+                if (!StaticHelpers.DBOperations.CanSubmitOrder(StaticHelpers.UserSession.CurrentUser.SiteId))
+                {
+                    radEmergency.Checked = true;
+                    radRegular.Enabled = false;
+                }
+            }
         }
 
         //             SEARCH AUTOFILL
@@ -55,7 +72,7 @@ namespace BullseyeDesktopApp
         //
         private void dgvOrders_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if (dgvOrders.CurrentCell.ColumnIndex == 4 && e.Control is TextBox textBox)
+            if (dgvOrders.CurrentCell.OwningColumn.Name == "Ordered" && e.Control is TextBox textBox)
             {
                 textBox.KeyPress -= CheckInput;
                 textBox.KeyPress += CheckInput;
@@ -65,21 +82,34 @@ namespace BullseyeDesktopApp
         //
         private void CheckInput(object sender, KeyPressEventArgs e)
         {
-            // Only allow numbers and backspace
+            // Allow only numbers and backspace
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+                return;
             }
 
         }
 
-        //           HIDE/SHOW EMERGENCY LBL
+
+        //           RAD EMERGENCY CHECKED
         //
         //
         private void radEmergency_CheckedChanged(object sender, EventArgs e)
         {
+            // Hide/Show Label
             lblEmergency.Visible = radEmergency.Checked;
             lblStandard.Visible = !radEmergency.Checked;
+
+            // Limit line items to 5
+            if (radEmergency.Checked)
+            {
+                if (order.Count > 5)
+                    MessageBox.Show("Max 5 items for emergency order your list will be shortened to 5", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                order = order.Take(5).ToList();
+                FormatAndAttachBindingSource();
+            }
         }
 
 
@@ -162,7 +192,9 @@ namespace BullseyeDesktopApp
         {
             dgvOrders.DataSource = null;
             BindingSource bs = new BindingSource();
+
             bs.DataSource = order;
+
             dgvOrders.DataSource = bs;
 
             dgvOrders.ReadOnly = false;
@@ -183,14 +215,16 @@ namespace BullseyeDesktopApp
             // Only allow editing of ordered column 
             foreach (DataGridViewColumn column in dgvOrders.Columns)
             {
-                if (column.Name != "Ordered")
-                {
-                    column.ReadOnly = true;
-                }
-                else
-                {
-                    column.ReadOnly = false;
-                }
+                column.ReadOnly = true;
+
+                //if (column.Name != "Ordered")
+                //{
+                //    column.ReadOnly = true;
+                //}
+                //else
+                //{
+                //    column.ReadOnly = false;
+                //}
             }
         }
 
@@ -220,7 +254,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //            EXIT BUTTON
+        //               EXIT BUTTON
         //
         //
         private void btnExit_Click(object sender, EventArgs e)
@@ -229,7 +263,7 @@ namespace BullseyeDesktopApp
         }
 
 
-        //          REMOVE BUTTON
+        //               REMOVE BUTTON
         //
         //
         private void btnRemove_Click(object sender, EventArgs e)
@@ -298,6 +332,12 @@ namespace BullseyeDesktopApp
             }
 
             // Add item and refresh dgv
+            if (radEmergency.Checked && order.Count >= 5)
+            {
+                MessageBox.Show("Emergency orders are limited to 5 line items", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             order.Add(displayItem);
 
             FormatAndAttachBindingSource();
@@ -350,7 +390,19 @@ namespace BullseyeDesktopApp
         //
         //
         async private void btnSubmit_Click(object sender, EventArgs e)
-        {
+        {   // Does not submit if empty order
+            if (order.Count == 0)
+            {
+                MessageBox.Show("Order is empty. Please add items before submitting.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            // Do not submit if emergency order and over 5 items
+            if (order.Count > 5 && radEmergency.Checked)
+            {
+                MessageBox.Show("Max 5 items for Emergency Order", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             Employee user = StaticHelpers.UserSession.CurrentUser ?? new Employee();
             int siteIDTo = user.SiteId;
             int siteIDFrom = 2; // Warehouse for now
@@ -360,7 +412,7 @@ namespace BullseyeDesktopApp
             string orderType = radRegular.Checked ? "Store Order" : "Emergency Order";
             sbyte emergencyOrder = (sbyte)(radEmergency.Checked ? 1 : 0);
             string barCode = "FSDFFSE3342";
-            string notes = txtNotes.Text.Trim(); 
+            string notes = txtNotes.Text.Trim();
             DateTime createdDate = DateTime.Now; // CREATED DATE MAYBE GOES HERE!!!!!!!!!!!
 
             Txn newTxn = new Txn(employeeID, siteIDTo, siteIDFrom, status, orderType, deliveryDate, barCode, createdDate, emergencyOrder, notes);
@@ -399,6 +451,7 @@ namespace BullseyeDesktopApp
             MessageBox.Show("Order Placed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
+
 
         //        CALCULATE DELIVERY DATE
         //

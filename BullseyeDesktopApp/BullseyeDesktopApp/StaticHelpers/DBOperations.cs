@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
+using Timer = System.Windows.Forms.Timer;
+
 
 namespace BullseyeDesktopApp.StaticHelpers
 {
@@ -108,6 +111,77 @@ namespace BullseyeDesktopApp.StaticHelpers
                 }
             }
             
+        }
+
+
+        //                CAN SUBMIT STORE ORDER
+        //
+        //
+        public static bool CanSubmitOrder(int storeID)
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    // Gets current date and subracts however many days since sunday to get start of current week (Sunday)
+                    var startOfCurrentWeek = DateTime.UtcNow.Date.AddDays(-(int)DateTime.UtcNow.DayOfWeek);
+
+                    // Searches if a site has placed an order after the current sunday so this week already, returns true if one has been placed then ! returns false (Cannot another submit order)
+                    return !context.Txns.Any(o => o.SiteIdto == storeID && o.CreatedDate >= startOfCurrentWeek && o.EmergencyDelivery == 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+                return true;
+            }    
+        }
+
+
+        //              ORDER NOTIFICATION
+        //
+        //
+        private static System.Windows.Forms.Timer orderTimer = new();
+        private static DateTime lastChecked = DateTime.Now;
+
+        //
+        // Starts and sets timer to check for new orders every 5 min to reduce db queries
+        public static void StartOrderNotificationTimer()
+        {
+            orderTimer.Interval = (int)TimeSpan.FromMinutes(5).TotalMilliseconds;
+            orderTimer.Tick += CheckForNewOrders;
+            orderTimer.Start();
+        }
+
+        //
+        // Stops timer, called when main form closes
+        public static void StopOrderTimer()
+        {
+            orderTimer.Stop();
+        }
+
+        //
+        // Querys the database to find Submitted orders that are between last checked time and now, notfies if any ordrs have been placed
+        private static void CheckForNewOrders(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    List<Txn> newTxns = context.Txns.Where(t => t.TxnStatus.ToUpper() == "SUBMITTED" && t.CreatedDate > lastChecked).ToList();
+
+                    // If any new orders have been submitted then display a messagebox and reset checked time
+                    if (newTxns.Count > 0)
+                    {
+                        MessageBox.Show($"{newTxns.Count} new order have been placed", "New Orders", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        lastChecked = DateTime.Now;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
 using NUnit.Framework;
 using BullseyeDesktopApp;
+using BullseyeDesktopApp.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Windows.Forms;
 
 namespace TestProject
 {
@@ -7,21 +10,29 @@ namespace TestProject
     public class Tests
     {
         BullseyeDesktopApp.Tests tests;
-
+       // BullseyeContext context;
 
         [SetUp]
         public void Setup()
         {
             tests = new BullseyeDesktopApp.Tests();
+            //context = new BullseyeDesktopApp.Models.BullseyeContext();
         }
+
+        /*
+        [TearDown]
+        public void Tearddown()
+        {
+            context.Dispose();
+        } */
 
         //           DELIVERY DATE TESTS
         //
-        //
+        // NON SPECIFIC DATE TESTS
         [TestCase("Tuesday")]
         [TestCase("Monday")]
         [TestCase("Sunday")]
-        public void DeliveryDate_Invariants_Test(string day)
+        public void NonSpecificDate(string day)
         {
             // Arrange
             DateTime currentTime = DateTime.Now;
@@ -41,12 +52,13 @@ namespace TestProject
             Assert.That(returnedDate.Minute, Is.EqualTo(0), "The delivery date minute should be 0.");
             Assert.That(returnedDate.Second, Is.EqualTo(0), "The delivery date second should be 0.");
         }
-        //
-        //
+
+        //                 
+        // EXACT DATE TESTS **** Date will have to change in future to pass
         [TestCase("Tuesday", "2025-02-11T08:00:00")]
         [TestCase("Monday", "2025-02-17T08:00:00")]
         [TestCase("Sunday", "2025-02-16T08:00:00")] 
-        public void CalculateDeliveryDate_ShouldReturnExactDate(string day, string expectedStr)
+        public void ExactDate(string day, string expectedStr)
         {
             // Arrange
             DateTime expected = DateTime.Parse(expectedStr);
@@ -57,5 +69,24 @@ namespace TestProject
             // Assert
             Assert.That(result, Is.EqualTo(expected));
         }
+
+
+        //               CAN SUBMIT ORDERE TESTS
+        //               
+        //
+        /*
+        [TestCase(1, false)]
+        [TestCase(4, true)]
+        public void CanSubmit(int storeID, bool expectedRes)
+        {
+
+            var result = BullseyeDesktopApp.StaticHelpers.DBOperations.CanSubmitOrder(storeID);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedRes));
+
+        } */
+
+
     }
 }
