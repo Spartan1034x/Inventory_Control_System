@@ -28,6 +28,9 @@
     <Compile Update="Main.Orders.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ReceiveOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ResetPass.cs">
       <SubType>Form</SubType>
     </Compile>

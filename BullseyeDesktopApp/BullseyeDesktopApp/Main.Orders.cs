@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BullseyeDesktopApp.Models;
 using Microsoft.EntityFrameworkCore;
 using BullseyeDesktopApp.StaticHelpers;
+using BullseyeDesktopApp.Models.DisplayObjects;
 
 namespace BullseyeDesktopApp
 {
@@ -15,6 +16,69 @@ namespace BullseyeDesktopApp
 
         List<Txn> orders;
         bool defaultLoad = true;
+
+
+        //            FORMAT WEIGHT CELL
+        //
+        //
+        private void dgvOrders_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvOrders.Columns[e.ColumnIndex].Name == "Weight" && e.Value is decimal weight)
+            {
+                e.Value = $"{weight} kgs";
+                e.FormattingApplied = true;
+            }
+        }
+
+        //            DGV ORDERS SELECTION CHANGED
+        //
+        //
+        private void dgvOrders_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvOrders.SelectedRows.Count > 0)
+            {
+                string status = dgvOrders.SelectedRows[0].Cells["Status"].Value.ToString() ?? "";
+                string type = dgvOrders.SelectedRows[0].Cells["Type"].Value.ToString() ?? "";
+
+                btnOrdersReceive.Enabled = status == "SUBMITTED";
+            }
+        }
+
+
+        //             RECEIVE ORDER BUTTON
+        //
+        //
+        private void btnOrdersReceive_Click(object sender, EventArgs e)
+        {
+            if (dgvOrders.SelectedRows.Count > 0)
+            {
+                // Get selected order Txn type
+                var selection = orders.Where(o => o.TxnId == (int)dgvOrders.SelectedRows[0].Cells[0].Value).FirstOrDefault();
+
+                // If it is not null and is of status SUBMITTED then open receive page
+                if (selection != null && selection.TxnStatus == "submitted".ToUpper())
+                {
+                    // Set selected order to Static order var
+                    UserSession.SelectedOrder = selection;
+
+                    // If order set open receive order page
+                    if (UserSession.SelectedOrder != null)
+                    {
+                        ReceiveOrder frm = new ReceiveOrder();
+                        frm.ShowDialog();
+                        UserSession.SelectedOrder = null; // Resets selected order
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected Order is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else // If not a submitted order display warning
+                    MessageBox.Show("Order must be of status \"SUBMITTED\" to be Received", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+                MessageBox.Show("Please select an order to receive it", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
 
         //             HELP BUTTON
@@ -108,6 +172,22 @@ namespace BullseyeDesktopApp
                 else
                     sorted = orderDisplayList.OrderBy(o => DateTime.ParseExact(o.DeliveryDate, "yyyy/MM/dd", null)).ToList();
             }
+            else if (columnName == "OrderID")
+            {
+                if (sortDescending)
+                    sorted = orderDisplayList.OrderByDescending(o => o.OrderID).ToList();
+                else
+                    sorted = orderDisplayList.OrderBy(o => o.OrderID).ToList();
+            }
+            else if (columnName == "Type")
+            {
+                if (sortDescending)
+                    sorted = orderDisplayList.OrderByDescending(o => o.Type).ToList();
+                else
+                    sorted = orderDisplayList.OrderBy(o => o.Type).ToList();
+            }
+
+
 
             dgvOrders.DataSource = new BindingSource() { DataSource = sorted };
         }
@@ -187,7 +267,7 @@ namespace BullseyeDesktopApp
 
         //            REFRESH ORDERS
         //
-        //
+        // Default load loads user locations and submitted orders, else it refreshes users selected criteria
         private void RefreshOrders()
         {
             try
@@ -195,7 +275,7 @@ namespace BullseyeDesktopApp
                 using (var context = new BullseyeContext())
                 {
                     // Gets all orders with location, item list, and approritate item
-                    orders = context.Txns.Include(o => o.SiteIdtoNavigation).Include(o=>o.Txnitems).ThenInclude(i=>i.Item).ToList();
+                    orders = context.Txns.Include(o => o.SiteIdtoNavigation).Include(o=>o.Txnitems).ThenInclude(i=>i.Item).ToList(); // ORDERS SET HERE
 
                     // Set to defaults if first Refresh, Non warehouse managers see there location first by default
                     if (defaultLoad && UserSession.CurrentUser.PositionId != 3)
@@ -263,8 +343,10 @@ namespace BullseyeDesktopApp
             foreach (Txn o in orders)
             {
                 // Required variables for display object from txn list sent in
+                int id = o.TxnId;
                 string loc = o.SiteIdtoNavigation.SiteName ?? "Unknown";
                 string status = o.TxnStatus ?? "Unknown";
+                string type = o.EmergencyDelivery == 1 ? "Emergency" : "Standard";
                 List<Txnitem> items = (List<Txnitem>)o.Txnitems;
                 string deliveryDate = o.ShipDate.ToString("yyyy/MM/dd");
 
@@ -278,7 +360,7 @@ namespace BullseyeDesktopApp
                 }
 
                 // Add line item to display list
-                orderDisplay.Add(new OrderDisplay() { Location = loc, Status = status, Items = itemQuantity, DeliveryDate = deliveryDate, Weight = weight });
+                orderDisplay.Add(new OrderDisplay() {OrderID = id, Location = loc, Status = status, Type = type, Items = itemQuantity, DeliveryDate = deliveryDate, Weight = weight });
             }
 
             return orderDisplay;

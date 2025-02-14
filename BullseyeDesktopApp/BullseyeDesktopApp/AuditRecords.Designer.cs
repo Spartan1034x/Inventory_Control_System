@@ -33,6 +33,11 @@
             picLogo = new PictureBox();
             label1 = new Label();
             dataGridView1 = new DataGridView();
+            TxnAuditId = new DataGridViewTextBoxColumn();
+            TxnId = new DataGridViewTextBoxColumn();
+            txnTypeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            statusDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            txnDateDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             txnauditBindingSource = new BindingSource(components);
             btnExit = new Button();
             label2 = new Label();
@@ -55,11 +60,6 @@
             lblEmployeeID = new Label();
             lblTxnID = new Label();
             lblTxnAuditID = new Label();
-            TxnAuditId = new DataGridViewTextBoxColumn();
-            TxnId = new DataGridViewTextBoxColumn();
-            txnTypeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            statusDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            txnDateDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txnauditBindingSource).BeginInit();
@@ -103,6 +103,46 @@
             dataGridView1.Size = new Size(821, 560);
             dataGridView1.TabIndex = 3;
             dataGridView1.CellMouseClick += dataGridView1_CellMouseClick;
+            // 
+            // TxnAuditId
+            // 
+            TxnAuditId.DataPropertyName = "TxnAuditId";
+            TxnAuditId.HeaderText = "TxnAuditId";
+            TxnAuditId.MinimumWidth = 6;
+            TxnAuditId.Name = "TxnAuditId";
+            TxnAuditId.ReadOnly = true;
+            // 
+            // TxnId
+            // 
+            TxnId.DataPropertyName = "TxnId";
+            TxnId.HeaderText = "TxnId";
+            TxnId.MinimumWidth = 6;
+            TxnId.Name = "TxnId";
+            TxnId.ReadOnly = true;
+            // 
+            // txnTypeDataGridViewTextBoxColumn
+            // 
+            txnTypeDataGridViewTextBoxColumn.DataPropertyName = "TxnType";
+            txnTypeDataGridViewTextBoxColumn.HeaderText = "TxnType";
+            txnTypeDataGridViewTextBoxColumn.MinimumWidth = 6;
+            txnTypeDataGridViewTextBoxColumn.Name = "txnTypeDataGridViewTextBoxColumn";
+            txnTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            statusDataGridViewTextBoxColumn.HeaderText = "Status";
+            statusDataGridViewTextBoxColumn.MinimumWidth = 6;
+            statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            statusDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // txnDateDataGridViewTextBoxColumn
+            // 
+            txnDateDataGridViewTextBoxColumn.DataPropertyName = "TxnDate";
+            txnDateDataGridViewTextBoxColumn.HeaderText = "TxnDate";
+            txnDateDataGridViewTextBoxColumn.MinimumWidth = 6;
+            txnDateDataGridViewTextBoxColumn.Name = "txnDateDataGridViewTextBoxColumn";
+            txnDateDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // txnauditBindingSource
             // 
@@ -309,46 +349,6 @@
             lblTxnAuditID.TabIndex = 36;
             lblTxnAuditID.Text = "data";
             // 
-            // TxnAuditId
-            // 
-            TxnAuditId.DataPropertyName = "TxnAuditId";
-            TxnAuditId.HeaderText = "TxnAuditId";
-            TxnAuditId.MinimumWidth = 6;
-            TxnAuditId.Name = "TxnAuditId";
-            TxnAuditId.ReadOnly = true;
-            // 
-            // TxnId
-            // 
-            TxnId.DataPropertyName = "TxnId";
-            TxnId.HeaderText = "TxnId";
-            TxnId.MinimumWidth = 6;
-            TxnId.Name = "TxnId";
-            TxnId.ReadOnly = true;
-            // 
-            // txnTypeDataGridViewTextBoxColumn
-            // 
-            txnTypeDataGridViewTextBoxColumn.DataPropertyName = "TxnType";
-            txnTypeDataGridViewTextBoxColumn.HeaderText = "TxnType";
-            txnTypeDataGridViewTextBoxColumn.MinimumWidth = 6;
-            txnTypeDataGridViewTextBoxColumn.Name = "txnTypeDataGridViewTextBoxColumn";
-            txnTypeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            statusDataGridViewTextBoxColumn.HeaderText = "Status";
-            statusDataGridViewTextBoxColumn.MinimumWidth = 6;
-            statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            statusDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // txnDateDataGridViewTextBoxColumn
-            // 
-            txnDateDataGridViewTextBoxColumn.DataPropertyName = "TxnDate";
-            txnDateDataGridViewTextBoxColumn.HeaderText = "TxnDate";
-            txnDateDataGridViewTextBoxColumn.MinimumWidth = 6;
-            txnDateDataGridViewTextBoxColumn.Name = "txnDateDataGridViewTextBoxColumn";
-            txnDateDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // AuditRecords
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -380,6 +380,7 @@
             Controls.Add(picLogo);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AuditRecords";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Bullseye Inventory Management Systems - Audit Records";
             Load += AuditRecords_Load;
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();

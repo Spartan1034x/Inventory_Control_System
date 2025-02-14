@@ -285,10 +285,9 @@ namespace BullseyeDesktopApp
         // Resizes form if admin tab is selected or not, Populates DGVs on first selection of tab, shows hides help buttons
         private void tabctrlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selection = tabctrlMain.SelectedTab;
+            ShowHelpIcons();
 
-            // Show hide help buttons based on tab selection
-            picHelpOrders.Visible = selection == tabOrders;
+            var selection = tabctrlMain.SelectedTab;
 
             // Resizes form is tab main is selected            
             this.Size = (selection == tabAdmin) ? new Size(1550, 850) : new Size(1350, 850);
@@ -301,5 +300,17 @@ namespace BullseyeDesktopApp
                 RefreshOrders();
             }
         }
+
+        //           Shows help buttons depending on tab selected, callled from selection changed events
+        private void ShowHelpIcons()
+        {
+            var selection = tabctrlMain.SelectedTab;
+            var adminSelection = tabctrlAdminUsers.SelectedTab;
+
+            // Show hide help buttons based on tab selection
+            picHelpOrders.Visible = selection == tabOrders; // Orders help
+            picHelpItems.Visible = selection == tabAdmin && adminSelection == tabAdminItems; // Items help
+        }
+
     }
 }

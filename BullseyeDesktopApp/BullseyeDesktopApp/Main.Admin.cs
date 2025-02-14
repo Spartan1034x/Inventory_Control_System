@@ -17,23 +17,14 @@ namespace BullseyeDesktopApp
                                                                // ****   ADMIN TAB   ****
     public partial class Main
     {
-        //            PASSWORD HASH ALL
+
+        //              ITEMS HELP BUTTON
         //
-        // Hashes all passwords in the db
-        private void btnHashAll_Click(object sender, EventArgs e)
+        //
+        private void picHelpItems_Click(object sender, EventArgs e)
         {
-            /*
-             BullseyeContext context = new BullseyeContext();
-             var employees = context.Employees.ToList();
-
-             foreach (var employee in employees)
-             {
-                 employee.Password = StaticHelpers.PasswordHelper.HashPassword(employee.Password);
-             }
-
-             context.SaveChanges();
-             MessageBox.Show("PAsswords hashed"); 
-            context.Dispose(); */
+            MessageBox.Show("\u2022Double click item to edit\n\u202215 Items shown by default select \"Load All\"" +
+                " to see all items", "Items Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
@@ -43,6 +34,7 @@ namespace BullseyeDesktopApp
         private void tabctrlAdminUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             ResizeEmployeeTab();
+            ShowHelpIcons(); // Shows reuired icons
 
             // Refreshes dgv when selected tab
             if (tabctrlAdminUsers.SelectedTab == tabAdminUsersEmployees)

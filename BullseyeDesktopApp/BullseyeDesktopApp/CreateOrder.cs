@@ -1,4 +1,5 @@
 ﻿using BullseyeDesktopApp.Models;
+using BullseyeDesktopApp.Models.DisplayObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -408,7 +409,7 @@ namespace BullseyeDesktopApp
             int siteIDFrom = 2; // Warehouse for now
             int employeeID = user.EmployeeId;
             string status = "submitted".ToUpper();
-            DateTime deliveryDate = CalculateDeliveryDate(user.Site.DayOfWeek.ToUpper());
+            DateTime deliveryDate = StaticHelpers.MiscHelper.CalculateDeliveryDate(user.Site.DayOfWeek.ToUpper());
             string orderType = radRegular.Checked ? "Store Order" : "Emergency Order";
             sbyte emergencyOrder = (sbyte)(radEmergency.Checked ? 1 : 0);
             string barCode = "FSDFFSE3342";
@@ -434,7 +435,7 @@ namespace BullseyeDesktopApp
             }
 
             // Call DBHelper to send txn, txnItems, and Txn audit
-            string txnResult = await StaticHelpers.DBOperations.TransactionWithAudit(newTxn, txnItems, String.Empty);
+            string txnResult = await StaticHelpers.DBOperations.CreateOrderWithAudit(newTxn, txnItems, String.Empty);
             if (txnResult == "ok")
             {
                 OrderSuccess();
@@ -452,29 +453,5 @@ namespace BullseyeDesktopApp
             this.Close();
         }
 
-
-        //        CALCULATE DELIVERY DATE
-        //
-        // Receives delivery day, returns date of next delivery for that store
-        private DateTime CalculateDeliveryDate(string day)
-        {
-            // Convert sent date into DayOfWeek object
-            DayOfWeek deliveryDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day, true);
-
-            DateTime today = DateTime.Today;
-
-            // Days to add to delivery date is delivery day of the week subrtact current day of the week add and mod 7
-            int daysToAdd = ((int)deliveryDay - (int)today.DayOfWeek + 7) % 7;
-
-            DateTime returnDate = today.AddDays(daysToAdd).AddHours(8);
-
-            // If return date is before or today it goess next week
-            if (returnDate <= DateTime.Now)
-            {
-                returnDate = returnDate.AddDays(7);
-            }
-
-            return returnDate;
-        }
     }
 }

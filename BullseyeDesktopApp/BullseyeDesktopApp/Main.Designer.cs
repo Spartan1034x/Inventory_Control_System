@@ -92,10 +92,10 @@
             btnExit = new Button();
             lblLocation = new Label();
             lblUser = new Label();
-            btnHashAll = new Button();
             btnViewAudits = new Button();
             lnkResetPassword = new LinkLabel();
             picHelpOrders = new PictureBox();
+            picHelpItems = new PictureBox();
             tabctrlMain.SuspendLayout();
             tabOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
@@ -114,6 +114,7 @@
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHelpOrders).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picHelpItems).BeginInit();
             SuspendLayout();
             // 
             // tabctrlMain
@@ -223,6 +224,7 @@
             btnOrdersReceive.TabIndex = 7;
             btnOrdersReceive.Text = "&Receive Order";
             btnOrdersReceive.UseVisualStyleBackColor = true;
+            btnOrdersReceive.Click += btnOrdersReceive_Click;
             // 
             // btnOrdersCreate
             // 
@@ -251,14 +253,21 @@
             // 
             // dgvOrders
             // 
+            dgvOrders.AllowUserToAddRows = false;
+            dgvOrders.AllowUserToDeleteRows = false;
             dgvOrders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOrders.Location = new Point(6, 6);
             dgvOrders.Name = "dgvOrders";
+            dgvOrders.ReadOnly = true;
+            dgvOrders.RowHeadersVisible = false;
             dgvOrders.RowHeadersWidth = 51;
+            dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvOrders.Size = new Size(1220, 409);
             dgvOrders.TabIndex = 0;
+            dgvOrders.CellFormatting += dgvOrders_CellFormatting;
             dgvOrders.ColumnHeaderMouseClick += dgvOrders_ColumnHeaderMouseClick;
+            dgvOrders.SelectionChanged += dgvOrders_SelectionChanged;
             // 
             // tabInventory
             // 
@@ -779,19 +788,6 @@
             lblUser.Size = new Size(0, 20);
             lblUser.TabIndex = 19;
             // 
-            // btnHashAll
-            // 
-            btnHashAll.Anchor = AnchorStyles.Bottom;
-            btnHashAll.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnHashAll.Location = new Point(559, 698);
-            btnHashAll.Name = "btnHashAll";
-            btnHashAll.Size = new Size(122, 43);
-            btnHashAll.TabIndex = 20;
-            btnHashAll.Text = "Hash All";
-            btnHashAll.UseVisualStyleBackColor = true;
-            btnHashAll.Visible = false;
-            btnHashAll.Click += btnHashAll_Click;
-            // 
             // btnViewAudits
             // 
             btnViewAudits.Anchor = AnchorStyles.Bottom;
@@ -830,15 +826,29 @@
             picHelpOrders.Visible = false;
             picHelpOrders.Click += picHelpOrders_Click;
             // 
+            // picHelpItems
+            // 
+            picHelpItems.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            picHelpItems.Cursor = Cursors.Hand;
+            picHelpItems.Image = (Image)resources.GetObject("picHelpItems.Image");
+            picHelpItems.Location = new Point(1242, 99);
+            picHelpItems.Name = "picHelpItems";
+            picHelpItems.Size = new Size(29, 29);
+            picHelpItems.SizeMode = PictureBoxSizeMode.Zoom;
+            picHelpItems.TabIndex = 38;
+            picHelpItems.TabStop = false;
+            picHelpItems.Visible = false;
+            picHelpItems.Click += picHelpItems_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 803);
+            Controls.Add(picHelpItems);
             Controls.Add(picHelpOrders);
             Controls.Add(lnkResetPassword);
             Controls.Add(btnViewAudits);
-            Controls.Add(btnHashAll);
             Controls.Add(lblUser);
             Controls.Add(lblLocation);
             Controls.Add(tabctrlMain);
@@ -876,6 +886,7 @@
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHelpOrders).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picHelpItems).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -916,7 +927,6 @@
         private DataGridViewTextBoxColumn siteDataGridViewTextBoxColumn;
         private DataGridView dgvPermissions;
         private BindingSource posnBindingSource;
-        private Button btnHashAll;
         private Button btnAdminPermissionRefresh;
         private GroupBox grpAdminPermissionEdit;
         private Button btnAdminPermissionsEditSave;
@@ -948,5 +958,6 @@
         private Label label8;
         private Label label7;
         private PictureBox picHelpOrders;
+        private PictureBox picHelpItems;
     }
 }
