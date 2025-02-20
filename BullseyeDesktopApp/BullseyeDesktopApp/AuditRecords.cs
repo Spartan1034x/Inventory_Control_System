@@ -33,8 +33,10 @@ namespace BullseyeDesktopApp
             {
                 using (var context = new Models.BullseyeContext())
                 {
-                    var audits = context.Txnaudits.ToList();
+                    var audits = context.Txnaudits.OrderByDescending(a=>a.TxnAuditId).ToList();
                     txnauditBindingSource.DataSource = audits;
+                    PopulateLabels();
+
                 }
             }
             catch (Exception ex)
@@ -60,24 +62,29 @@ namespace BullseyeDesktopApp
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow dataGridViewRow = dataGridView1.Rows[e.RowIndex];
-
-                Txnaudit audit = dataGridViewRow.DataBoundItem as Txnaudit ?? new Txnaudit();
-                if (audit.TxnAuditId != 0)
-                {
-                    lblTxnAuditID.Text = audit.TxnAuditId.ToString();
-                    lblDeliveryID.Text = audit?.DeliveryId.ToString();
-                    lblEmployeeID.Text = audit?.EmployeeId.ToString();
-                    lblSiteID.Text = audit?.SiteId.ToString();
-                    lblStaus.Text = audit?.Status.ToString();
-                    lblTxnDate.Text = audit?.TxnDate.ToString();
-                    lblTxnID.Text = audit?.TxnId.ToString();
-                    lblTxnType.Text = audit?.TxnType.ToString();
-                    lblCreateDate.Text = audit?.CreatedDate.ToString();
-                   
-                }
+                PopulateLabels();
             }
 
+        }
+
+        private void PopulateLabels()
+        {
+            DataGridViewRow dataGridViewRow = dgvAudits.SelectedRows[0];
+
+            Txnaudit audit = dataGridViewRow.DataBoundItem as Txnaudit ?? new Txnaudit();
+            if (audit.TxnAuditId != 0)
+            {
+                lblTxnAuditID.Text = audit.TxnAuditId.ToString();
+                lblDeliveryID.Text = audit?.DeliveryId.ToString();
+                lblEmployeeID.Text = audit?.EmployeeId.ToString();
+                lblSiteID.Text = audit?.SiteId.ToString();
+                lblStaus.Text = audit?.Status.ToString();
+                lblTxnDate.Text = audit?.TxnDate.ToString();
+                lblTxnID.Text = audit?.TxnId.ToString();
+                lblTxnType.Text = audit?.TxnType.ToString();
+                lblCreateDate.Text = audit?.CreatedDate.ToString();
+
+            }
         }
     }
 }

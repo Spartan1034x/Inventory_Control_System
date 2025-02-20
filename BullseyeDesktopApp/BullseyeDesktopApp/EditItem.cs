@@ -101,7 +101,7 @@ namespace BullseyeDesktopApp
 
                             context.SaveChanges();
 
-                            PopulateContent();
+                            picItem.Image = Image.FromFile(picPath);
                         }
                     }
                 }

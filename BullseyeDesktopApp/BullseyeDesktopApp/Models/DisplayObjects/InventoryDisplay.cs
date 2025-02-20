@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace BullseyeDesktopApp.Models
+namespace BullseyeDesktopApp.Models.DisplayObjects
 {
     public class InventoryDisplay : INotifyPropertyChanged
     {

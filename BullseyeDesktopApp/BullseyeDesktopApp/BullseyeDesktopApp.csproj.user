@@ -16,6 +16,9 @@
     <Compile Update="EditItem.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FulfilOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -26,6 +29,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Main.Orders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ReceiveOrder.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="ResetPass.cs">

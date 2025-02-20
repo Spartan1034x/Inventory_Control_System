@@ -39,6 +39,7 @@
             lnkForgot = new LinkLabel();
             btnLogin = new Button();
             btnExit = new Button();
+            btnHashAll = new Button();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             SuspendLayout();
             // 
@@ -105,7 +106,7 @@
             txtUsername.PlaceholderText = "jsmith";
             txtUsername.Size = new Size(465, 47);
             txtUsername.TabIndex = 0;
-            txtUsername.Text = "admin";
+            txtUsername.Text = "aadmin";
             // 
             // txtPassword
             // 
@@ -150,11 +151,25 @@
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
+            // btnHashAll
+            // 
+            btnHashAll.Anchor = AnchorStyles.Bottom;
+            btnHashAll.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnHashAll.Location = new Point(666, 333);
+            btnHashAll.Name = "btnHashAll";
+            btnHashAll.Size = new Size(122, 43);
+            btnHashAll.TabIndex = 21;
+            btnHashAll.Text = "Hash All";
+            btnHashAll.UseVisualStyleBackColor = true;
+            btnHashAll.Visible = false;
+            btnHashAll.Click += btnHashAll_Click_1;
+            // 
             // LogIn
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 399);
+            Controls.Add(btnHashAll);
             Controls.Add(btnExit);
             Controls.Add(btnLogin);
             Controls.Add(lnkForgot);
@@ -188,5 +203,6 @@
         private LinkLabel lnkForgot;
         private Button btnLogin;
         private Button btnExit;
+        private Button btnHashAll;
     }
 }
