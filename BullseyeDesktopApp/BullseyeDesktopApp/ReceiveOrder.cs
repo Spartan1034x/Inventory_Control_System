@@ -38,7 +38,7 @@ namespace BullseyeDesktopApp
             PopulateLabels();
             LoadWarehouseInventory();
             PopulateDGV();
-            //TxnReceived(); // Uncomment when live
+            TxnReceived();
         }
 
 
@@ -119,7 +119,7 @@ namespace BullseyeDesktopApp
         {
             selectedOrder.TxnStatus = "received".ToUpper(); // Set status received
 
-            string resp = await DBOperations.UpdateOrderWithAudit(selectedOrder); // Returns "ok" if success
+            string resp = await DBOperations.UpdateOrderWithAudit(selectedOrder, new List<Txnitem>()); // Returns "ok" if success
 
             if (resp != "ok")
                 MessageBox.Show(resp, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -163,7 +163,8 @@ namespace BullseyeDesktopApp
 
                 if (e.KeyCode == Keys.Up)
                 {
-                    item.Allocated = quantity + caseSize;
+                    if (item.Allocated + caseSize <= item.InStock) // Can't allocate over in Stock amount
+                        item.Allocated = quantity + caseSize;
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
@@ -201,16 +202,21 @@ namespace BullseyeDesktopApp
         //
         async private void btnSubmit_Click(object sender, EventArgs e)
         {
-            // CREATE BACKORDER IF NEEDED
-
+            // CHECK IF BACKORDER IS NEEDED
             bool needBackorder = false;
 
-            // Create Item List from allocated items and add to txn
+            // Create Item List from allocated items and add to backorder
             List<Txnitem> backorderItems = new List<Txnitem>();
+
+            // Create new item list of items for quantity alloted by supervisor, list will be sent in with order update
+            List<Txnitem> newItems = new List<Txnitem>();
 
             // Checks if backorder is needed if so adds all items to itemlist
             foreach (ReceiveOrderDisplay item in display)
             {
+                // Add item to newItem list in quantity allocated
+                newItems.Add(new Txnitem { TxnId = selectedOrder.TxnId, ItemId = item.ItemID, Quantity = item.Allocated });
+
                 // If in stock amount is less than ordered from store add to backorder
                 if (item.Requested > item.InStock)
                 {
@@ -227,6 +233,7 @@ namespace BullseyeDesktopApp
                 }
             }
 
+            // CREATE BACKORDER IF REQUIRED
             if (needBackorder)
             {
                 // Variables for backorder txn
@@ -239,13 +246,30 @@ namespace BullseyeDesktopApp
 
                 // Call DBHelper to send txn, backorderItems, and Txn audit
                 string txnResult = await StaticHelpers.DBOperations.CreateOrderWithAudit(backorder, backorderItems, String.Empty);
+
                 if (txnResult != "ok")
                 {
                     MessageBox.Show(txnResult, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+            }
 
-            } // Make sure that user cannot go over warehouse stock amount for allocated
-            // Order gets changed to assembling
+            // Sets status to assembled, add notes
+            if (txtNotes.Text != String.Empty)
+                selectedOrder.Notes += "\n\tUser: " + UserSession.CurrentUser.Username + " - Added At: " + DateTime.Now + " Note:" + txtNotes.Text;
+            selectedOrder.TxnStatus = "ASSEMBLING";
+
+            // Submit updated order
+            string res = await DBOperations.UpdateOrderWithAudit(selectedOrder, newItems);
+
+            if (res != "ok")
+            {
+                MessageBox.Show(res, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            this.Close();
         }
     }
 }

@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             tabctrlMain = new TabControl();
             tabOrders = new TabPage();
+            btnOrdersFulfil = new Button();
             label8 = new Label();
             label7 = new Label();
             label6 = new Label();
@@ -135,6 +136,7 @@
             // 
             // tabOrders
             // 
+            tabOrders.Controls.Add(btnOrdersFulfil);
             tabOrders.Controls.Add(label8);
             tabOrders.Controls.Add(label7);
             tabOrders.Controls.Add(label6);
@@ -152,6 +154,19 @@
             tabOrders.TabIndex = 0;
             tabOrders.Text = "Orders";
             tabOrders.UseVisualStyleBackColor = true;
+            // 
+            // btnOrdersFulfil
+            // 
+            btnOrdersFulfil.Anchor = AnchorStyles.Bottom;
+            btnOrdersFulfil.Enabled = false;
+            btnOrdersFulfil.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnOrdersFulfil.Location = new Point(293, 489);
+            btnOrdersFulfil.Name = "btnOrdersFulfil";
+            btnOrdersFulfil.Size = new Size(141, 40);
+            btnOrdersFulfil.TabIndex = 14;
+            btnOrdersFulfil.Text = "&Fulfil Order";
+            btnOrdersFulfil.UseVisualStyleBackColor = true;
+            btnOrdersFulfil.Click += btnOrdersFulfil_Click;
             // 
             // label8
             // 
@@ -218,7 +233,7 @@
             btnOrdersReceive.Anchor = AnchorStyles.Bottom;
             btnOrdersReceive.Enabled = false;
             btnOrdersReceive.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOrdersReceive.Location = new Point(371, 462);
+            btnOrdersReceive.Location = new Point(293, 428);
             btnOrdersReceive.Name = "btnOrdersReceive";
             btnOrdersReceive.Size = new Size(141, 40);
             btnOrdersReceive.TabIndex = 7;
@@ -231,7 +246,7 @@
             btnOrdersCreate.Anchor = AnchorStyles.Bottom;
             btnOrdersCreate.Enabled = false;
             btnOrdersCreate.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOrdersCreate.Location = new Point(195, 462);
+            btnOrdersCreate.Location = new Point(69, 489);
             btnOrdersCreate.Name = "btnOrdersCreate";
             btnOrdersCreate.Size = new Size(141, 40);
             btnOrdersCreate.TabIndex = 6;
@@ -243,7 +258,7 @@
             // 
             btnOrdersRefresh.Anchor = AnchorStyles.Bottom;
             btnOrdersRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOrdersRefresh.Location = new Point(19, 462);
+            btnOrdersRefresh.Location = new Point(69, 428);
             btnOrdersRefresh.Name = "btnOrdersRefresh";
             btnOrdersRefresh.Size = new Size(141, 40);
             btnOrdersRefresh.TabIndex = 5;
@@ -255,7 +270,7 @@
             // 
             dgvOrders.AllowUserToAddRows = false;
             dgvOrders.AllowUserToDeleteRows = false;
-            dgvOrders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            dgvOrders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOrders.Location = new Point(6, 6);
             dgvOrders.Name = "dgvOrders";
@@ -766,7 +781,7 @@
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(122, 43);
             btnExit.TabIndex = 15;
-            btnExit.Text = "&Exit";
+            btnExit.Text = "E&xit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
@@ -959,5 +974,6 @@
         private Label label7;
         private PictureBox picHelpOrders;
         private PictureBox picHelpItems;
+        private Button btnOrdersFulfil;
     }
 }

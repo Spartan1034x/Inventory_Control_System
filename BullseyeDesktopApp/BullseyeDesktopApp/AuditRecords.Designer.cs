@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuditRecords));
             picLogo = new PictureBox();
             label1 = new Label();
-            dataGridView1 = new DataGridView();
+            dgvAudits = new DataGridView();
             TxnAuditId = new DataGridViewTextBoxColumn();
             TxnId = new DataGridViewTextBoxColumn();
             txnTypeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -61,7 +61,7 @@
             lblTxnID = new Label();
             lblTxnAuditID = new Label();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAudits).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txnauditBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -85,24 +85,24 @@
             label1.TabIndex = 2;
             label1.Text = "Audit Records";
             // 
-            // dataGridView1
+            // dgvAudits
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { TxnAuditId, TxnId, txnTypeDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, txnDateDataGridViewTextBoxColumn });
-            dataGridView1.DataSource = txnauditBindingSource;
-            dataGridView1.Location = new Point(35, 103);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(821, 560);
-            dataGridView1.TabIndex = 3;
-            dataGridView1.CellMouseClick += dataGridView1_CellMouseClick;
+            dgvAudits.AllowUserToAddRows = false;
+            dgvAudits.AllowUserToDeleteRows = false;
+            dgvAudits.AutoGenerateColumns = false;
+            dgvAudits.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvAudits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAudits.Columns.AddRange(new DataGridViewColumn[] { TxnAuditId, TxnId, txnTypeDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, txnDateDataGridViewTextBoxColumn });
+            dgvAudits.DataSource = txnauditBindingSource;
+            dgvAudits.Location = new Point(35, 103);
+            dgvAudits.Name = "dgvAudits";
+            dgvAudits.ReadOnly = true;
+            dgvAudits.RowHeadersVisible = false;
+            dgvAudits.RowHeadersWidth = 51;
+            dgvAudits.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvAudits.Size = new Size(821, 560);
+            dgvAudits.TabIndex = 3;
+            dgvAudits.CellMouseClick += dataGridView1_CellMouseClick;
             // 
             // TxnAuditId
             // 
@@ -244,11 +244,11 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(974, 643);
+            label11.Location = new Point(934, 643);
             label11.Name = "label11";
-            label11.Size = new Size(51, 20);
+            label11.Size = new Size(91, 20);
             label11.TabIndex = 26;
-            label11.Text = "Notes:";
+            label11.Text = "Audit Notes:";
             // 
             // txtNotes
             // 
@@ -375,7 +375,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(btnExit);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvAudits);
             Controls.Add(label1);
             Controls.Add(picLogo);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -384,7 +384,7 @@
             Text = "Bullseye Inventory Management Systems - Audit Records";
             Load += AuditRecords_Load;
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAudits).EndInit();
             ((System.ComponentModel.ISupportInitialize)txnauditBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -394,7 +394,7 @@
 
         private PictureBox picLogo;
         private Label label1;
-        private DataGridView dataGridView1;
+        private DataGridView dgvAudits;
         private BindingSource txnauditBindingSource;
         private Button btnExit;
         private Label label2;

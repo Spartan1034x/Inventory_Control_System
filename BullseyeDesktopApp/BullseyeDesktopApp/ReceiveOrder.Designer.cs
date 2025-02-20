@@ -46,6 +46,8 @@
             btnDelete = new Button();
             btnExit = new Button();
             btnSubmit = new Button();
+            label5 = new Label();
+            txtNotes = new TextBox();
             ((System.ComponentModel.ISupportInitialize)picHelp).BeginInit();
             grpOrderDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrderItems).BeginInit();
@@ -196,22 +198,21 @@
             dgvOrderItems.AllowUserToResizeRows = false;
             dgvOrderItems.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvOrderItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvOrderItems.Location = new Point(91, 205);
+            dgvOrderItems.Location = new Point(91, 194);
             dgvOrderItems.Name = "dgvOrderItems";
             dgvOrderItems.ReadOnly = true;
             dgvOrderItems.RowHeadersVisible = false;
             dgvOrderItems.RowHeadersWidth = 51;
             dgvOrderItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrderItems.Size = new Size(1142, 507);
+            dgvOrderItems.Size = new Size(1142, 483);
             dgvOrderItems.TabIndex = 44;
             dgvOrderItems.KeyDown += dgvOrderItems_KeyDown;
             // 
             // btnDelete
             // 
             btnDelete.Anchor = AnchorStyles.Bottom;
-            btnDelete.Enabled = false;
             btnDelete.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDelete.Location = new Point(91, 760);
+            btnDelete.Location = new Point(669, 760);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(141, 40);
             btnDelete.TabIndex = 45;
@@ -221,9 +222,8 @@
             // btnExit
             // 
             btnExit.Anchor = AnchorStyles.Bottom;
-            btnExit.Enabled = false;
             btnExit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnExit.Location = new Point(1091, 760);
+            btnExit.Location = new Point(1089, 760);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(141, 40);
             btnExit.TabIndex = 46;
@@ -234,9 +234,8 @@
             // btnSubmit
             // 
             btnSubmit.Anchor = AnchorStyles.Bottom;
-            btnSubmit.Enabled = false;
             btnSubmit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSubmit.Location = new Point(591, 760);
+            btnSubmit.Location = new Point(879, 760);
             btnSubmit.Name = "btnSubmit";
             btnSubmit.Size = new Size(141, 40);
             btnSubmit.TabIndex = 47;
@@ -244,11 +243,31 @@
             btnSubmit.UseVisualStyleBackColor = true;
             btnSubmit.Click += btnSubmit_Click;
             // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top;
+            label5.AutoSize = true;
+            label5.Location = new Point(34, 696);
+            label5.Name = "label5";
+            label5.Size = new Size(51, 20);
+            label5.TabIndex = 62;
+            label5.Text = "Notes:";
+            // 
+            // txtNotes
+            // 
+            txtNotes.Location = new Point(91, 696);
+            txtNotes.Multiline = true;
+            txtNotes.Name = "txtNotes";
+            txtNotes.Size = new Size(459, 125);
+            txtNotes.TabIndex = 61;
+            // 
             // ReceiveOrder
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 833);
+            Controls.Add(label5);
+            Controls.Add(txtNotes);
             Controls.Add(btnSubmit);
             Controls.Add(btnExit);
             Controls.Add(btnDelete);
@@ -292,5 +311,7 @@
         private Button btnDelete;
         private Button btnExit;
         private Button btnSubmit;
+        private Label label5;
+        private TextBox txtNotes;
     }
 }

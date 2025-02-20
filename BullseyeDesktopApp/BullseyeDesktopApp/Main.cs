@@ -67,12 +67,6 @@ namespace BullseyeDesktopApp
         {
             int permissionLevel = StaticHelpers.UserSession.CurrentUser?.PositionId ?? -1;
 
-            // Enables or disables admin buttons depending on user
-            bool admin = permissionLevel == 9999;
-            btnAdminEmployeeDelete.Enabled = admin;
-            btnAdminEmployeeEdit.Enabled = admin;
-            btnAdminEmployeeAdd.Enabled = admin;
-
             // ADMIN
             if (permissionLevel == 9999)
             {
@@ -81,9 +75,15 @@ namespace BullseyeDesktopApp
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersPermissions);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
 
-                // Enabled Create Order/Receive Order Button
+                // Enabled Create Order/Receive/Fulfil Order Button
                 btnOrdersCreate.Enabled = true;
                 btnOrdersReceive.Enabled = true;
+                btnOrdersFulfil.Enabled = true;
+
+                // Enable CRUD buttons
+                btnAdminEmployeeDelete.Enabled = true;
+                btnAdminEmployeeEdit.Enabled = true;
+                btnAdminEmployeeAdd.Enabled = true;
 
             }
             // REGIONAL MANAGER
@@ -114,9 +114,11 @@ namespace BullseyeDesktopApp
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
 
-                // Enabled Create Order/Receive Order Button
+                // Enabled Create Order/Receive/Fulfil Order Button
                 btnOrdersCreate.Enabled = true;
                 btnOrdersReceive.Enabled = true;
+                btnOrdersFulfil.Enabled = true;
+
             }
             // STORE MANAGER
             else if (permissionLevel == 4)
@@ -137,6 +139,9 @@ namespace BullseyeDesktopApp
 
                 // Show allowed admin tabs
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
+
+                // Show Order fulfil button
+                btnOrdersFulfil.Enabled = true;
             }
 
             // Manually resize form for splash admin page and call populate first dgv

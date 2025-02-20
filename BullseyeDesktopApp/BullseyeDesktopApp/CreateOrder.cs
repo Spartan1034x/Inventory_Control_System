@@ -1,5 +1,6 @@
 ﻿using BullseyeDesktopApp.Models;
 using BullseyeDesktopApp.Models.DisplayObjects;
+using BullseyeDesktopApp.StaticHelpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -412,8 +413,10 @@ namespace BullseyeDesktopApp
             DateTime deliveryDate = StaticHelpers.MiscHelper.CalculateDeliveryDate(user.Site.DayOfWeek.ToUpper());
             string orderType = radRegular.Checked ? "Store Order" : "Emergency Order";
             sbyte emergencyOrder = (sbyte)(radEmergency.Checked ? 1 : 0);
-            string barCode = "FSDFFSE3342";
-            string notes = txtNotes.Text.Trim();
+            string barCode = GenerateBarCode();
+            string notes = "";
+            if (txtNotes.Text != String.Empty)
+                notes = "\tUser: " + UserSession.CurrentUser.Username + " - Added At: " + DateTime.Now + " Note:" + txtNotes.Text;
             DateTime createdDate = DateTime.Now; // CREATED DATE MAYBE GOES HERE!!!!!!!!!!!
 
             Txn newTxn = new Txn(employeeID, siteIDTo, siteIDFrom, status, orderType, deliveryDate, barCode, createdDate, emergencyOrder, notes);
@@ -451,6 +454,20 @@ namespace BullseyeDesktopApp
         {
             MessageBox.Show("Order Placed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
+        }
+        //
+        //
+        private string GenerateBarCode()
+        {
+            Random r = new Random();
+            string res = "";
+
+            for (int i = 0; i < 10; i++)
+            {
+                res += r.Next(0, 9).ToString();
+            }
+
+            return res;
         }
 
     }

@@ -116,8 +116,8 @@ namespace BullseyeDesktopApp.StaticHelpers
 
         //               ORDER UPDATE WITH AUDIT
         //
-        // Receives txn, updates it in the db then submits audit
-        public async static Task<string> UpdateOrderWithAudit(Txn order)
+        // Receives txn, updates it in the db then submits audit, receives update item list, if it is not empty will replace one in db with new one
+        public async static Task<string> UpdateOrderWithAudit(Txn order, List<Txnitem> newItems)
         {
             using (var context = new BullseyeContext())
             {
@@ -128,7 +128,23 @@ namespace BullseyeDesktopApp.StaticHelpers
                         context.Update(order);
                         await context.SaveChangesAsync();
 
+                        // If items list is not empty find all items currently attached to this order, delete and add all new ones (updates item quantity)
+                        if (newItems.Count > 0)
+                        {
+                            var oldItems = context.Txnitems.Where(i => i.TxnId == order.TxnId).ToList(); // Find all old items
 
+                            context.Txnitems.RemoveRange(oldItems); // Remove all old items
+                            await context.SaveChangesAsync();
+
+                            foreach (var item in newItems) // Add each new item with updates quantities
+                            {
+                                context.Txnitems.Add(item);
+                            }
+
+                            await context.SaveChangesAsync();
+                        }
+
+                        // AUDIT
                         var audit = new Txnaudit
                         {
                             CreatedDate = DateTime.UtcNow,

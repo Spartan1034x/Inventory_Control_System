@@ -16,6 +16,9 @@
     <Compile Update="EditItem.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FulfilOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
