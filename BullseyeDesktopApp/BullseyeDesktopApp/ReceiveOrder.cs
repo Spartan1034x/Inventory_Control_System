@@ -239,7 +239,7 @@ namespace BullseyeDesktopApp
                 // Variables for backorder txn
                 Employee user = UserSession.CurrentUser;
                 int empID = user.EmployeeId;
-                int siteIDTo = user.SiteId;
+                int siteIDTo = selectedOrder.SiteIdto;
                 DateTime deliveryDate = StaticHelpers.MiscHelper.CalculateDeliveryDate(user.Site.DayOfWeek.ToUpper());
 
                 backorder = new Txn(empID, siteIDTo, 2, "SUBMITTED", "Back Order", deliveryDate, "BC1929290", DateTime.Now, 0, "Nil");

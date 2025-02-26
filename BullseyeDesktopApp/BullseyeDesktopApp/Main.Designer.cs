@@ -44,6 +44,10 @@
             btnOrdersRefresh = new Button();
             dgvOrders = new DataGridView();
             tabInventory = new TabPage();
+            label10 = new Label();
+            txtInventorySearch = new TextBox();
+            dgvInventory = new DataGridView();
+            btnInventoryUpdate = new Button();
             tabLoss = new TabPage();
             tabReports = new TabPage();
             tabAdmin = new TabPage();
@@ -97,9 +101,12 @@
             lnkResetPassword = new LinkLabel();
             picHelpOrders = new PictureBox();
             picHelpItems = new PictureBox();
+            picHelpInventory = new PictureBox();
             tabctrlMain.SuspendLayout();
             tabOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
+            tabInventory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).BeginInit();
             tabAdmin.SuspendLayout();
             tabctrlAdminUsers.SuspendLayout();
             tabAdminUsersEmployees.SuspendLayout();
@@ -116,6 +123,7 @@
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHelpOrders).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHelpItems).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picHelpInventory).BeginInit();
             SuspendLayout();
             // 
             // tabctrlMain
@@ -286,6 +294,10 @@
             // 
             // tabInventory
             // 
+            tabInventory.Controls.Add(label10);
+            tabInventory.Controls.Add(txtInventorySearch);
+            tabInventory.Controls.Add(dgvInventory);
+            tabInventory.Controls.Add(btnInventoryUpdate);
             tabInventory.Location = new Point(4, 37);
             tabInventory.Name = "tabInventory";
             tabInventory.Padding = new Padding(3);
@@ -293,6 +305,52 @@
             tabInventory.TabIndex = 1;
             tabInventory.Text = "Inventory";
             tabInventory.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Bottom;
+            label10.AutoSize = true;
+            label10.Location = new Point(228, 457);
+            label10.Name = "label10";
+            label10.Size = new Size(74, 28);
+            label10.TabIndex = 18;
+            label10.Text = "Search:";
+            // 
+            // txtInventorySearch
+            // 
+            txtInventorySearch.Location = new Point(315, 454);
+            txtInventorySearch.Name = "txtInventorySearch";
+            txtInventorySearch.Size = new Size(386, 34);
+            txtInventorySearch.TabIndex = 17;
+            txtInventorySearch.TextChanged += txtInventorySearch_TextChanged;
+            // 
+            // dgvInventory
+            // 
+            dgvInventory.AllowUserToAddRows = false;
+            dgvInventory.AllowUserToDeleteRows = false;
+            dgvInventory.AllowUserToResizeColumns = false;
+            dgvInventory.AllowUserToResizeRows = false;
+            dgvInventory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvInventory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvInventory.Location = new Point(170, 6);
+            dgvInventory.Name = "dgvInventory";
+            dgvInventory.RowHeadersVisible = false;
+            dgvInventory.RowHeadersWidth = 51;
+            dgvInventory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvInventory.Size = new Size(890, 399);
+            dgvInventory.TabIndex = 16;
+            // 
+            // btnInventoryUpdate
+            // 
+            btnInventoryUpdate.Anchor = AnchorStyles.Bottom;
+            btnInventoryUpdate.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnInventoryUpdate.Location = new Point(869, 451);
+            btnInventoryUpdate.Name = "btnInventoryUpdate";
+            btnInventoryUpdate.Size = new Size(141, 40);
+            btnInventoryUpdate.TabIndex = 15;
+            btnInventoryUpdate.Text = "&Update";
+            btnInventoryUpdate.UseVisualStyleBackColor = true;
+            btnInventoryUpdate.Click += btnInventoryUpdate_Click;
             // 
             // tabLoss
             // 
@@ -855,11 +913,26 @@
             picHelpItems.Visible = false;
             picHelpItems.Click += picHelpItems_Click;
             // 
+            // picHelpInventory
+            // 
+            picHelpInventory.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            picHelpInventory.Cursor = Cursors.Hand;
+            picHelpInventory.Image = (Image)resources.GetObject("picHelpInventory.Image");
+            picHelpInventory.Location = new Point(1242, 99);
+            picHelpInventory.Name = "picHelpInventory";
+            picHelpInventory.Size = new Size(29, 29);
+            picHelpInventory.SizeMode = PictureBoxSizeMode.Zoom;
+            picHelpInventory.TabIndex = 39;
+            picHelpInventory.TabStop = false;
+            picHelpInventory.Visible = false;
+            picHelpInventory.Click += picHelpInventory_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 803);
+            Controls.Add(picHelpInventory);
             Controls.Add(picHelpItems);
             Controls.Add(picHelpOrders);
             Controls.Add(lnkResetPassword);
@@ -885,6 +958,9 @@
             tabOrders.ResumeLayout(false);
             tabOrders.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
+            tabInventory.ResumeLayout(false);
+            tabInventory.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).EndInit();
             tabAdmin.ResumeLayout(false);
             tabctrlAdminUsers.ResumeLayout(false);
             tabAdminUsersEmployees.ResumeLayout(false);
@@ -902,6 +978,7 @@
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHelpOrders).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHelpItems).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picHelpInventory).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -975,5 +1052,10 @@
         private PictureBox picHelpOrders;
         private PictureBox picHelpItems;
         private Button btnOrdersFulfil;
+        private Button btnInventoryUpdate;
+        private PictureBox picHelpInventory;
+        private DataGridView dgvInventory;
+        private Label label10;
+        private TextBox txtInventorySearch;
     }
 }

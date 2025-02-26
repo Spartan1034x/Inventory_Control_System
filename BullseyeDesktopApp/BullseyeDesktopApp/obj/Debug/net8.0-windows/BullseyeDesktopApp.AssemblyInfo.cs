@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BullseyeDesktopApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+284a0af49207a20728476585d16014903a20a322")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6c3a2591034fda56bc4fa25bbe1205feccd6de88")]
 [assembly: System.Reflection.AssemblyProductAttribute("BullseyeDesktopApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BullseyeDesktopApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

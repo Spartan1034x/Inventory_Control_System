@@ -299,10 +299,16 @@ namespace BullseyeDesktopApp
             if (selection == tabAdmin)
                 ResizeEmployeeTab();
 
-            if (selection == tabOrders && defaultLoad)
+            // Default load for orders tab
+            if (selection == tabOrders && defaultOrdersLoad)
             {
                 PopulateCmbs();
                 RefreshOrders();
+            }
+            // Default load for Inventory tab
+            else if (selection == tabInventory && defaultInventoryLoad)
+            {
+                InitialInventoryPopulation();
             }
         }
 
@@ -315,6 +321,7 @@ namespace BullseyeDesktopApp
             // Show hide help buttons based on tab selection
             picHelpOrders.Visible = selection == tabOrders; // Orders help
             picHelpItems.Visible = selection == tabAdmin && adminSelection == tabAdminItems; // Items help
+            picHelpInventory.Visible = selection == tabInventory; // Inventory help
         }
 
     }

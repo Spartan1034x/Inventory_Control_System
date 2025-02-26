@@ -188,6 +188,14 @@ namespace BullseyeDesktopApp
                 return;
             }
 
+            // Update Inventory location
+            string res2 = await DBOperations.MoveInventory(newItems, selectedOrder);
+
+            if (res2 != "ok")
+            {
+                MessageBox.Show(res2, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             this.Close();
         }

@@ -199,7 +199,7 @@ public partial class BullseyeContext : DbContext
                 .HasName("PRIMARY")
                 .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0, 0 });
 
-            entity.ToTable("inventory");
+            entity.ToTable("Inventory");
 
             entity.HasIndex(e => e.SiteId, "siteID");
 
