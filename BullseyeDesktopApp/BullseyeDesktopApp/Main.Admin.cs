@@ -11,6 +11,7 @@ using MySqlConnector;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using BullseyeDesktopApp.Models;
+using BullseyeDesktopApp.Models.DisplayObjects;
 
 namespace BullseyeDesktopApp
 {
@@ -41,22 +42,197 @@ namespace BullseyeDesktopApp
                 RefreshEmployeesDGV();
             else if (tabctrlAdminUsers.SelectedTab == tabAdminUsersPermissions)
                 RefreshPermissionDGV();
-            else
+            else if (tabctrlAdminUsers.SelectedTab == tabAdminItems)
                 RefreshItemsDGV(20);
+            else if (tabctrlAdminUsers.SelectedTab == tabAdminLocations)
+                RefreshLocationsDGV();
 
         }
 
 
         //                FORM RESIZE
         //
-        // Resizes form and dgv depending on selection
+        // Resizes form and dgv if Employee or User tab selected in Admin
         private void ResizeEmployeeTab()
         {
             var selection = tabctrlAdminUsers.SelectedTab;
 
-            this.Size = (selection == tabAdminUsersEmployees) ? new Size(1550, 850) : new Size(1350, 850);
+            this.Size = (selection == tabAdminUsersEmployees || selection == tabAdminLocations) ? new Size(1550, 850) : new Size(1350, 850);
             dgvEmployees.Size = (selection == tabAdminUsersEmployees) ? new Size(1425, 426) : new Size(1225, 426);
         }
+
+
+        //            **** LOCATIONS TAB ****
+        //
+
+        List<Site> locations;
+        List<LocationDisplay> locDisplay;
+
+
+        //
+        //                 REFRESH CLICK
+        private void btnAdminLocationRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshLocationsDGV();
+        }
+
+
+        //                REFRESH LOCATION DGV
+        //
+        //
+        private void RefreshLocationsDGV()
+        {
+            // Populate sites
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    locations = context.Sites.ToList();
+                    CreateLocationDisplay(locations);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+            }
+        }
+
+
+        //            CREATE LOCATION DISPLAY
+        //
+        //
+        private void CreateLocationDisplay(List<Site> locs)
+        {
+            locDisplay = new List<LocationDisplay>(); // Clear old list
+
+            foreach (var l in locs)
+            {
+                locDisplay.Add(new LocationDisplay()
+                {
+                    ID = l.SiteId,
+                    Location = l.SiteName,
+                    Adress = l.Address,
+                    City = l.City,
+                    Active = l.Active,
+                    Country = l.Country,
+                    Prov = l.ProvinceId,
+                    Postal = l.PostalCode,
+                    Delivery = l.DayOfWeek,
+                    Distance = l.DistanceFromWh,
+                    Phone = l.Phone,
+                    Notes = l.Notes
+                });
+            }
+
+            dgvLocations.DataSource = new BindingSource() { DataSource = locDisplay };
+            
+            dgvLocations.AutoResizeColumns();
+            dgvLocations.Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dgvLocations.Columns["Notes"].Width = 150;
+        }
+
+
+        //              CELL FORMATING
+        //
+        //
+        private void dgvLocations_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Formats Distance cell
+            if (dgvLocations.Columns[e.ColumnIndex].Name == "Distance" && e.Value is int distance)
+            {
+                e.Value = $"{distance} km";
+                e.FormattingApplied = true;
+            }
+
+            // Formats Phone cell
+            if (dgvLocations.Columns[e.ColumnIndex].Name == "Phone" && e.Value is string num)
+            {
+                if (num.Length == 10) {
+                    e.Value = $"({num.Substring(0,3)}) {num.Substring(3, 3)}-{num.Substring(6, 4)}";
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        //               LOCATION HELP
+        //
+        //
+        private void picAdminLocation_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("/u2022Select location to remove or edit/n/u2022Only admin has permissions to Add/Edit/Remove locations", "Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        //             EDIT BUTTON
+        //
+        //
+        private void btnAdminLocationEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvLocations.SelectedRows.Count > 0)
+            {
+                int ID = (int)dgvLocations.SelectedRows[0].Cells[0].Value; // Get selected location ID
+
+                StaticHelpers.UserSession.SelectedLocation = locations.FirstOrDefault(l => l.SiteId == ID); // Set user variable to selected location, found in local location list
+
+                if (StaticHelpers.UserSession.SelectedLocation != null)
+                {
+                    AddEditLocation frm = new AddEditLocation(false); // Show form add = false
+                    frm.ShowDialog();
+                    StaticHelpers.UserSession.SelectedLocation = null; // Clear selected location
+                    RefreshLocationsDGV(); // Refresh display
+                }
+                else
+                    MessageBox.Show("Error finding matching Location", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        //             ADD BUTTON
+        //
+        //
+        private void btnAdminLocationAdd_Click(object sender, EventArgs e)
+        {
+            AddEditLocation frm = new AddEditLocation(true); // Show form add = true
+            frm.ShowDialog();
+            RefreshLocationsDGV(); // Refresh display
+        }
+
+
+        //            REMOVE BUTTON
+        //
+        //
+        private void btnAdminLocationRemove_Click(object sender, EventArgs e)
+        {
+            if (dgvLocations.SelectedRows.Count > 0)
+            {
+                string loc = (string)dgvLocations.SelectedRows[0].Cells[1].Value;
+
+                DialogResult dia = MessageBox.Show($"Are you sure you want to remove {loc} from the database?", "Confirm Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dia == DialogResult.Yes) // Remove selected item from db
+                {
+                    int ID = (int)dgvLocations.SelectedRows[0].Cells[0].Value; // Get selected site ID
+
+                    Site selectedSite = locations.First(l => l.SiteId == ID); // Get selected Site
+
+                    try
+                    {
+                        using (var context = new BullseyeContext())
+                        {
+                            context.Sites.Remove(selectedSite); // Remove from context
+                            context.SaveChanges(); // Save removal in DB
+
+                            RefreshLocationsDGV(); // Refresh display
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "DB Error");
+                    }
+                }
+            }
+        }
+
 
 
         //            **** EMPLOYEE TAB ****

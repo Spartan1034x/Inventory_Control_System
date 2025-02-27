@@ -86,6 +86,12 @@
             notesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             activeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             itemBindingSource = new BindingSource(components);
+            tabAdminLocations = new TabPage();
+            dgvLocations = new DataGridView();
+            btnAdminLocationRemove = new Button();
+            btnAdminLocationAdd = new Button();
+            btnAdminLocationEdit = new Button();
+            btnAdminLocationRefresh = new Button();
             bdnOrderType = new BindingSource(components);
             posnBindingSource = new BindingSource(components);
             label3 = new Label();
@@ -102,6 +108,7 @@
             picHelpOrders = new PictureBox();
             picHelpItems = new PictureBox();
             picHelpInventory = new PictureBox();
+            picAdminLocation = new PictureBox();
             tabctrlMain.SuspendLayout();
             tabOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
@@ -118,12 +125,15 @@
             tabAdminItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).BeginInit();
+            tabAdminLocations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvLocations).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bdnOrderType).BeginInit();
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHelpOrders).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHelpItems).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHelpInventory).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picAdminLocation).BeginInit();
             SuspendLayout();
             // 
             // tabctrlMain
@@ -385,6 +395,7 @@
             tabctrlAdminUsers.Controls.Add(tabAdminUsersEmployees);
             tabctrlAdminUsers.Controls.Add(tabAdminUsersPermissions);
             tabctrlAdminUsers.Controls.Add(tabAdminItems);
+            tabctrlAdminUsers.Controls.Add(tabAdminLocations);
             tabctrlAdminUsers.Dock = DockStyle.Fill;
             tabctrlAdminUsers.Location = new Point(0, 0);
             tabctrlAdminUsers.MinimumSize = new Size(1119, 466);
@@ -761,6 +772,91 @@
             // 
             itemBindingSource.DataSource = typeof(Models.Item);
             // 
+            // tabAdminLocations
+            // 
+            tabAdminLocations.Controls.Add(dgvLocations);
+            tabAdminLocations.Controls.Add(btnAdminLocationRemove);
+            tabAdminLocations.Controls.Add(btnAdminLocationAdd);
+            tabAdminLocations.Controls.Add(btnAdminLocationEdit);
+            tabAdminLocations.Controls.Add(btnAdminLocationRefresh);
+            tabAdminLocations.Location = new Point(4, 37);
+            tabAdminLocations.Name = "tabAdminLocations";
+            tabAdminLocations.Padding = new Padding(3);
+            tabAdminLocations.Size = new Size(1224, 499);
+            tabAdminLocations.TabIndex = 3;
+            tabAdminLocations.Text = "Locations";
+            tabAdminLocations.UseVisualStyleBackColor = true;
+            // 
+            // dgvLocations
+            // 
+            dgvLocations.AllowUserToAddRows = false;
+            dgvLocations.AllowUserToDeleteRows = false;
+            dgvLocations.AllowUserToResizeColumns = false;
+            dgvLocations.AllowUserToResizeRows = false;
+            dgvLocations.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dgvLocations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvLocations.Location = new Point(6, 6);
+            dgvLocations.MultiSelect = false;
+            dgvLocations.Name = "dgvLocations";
+            dgvLocations.ReadOnly = true;
+            dgvLocations.RowHeadersVisible = false;
+            dgvLocations.RowHeadersWidth = 51;
+            dgvLocations.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvLocations.Size = new Size(1212, 398);
+            dgvLocations.TabIndex = 12;
+            dgvLocations.CellFormatting += dgvLocations_CellFormatting;
+            // 
+            // btnAdminLocationRemove
+            // 
+            btnAdminLocationRemove.Anchor = AnchorStyles.Bottom;
+            btnAdminLocationRemove.Enabled = false;
+            btnAdminLocationRemove.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminLocationRemove.Location = new Point(1059, 435);
+            btnAdminLocationRemove.Name = "btnAdminLocationRemove";
+            btnAdminLocationRemove.Size = new Size(114, 29);
+            btnAdminLocationRemove.TabIndex = 11;
+            btnAdminLocationRemove.Text = "Re&move";
+            btnAdminLocationRemove.UseVisualStyleBackColor = true;
+            btnAdminLocationRemove.Click += btnAdminLocationRemove_Click;
+            // 
+            // btnAdminLocationAdd
+            // 
+            btnAdminLocationAdd.Anchor = AnchorStyles.Bottom;
+            btnAdminLocationAdd.Enabled = false;
+            btnAdminLocationAdd.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminLocationAdd.Location = new Point(399, 435);
+            btnAdminLocationAdd.Name = "btnAdminLocationAdd";
+            btnAdminLocationAdd.Size = new Size(114, 29);
+            btnAdminLocationAdd.TabIndex = 10;
+            btnAdminLocationAdd.Text = "&Add";
+            btnAdminLocationAdd.UseVisualStyleBackColor = true;
+            btnAdminLocationAdd.Click += btnAdminLocationAdd_Click;
+            // 
+            // btnAdminLocationEdit
+            // 
+            btnAdminLocationEdit.Anchor = AnchorStyles.Bottom;
+            btnAdminLocationEdit.Enabled = false;
+            btnAdminLocationEdit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminLocationEdit.Location = new Point(729, 435);
+            btnAdminLocationEdit.Name = "btnAdminLocationEdit";
+            btnAdminLocationEdit.Size = new Size(114, 29);
+            btnAdminLocationEdit.TabIndex = 9;
+            btnAdminLocationEdit.Text = "&Edit";
+            btnAdminLocationEdit.UseVisualStyleBackColor = true;
+            btnAdminLocationEdit.Click += btnAdminLocationEdit_Click;
+            // 
+            // btnAdminLocationRefresh
+            // 
+            btnAdminLocationRefresh.Anchor = AnchorStyles.Bottom;
+            btnAdminLocationRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminLocationRefresh.Location = new Point(69, 435);
+            btnAdminLocationRefresh.Name = "btnAdminLocationRefresh";
+            btnAdminLocationRefresh.Size = new Size(114, 29);
+            btnAdminLocationRefresh.TabIndex = 8;
+            btnAdminLocationRefresh.Text = "&Refresh";
+            btnAdminLocationRefresh.UseVisualStyleBackColor = true;
+            btnAdminLocationRefresh.Click += btnAdminLocationRefresh_Click;
+            // 
             // bdnOrderType
             // 
             bdnOrderType.DataSource = typeof(Models.Txntype);
@@ -927,11 +1023,26 @@
             picHelpInventory.Visible = false;
             picHelpInventory.Click += picHelpInventory_Click;
             // 
+            // picAdminLocation
+            // 
+            picAdminLocation.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            picAdminLocation.Cursor = Cursors.Hand;
+            picAdminLocation.Image = (Image)resources.GetObject("picAdminLocation.Image");
+            picAdminLocation.Location = new Point(1242, 99);
+            picAdminLocation.Name = "picAdminLocation";
+            picAdminLocation.Size = new Size(29, 29);
+            picAdminLocation.SizeMode = PictureBoxSizeMode.Zoom;
+            picAdminLocation.TabIndex = 40;
+            picAdminLocation.TabStop = false;
+            picAdminLocation.Visible = false;
+            picAdminLocation.Click += picAdminLocation_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 803);
+            Controls.Add(picAdminLocation);
             Controls.Add(picHelpInventory);
             Controls.Add(picHelpItems);
             Controls.Add(picHelpOrders);
@@ -973,12 +1084,15 @@
             tabAdminItems.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).EndInit();
+            tabAdminLocations.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvLocations).EndInit();
             ((System.ComponentModel.ISupportInitialize)bdnOrderType).EndInit();
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHelpOrders).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHelpItems).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHelpInventory).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picAdminLocation).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1057,5 +1171,12 @@
         private DataGridView dgvInventory;
         private Label label10;
         private TextBox txtInventorySearch;
+        private TabPage tabAdminLocations;
+        private DataGridView dgvLocations;
+        private Button btnAdminLocationRemove;
+        private Button btnAdminLocationAdd;
+        private Button btnAdminLocationEdit;
+        private Button btnAdminLocationRefresh;
+        private PictureBox picAdminLocation;
     }
 }

@@ -80,10 +80,15 @@ namespace BullseyeDesktopApp
                 btnOrdersReceive.Enabled = true;
                 btnOrdersFulfil.Enabled = true;
 
-                // Enable CRUD buttons
+                // Enable Employee CRUD buttons
                 btnAdminEmployeeDelete.Enabled = true;
                 btnAdminEmployeeEdit.Enabled = true;
                 btnAdminEmployeeAdd.Enabled = true;
+
+                //Enable Location CRUD buttons
+                btnAdminLocationAdd.Enabled = true;
+                btnAdminLocationRemove.Enabled = true;
+                btnAdminLocationEdit.Enabled = true;
 
             }
             // REGIONAL MANAGER
@@ -143,6 +148,15 @@ namespace BullseyeDesktopApp
                 // Show Order fulfil button
                 btnOrdersFulfil.Enabled = true;
             }
+
+
+            // INTERNAL USERS (not acadia or online)
+            if (permissionLevel != 6 || permissionLevel != 10000)
+            {
+                // Add location tab for all users
+                tabctrlAdminUsers.TabPages.Add(tabAdminLocations);
+            }
+
 
             // Manually resize form for splash admin page and call populate first dgv
             tabctrlMain.SelectedTab = tabAdmin;
@@ -322,6 +336,7 @@ namespace BullseyeDesktopApp
             picHelpOrders.Visible = selection == tabOrders; // Orders help
             picHelpItems.Visible = selection == tabAdmin && adminSelection == tabAdminItems; // Items help
             picHelpInventory.Visible = selection == tabInventory; // Inventory help
+            picAdminLocation.Visible = selection == tabAdmin && adminSelection == tabAdminLocations; // Location Help
         }
 
     }
