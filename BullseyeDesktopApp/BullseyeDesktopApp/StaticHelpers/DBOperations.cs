@@ -2,9 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
+using Timer = System.Windows.Forms.Timer;
+
 
 namespace BullseyeDesktopApp.StaticHelpers
 {
@@ -53,11 +57,13 @@ namespace BullseyeDesktopApp.StaticHelpers
         }
 
 
-        //                    TRANSACTION WITH AUDIT
+        //                    NEW ORDER WITH AUDIT
         //
         //
+        // SENT: NEW TXN, TXNITEM LIST, ADDITIONAL NOTES
+        // RETURNED: STRING ex message or "ok"
         // Receives a txn and notes and submits that along with the audit record to the db, returns true if db ops successful
-        public async static Task<bool> TransactionWithAudit(Txn newTransaction, string notes)
+        public async static Task<string> CreateOrderWithAudit(Txn newTransaction, List<Txnitem> items, string notes)
         {
 
             using (var context = new BullseyeContext())
@@ -69,6 +75,14 @@ namespace BullseyeDesktopApp.StaticHelpers
                         context.Txns.Add(newTransaction);
                         await context.SaveChangesAsync();
 
+                        // Add TXN id to each txnItem then add to txnItems db
+                        foreach (Txnitem item in items) 
+                        {
+                            item.TxnId = newTransaction.TxnId;
+                            context.Txnitems.Add(item);
+                        }
+
+
                         var audit = new Txnaudit
                         {
                             CreatedDate = DateTime.UtcNow,
@@ -77,7 +91,7 @@ namespace BullseyeDesktopApp.StaticHelpers
                             TxnType = newTransaction.TxnType,
                             Status = newTransaction.TxnStatus,
                             TxnDate = newTransaction.ShipDate,
-                            SiteId = newTransaction.SiteIdfrom,
+                            SiteId = newTransaction.SiteIdto,
                             DeliveryId = newTransaction.DeliveryId,
                             Notes = "Txn Notes: " + newTransaction.Notes + "\nAudit Notes: " + notes
                         };
@@ -87,17 +101,271 @@ namespace BullseyeDesktopApp.StaticHelpers
 
                         await dbTransaction.CommitAsync(); // Commit database transaction
 
-                        return true;
+                        return "ok";
                     }
                     catch (Exception ex)
                     {
                         await dbTransaction.RollbackAsync(); // Rollback if database transaction fails
                         //throw new Exception(ex.Message);
-                        return false;
+                        return ex.Message + "\nInner Error: " + ex.InnerException;
                     }
                 }
             }
             
+        }
+
+
+        //               ORDER UPDATE WITH AUDIT
+        //
+        // Receives txn, updates it in the db then submits audit, receives update item list, if it is not empty will replace one in db with new one
+        public async static Task<string> UpdateOrderWithAudit(Txn order, List<Txnitem> newItems)
+        {
+            using (var context = new BullseyeContext())
+            {
+                using (var dbTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {   
+                        context.Update(order);
+                        await context.SaveChangesAsync();
+
+                        // If items list is not empty find all items currently attached to this order, delete and add all new ones (updates item quantity)
+                        if (newItems.Count > 0)
+                        {
+                            var oldItems = context.Txnitems.Where(i => i.TxnId == order.TxnId).ToList(); // Find all old items
+
+                            context.Txnitems.RemoveRange(oldItems); // Remove all old items
+                            await context.SaveChangesAsync();
+
+                            foreach (var item in newItems) // Add each new item with updates quantities
+                            {
+                                context.Txnitems.Add(item);
+                            }
+
+                            await context.SaveChangesAsync();
+                        }
+
+                        // AUDIT
+                        var audit = new Txnaudit
+                        {
+                            CreatedDate = DateTime.UtcNow,
+                            TxnId = order.TxnId, //ID from db
+                            EmployeeId = order.EmployeeId,
+                            TxnType = order.TxnType,
+                            Status = order.TxnStatus,
+                            TxnDate = order.ShipDate,
+                            SiteId = order.SiteIdto,
+                            DeliveryId = order.DeliveryId,
+                            Notes = "Txn Notes: " + order.Notes
+                        };
+
+                        context.Txnaudits.Add(audit);
+                        await context.SaveChangesAsync(); // Save txnAudit 
+
+                        await dbTransaction.CommitAsync(); // Commit database transaction
+
+                        return "ok";
+                    }
+                    catch (Exception ex)
+                    {
+                        await dbTransaction.RollbackAsync(); // Rollback if database transaction fails
+                        //throw new Exception(ex.Message);
+                        return ex.Message + "\nInner Error: " + ex.InnerException;
+                    }
+                }
+            }
+        }
+
+
+        //               MOVE INVENTORY
+        //
+        //  Receives order and list of items, depending on what part of the order process the site to and from are set and inventories are subtracted from sender and added to receiver
+        public static async Task<string> MoveInventory(List<Txnitem> items, Txn order)
+        {
+            
+            using (var context = new BullseyeContext())
+            {
+                using (var dbTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        int siteFrom = -1;
+                        int siteTo = -1;
+
+                        // WAREHOUSE TO WAREHOUSE BAY (after warehouse workers assemble order)
+                        if (order.TxnStatus == "ASSEMBLED")
+                        {
+                            siteFrom = 2; // Warehouse
+                            siteTo = 3; // Warehouse bay
+                        }
+                        // WAREHOUSE BAY TO TRUCK (truck picks up order)
+                        else if (order.TxnStatus == "IN TRANSIT")
+                        {
+                            siteFrom = 3; // Warehouse bay
+                            siteTo = 9999; // Truck
+                        }
+                        // TRUCK TO STORE (truck delivers order)
+                        else if (order.TxnStatus == "DELIVERED")
+                        {
+                            siteFrom = 9999; // Truck
+                            siteTo = order.SiteIdto; // Site to delivered
+                        }
+
+                        // If order has been populated with approriate siteIDs
+                        if (siteFrom != -1 && siteTo != -1)
+                        {
+                            foreach (var txnItem in items)
+                            {
+                                // Retrieve the source Inventory record.
+                                var sourceInventory = await context.Inventories
+                                    .FirstOrDefaultAsync(i => i.ItemId == txnItem.ItemId
+                                        && i.SiteId == siteFrom);
+
+                                if (sourceInventory == null)
+                                {
+                                    return $"Source Inventory record not found for item {txnItem.ItemId} at site {siteFrom}.";
+                                }
+
+
+                                // Subtract the quantity from the source.
+                                sourceInventory.Quantity -= txnItem.Quantity;
+
+                                // Retrieve the destination Inventory record and set the itemLocation to destination ID for some reason?
+                                string destLocation = order.TxnId.ToString();
+                                var destinationInventory = await context.Inventories
+                                    .FirstOrDefaultAsync(i => i.ItemId == txnItem.ItemId
+                                        && i.SiteId == siteTo);
+
+                                // If the destination record doesn't exist, create one.
+                                if (destinationInventory == null)
+                                {
+                                    destinationInventory = new Inventory
+                                    {
+                                        ItemId = txnItem.ItemId,
+                                        SiteId = siteTo,
+                                        ItemLocation = destLocation,
+                                        Quantity = 0,
+                                    };
+                                    await context.Inventories.AddAsync(destinationInventory);
+                                }
+
+                                // Add the quantity to the destination.
+                                destinationInventory.Quantity += txnItem.Quantity;
+
+                                //       ***      MAY CREATE AUDIT TABLE HERE IF TIME ALLOWS *******
+                            }
+
+                            await context.SaveChangesAsync(); // Save changes
+
+                            await dbTransaction.CommitAsync(); // Commit transaction
+
+                            return "ok";
+                        }
+
+                        return "ok";
+                    }
+                    catch (Exception ex)
+                    {
+                        await dbTransaction.RollbackAsync(); // Rollback if database transaction fails
+                        return ex.Message + "\nInner Error: " + ex.InnerException;
+                    }
+                }
+            }
+            
+        }
+
+
+        //              UPDATE INVENTORY THRESHOLD
+        //
+        //
+        public static string UpdateInventoryThreshold(Inventory item)
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    context.Inventories.Update(item);
+
+                    context.SaveChanges();
+
+                    return "ok";
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message + "\nInner Error: " + ex.InnerException;
+            }
+        }
+
+
+        //                CAN SUBMIT STORE ORDER
+        //
+        //
+        public static bool CanSubmitOrder(int storeID)
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    // Gets current date and subracts however many days since sunday to get start of current week (Sunday)
+                    var startOfCurrentWeek = DateTime.UtcNow.Date.AddDays(-(int)DateTime.UtcNow.DayOfWeek);
+
+                    // Searches if a site has placed an order after the current sunday so this week already, returns true if one has been placed then ! returns false (Cannot another submit order)
+                    return !context.Txns.Any(o => o.SiteIdto == storeID && o.CreatedDate >= startOfCurrentWeek && o.EmergencyDelivery == 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+                return true;
+            }    
+        }
+
+
+        //              ORDER NOTIFICATION
+        //
+        //
+        private static System.Windows.Forms.Timer orderTimer = new();
+        private static DateTime lastChecked = DateTime.Now;
+
+        //
+        // Starts and sets timer to check for new orders every 5 min to reduce db queries
+        public static void StartOrderNotificationTimer()
+        {
+            orderTimer.Interval = (int)TimeSpan.FromMinutes(5).TotalMilliseconds;
+            orderTimer.Tick += CheckForNewOrders;
+            orderTimer.Start();
+        }
+
+        //
+        // Stops timer, called when main form closes
+        public static void StopOrderTimer()
+        {
+            orderTimer.Stop();
+        }
+
+        //
+        // Querys the database to find Submitted orders that are between last checked time and now, notfies if any ordrs have been placed
+        private static void CheckForNewOrders(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    List<Txn> newTxns = context.Txns.Where(t => t.TxnStatus.ToUpper() == "SUBMITTED" && t.CreatedDate > lastChecked).ToList();
+
+                    // If any new orders have been submitted then display a messagebox and reset checked time
+                    if (newTxns.Count > 0)
+                    {
+                        MessageBox.Show($"{newTxns.Count} new order have been placed", "New Orders", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        lastChecked = DateTime.Now;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+            }
         }
     }
 }

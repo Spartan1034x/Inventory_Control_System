@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BullseyeDesktopApp.StaticHelpers
+{
+    public static class MiscHelper
+    {
+
+        //        CALCULATE DELIVERY DATE
+        //
+        // Receives delivery day for that store, returns date of next delivery for that store or Now if bad data sent in
+        public static DateTime CalculateDeliveryDate(string day)
+        {
+            // Returns default date if bad data sent
+            if (String.IsNullOrEmpty(day))
+                return DateTime.Now;
+
+            // Convert sent date into DayOfWeek object
+            DayOfWeek deliveryDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day, true);
+
+            DateTime today = DateTime.Today;
+
+            // Days to add to delivery date is delivery day of the week subrtact current day of the week add and mod 7
+            int daysToAdd = ((int)deliveryDay - (int)today.DayOfWeek + 7) % 7;
+
+            DateTime returnDate = today.AddDays(daysToAdd).AddHours(8);
+
+            // If return date is before or today it goess next week
+            if (returnDate <= DateTime.Now)
+            {
+                returnDate = returnDate.AddDays(7);
+            }
+
+            return returnDate;
+        }
+    }
+}

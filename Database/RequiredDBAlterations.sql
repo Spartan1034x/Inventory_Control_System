@@ -1,46 +1,3 @@
-/*
-    ***NOT USED SECTION****
-*/
-ALTER TABLE employee DROP COLUMN userName;
-ALTER TABLE employee ADD COLUMN userName VARCHAR(25) DEFAULT NULL;
-
-/*Allows hashed passwords */
-ALTER TABLE Employee
-MODIFY COLUMN Password VARCHAR(255) NOT NULL;
-
-/* Creates username */
-UPDATE employee
-SET userName = CONCAT(LEFT(FirstName, 1), LastName)
-WHERE employeeID IS NOT NULL
-LIMIT 20; /* Satifies Safe mode error but limits the amount of users changed, ensure this number is higher than total users */
-
-/* txnAudit entry */
-INSERT INTO `txnaudit` (
-  `txnID`, 
-  `employeeID`, 
-  `txnType`, 
-  `status`, 
-  `txnDate`, 
-  `SiteID`, 
-  `deliveryID`, 
-  `notes`
-) VALUES (
-  1001,
-  10008,        
-  'Correction',   
-  'Pending',       
-  NOW(),           
-  1,               
-  NULL,            
-  'Correction for inventory mismatch' 
-);
-
-DELETE FROM `txnaudit`
-WHERE `txnAuditID` = 32094823844039;
-
-
-
-
 /* 
     *** USED SECTION *****
 */
@@ -117,3 +74,14 @@ UPDATE employee
 SET locked = 0
 WHERE employeeID = 1000;
 
+/* Adds "All" StatusName to txnstatus table */
+INSERT INTO txnstatus (StatusName, statusDescription)
+VALUES ('All', "Show All");
+
+/* Adds "All" to txnType in txntype table */
+INSERT INTO txntype (txnType)
+VALUES ('All');
+
+/* Adds "All" to site table, sets siteID to 11, siteName to "All", province to 'NB' */
+INSERT INTO site (siteID, siteName, provinceID, address, city, country, postalCode, phone, distanceFromWH)
+VALUES (11, 'All', 'NB', "", "", "", "", "", 0);

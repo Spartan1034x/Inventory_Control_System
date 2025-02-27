@@ -32,7 +32,7 @@ namespace BullseyeDesktopApp
         private void LogIn_Load(object sender, EventArgs e)
         {
             this.AcceptButton = btnLogin; //Sets enter button to login
-            try 
+            try
             {
                 context = new BullseyeContext(); //Instatiates context
                 LoadContextData(); // Loads employee context
@@ -60,7 +60,7 @@ namespace BullseyeDesktopApp
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            var user = context.Employees.FirstOrDefault(e => e.Username == username);
+            var user = context.Employees.Include(p => p.Position).Include(s => s.Site).FirstOrDefault(e => e.Username == username);
             StaticHelpers.UserSession.CurrentUser = user;
 
             if (user == null && loginAttemptsRemaining != 0) //USER NOT FOUND
@@ -95,8 +95,8 @@ namespace BullseyeDesktopApp
                         OpenResetPassword();
 
                     Main form = new Main();
-                    form.Show(); 
-                    this.Hide();    
+                    form.Show();
+                    this.Hide();
                 }
                 else // PASSWORD DOES NOT MATCH
                 {
@@ -146,6 +146,24 @@ namespace BullseyeDesktopApp
         //Closes the context as the page ends
         private void LogIn_FormClosing(object sender, FormClosingEventArgs e)
         {
+            context.Dispose();
+        }
+
+        //            PASSWORD HASH ALL
+        //
+        // Hashes all passwords in the db
+        private void btnHashAll_Click_1(object sender, EventArgs e)
+        {
+            BullseyeContext context = new BullseyeContext();
+            var employees = context.Employees.ToList();
+
+            foreach (var employee in employees)
+            {
+                employee.Password = StaticHelpers.PasswordHelper.HashPassword(employee.Password);
+            }
+
+            context.SaveChanges();
+            MessageBox.Show("PAsswords hashed");
             context.Dispose();
         }
     }

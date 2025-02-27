@@ -1,0 +1,7 @@
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\TestProject\bin\Debug\net8.0-windows\CoverletSourceRootsMapping_TestProject
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\TestProject\obj\Debug\net8.0-windows\TestProject.csproj.AssemblyReference.cache
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\TestProject\obj\Debug\net8.0-windows\TestProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\TestProject\obj\Debug\net8.0-windows\TestProject.AssemblyInfoInputs.cache
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\TestProject\obj\Debug\net8.0-windows\TestProject.AssemblyInfo.cs
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\TestProject\obj\Debug\net8.0-windows\TestProject.csproj.CoreCompileInputs.cache
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\TestProject\obj\Debug\net8.0-windows\TestProject.sourcelink.json

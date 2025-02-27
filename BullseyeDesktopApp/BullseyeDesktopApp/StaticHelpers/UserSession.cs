@@ -15,6 +15,12 @@ namespace BullseyeDesktopApp.StaticHelpers
         //Static variable for selected user
         public static Employee? SelectedUser { get; set; }
 
+        // Selected order for warehouse manager
+        public static Txn? SelectedOrder { get; set; }
+
+        // Selected Location for admin CRUD
+        public static Site? SelectedLocation { get; set; }
+
 
         //String for username from current user variable
         public static String UserName { 
