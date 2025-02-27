@@ -36,6 +36,7 @@
             dgvOrders = new DataGridView();
             label1 = new Label();
             grpOrderType = new GroupBox();
+            radBackorder = new RadioButton();
             radEmergency = new RadioButton();
             radRegular = new RadioButton();
             lblEmergency = new Label();
@@ -50,6 +51,11 @@
             picHelp = new PictureBox();
             txtNotes = new TextBox();
             label5 = new Label();
+            lblBackorder = new Label();
+            cmbStores = new ComboBox();
+            lblStoreTo = new Label();
+            lblShipDate = new Label();
+            dtpShip = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
             grpOrderType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picHelp).BeginInit();
@@ -125,14 +131,26 @@
             // grpOrderType
             // 
             grpOrderType.Anchor = AnchorStyles.Bottom;
+            grpOrderType.Controls.Add(radBackorder);
             grpOrderType.Controls.Add(radEmergency);
             grpOrderType.Controls.Add(radRegular);
-            grpOrderType.Location = new Point(92, 816);
+            grpOrderType.Location = new Point(44, 771);
             grpOrderType.Name = "grpOrderType";
-            grpOrderType.Size = new Size(177, 92);
+            grpOrderType.Size = new Size(177, 123);
             grpOrderType.TabIndex = 26;
             grpOrderType.TabStop = false;
             grpOrderType.Text = "Order Type";
+            // 
+            // radBackorder
+            // 
+            radBackorder.AutoSize = true;
+            radBackorder.Location = new Point(37, 86);
+            radBackorder.Name = "radBackorder";
+            radBackorder.Size = new Size(97, 24);
+            radBackorder.TabIndex = 2;
+            radBackorder.Text = "Backorder";
+            radBackorder.UseVisualStyleBackColor = true;
+            radBackorder.CheckedChanged += radBackorder_CheckedChanged;
             // 
             // radEmergency
             // 
@@ -156,6 +174,7 @@
             radRegular.TabStop = true;
             radRegular.Text = "Regular";
             radRegular.UseVisualStyleBackColor = true;
+            radRegular.CheckedChanged += radRegular_CheckedChanged;
             // 
             // lblEmergency
             // 
@@ -296,11 +315,71 @@
             label5.TabIndex = 38;
             label5.Text = "Notes:";
             // 
+            // lblBackorder
+            // 
+            lblBackorder.Anchor = AnchorStyles.Top;
+            lblBackorder.AutoSize = true;
+            lblBackorder.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblBackorder.ForeColor = Color.Navy;
+            lblBackorder.Location = new Point(62, 39);
+            lblBackorder.Name = "lblBackorder";
+            lblBackorder.Size = new Size(155, 41);
+            lblBackorder.TabIndex = 39;
+            lblBackorder.Text = "Backorder";
+            lblBackorder.Visible = false;
+            // 
+            // cmbStores
+            // 
+            cmbStores.FormattingEnabled = true;
+            cmbStores.Location = new Point(279, 818);
+            cmbStores.Name = "cmbStores";
+            cmbStores.Size = new Size(194, 28);
+            cmbStores.TabIndex = 40;
+            cmbStores.Visible = false;
+            cmbStores.SelectedIndexChanged += cmbStores_SelectedIndexChanged;
+            // 
+            // lblStoreTo
+            // 
+            lblStoreTo.Anchor = AnchorStyles.Bottom;
+            lblStoreTo.AutoSize = true;
+            lblStoreTo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStoreTo.Location = new Point(333, 771);
+            lblStoreTo.Name = "lblStoreTo";
+            lblStoreTo.Size = new Size(87, 28);
+            lblStoreTo.TabIndex = 41;
+            lblStoreTo.Text = "Store To:";
+            lblStoreTo.Visible = false;
+            // 
+            // lblShipDate
+            // 
+            lblShipDate.Anchor = AnchorStyles.Bottom;
+            lblShipDate.AutoSize = true;
+            lblShipDate.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblShipDate.Location = new Point(575, 771);
+            lblShipDate.Name = "lblShipDate";
+            lblShipDate.Size = new Size(101, 28);
+            lblShipDate.TabIndex = 42;
+            lblShipDate.Text = "Ship Date:";
+            lblShipDate.Visible = false;
+            // 
+            // dtpShip
+            // 
+            dtpShip.Location = new Point(527, 819);
+            dtpShip.Name = "dtpShip";
+            dtpShip.Size = new Size(196, 27);
+            dtpShip.TabIndex = 43;
+            dtpShip.Visible = false;
+            // 
             // CreateOrder
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 953);
+            Controls.Add(dtpShip);
+            Controls.Add(lblShipDate);
+            Controls.Add(lblStoreTo);
+            Controls.Add(cmbStores);
+            Controls.Add(lblBackorder);
             Controls.Add(label5);
             Controls.Add(txtNotes);
             Controls.Add(picHelp);
@@ -356,5 +435,11 @@
         private PictureBox picHelp;
         private TextBox txtNotes;
         private Label label5;
+        private RadioButton radBackorder;
+        private Label lblBackorder;
+        private ComboBox cmbStores;
+        private Label lblStoreTo;
+        private Label lblShipDate;
+        private DateTimePicker dtpShip;
     }
 }

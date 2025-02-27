@@ -44,6 +44,10 @@
             btnOrdersRefresh = new Button();
             dgvOrders = new DataGridView();
             tabInventory = new TabPage();
+            label10 = new Label();
+            txtInventorySearch = new TextBox();
+            dgvInventory = new DataGridView();
+            btnInventoryUpdate = new Button();
             tabLoss = new TabPage();
             tabReports = new TabPage();
             tabAdmin = new TabPage();
@@ -82,6 +86,12 @@
             notesDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             activeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             itemBindingSource = new BindingSource(components);
+            tabAdminLocations = new TabPage();
+            dgvLocations = new DataGridView();
+            btnAdminLocationRemove = new Button();
+            btnAdminLocationAdd = new Button();
+            btnAdminLocationEdit = new Button();
+            btnAdminLocationRefresh = new Button();
             bdnOrderType = new BindingSource(components);
             posnBindingSource = new BindingSource(components);
             label3 = new Label();
@@ -97,9 +107,13 @@
             lnkResetPassword = new LinkLabel();
             picHelpOrders = new PictureBox();
             picHelpItems = new PictureBox();
+            picHelpInventory = new PictureBox();
+            picAdminLocation = new PictureBox();
             tabctrlMain.SuspendLayout();
             tabOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
+            tabInventory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).BeginInit();
             tabAdmin.SuspendLayout();
             tabctrlAdminUsers.SuspendLayout();
             tabAdminUsersEmployees.SuspendLayout();
@@ -111,11 +125,15 @@
             tabAdminItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).BeginInit();
+            tabAdminLocations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvLocations).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bdnOrderType).BeginInit();
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHelpOrders).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picHelpItems).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picHelpInventory).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picAdminLocation).BeginInit();
             SuspendLayout();
             // 
             // tabctrlMain
@@ -286,6 +304,10 @@
             // 
             // tabInventory
             // 
+            tabInventory.Controls.Add(label10);
+            tabInventory.Controls.Add(txtInventorySearch);
+            tabInventory.Controls.Add(dgvInventory);
+            tabInventory.Controls.Add(btnInventoryUpdate);
             tabInventory.Location = new Point(4, 37);
             tabInventory.Name = "tabInventory";
             tabInventory.Padding = new Padding(3);
@@ -293,6 +315,52 @@
             tabInventory.TabIndex = 1;
             tabInventory.Text = "Inventory";
             tabInventory.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Bottom;
+            label10.AutoSize = true;
+            label10.Location = new Point(228, 457);
+            label10.Name = "label10";
+            label10.Size = new Size(74, 28);
+            label10.TabIndex = 18;
+            label10.Text = "Search:";
+            // 
+            // txtInventorySearch
+            // 
+            txtInventorySearch.Location = new Point(315, 454);
+            txtInventorySearch.Name = "txtInventorySearch";
+            txtInventorySearch.Size = new Size(386, 34);
+            txtInventorySearch.TabIndex = 17;
+            txtInventorySearch.TextChanged += txtInventorySearch_TextChanged;
+            // 
+            // dgvInventory
+            // 
+            dgvInventory.AllowUserToAddRows = false;
+            dgvInventory.AllowUserToDeleteRows = false;
+            dgvInventory.AllowUserToResizeColumns = false;
+            dgvInventory.AllowUserToResizeRows = false;
+            dgvInventory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvInventory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvInventory.Location = new Point(170, 6);
+            dgvInventory.Name = "dgvInventory";
+            dgvInventory.RowHeadersVisible = false;
+            dgvInventory.RowHeadersWidth = 51;
+            dgvInventory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvInventory.Size = new Size(890, 399);
+            dgvInventory.TabIndex = 16;
+            // 
+            // btnInventoryUpdate
+            // 
+            btnInventoryUpdate.Anchor = AnchorStyles.Bottom;
+            btnInventoryUpdate.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnInventoryUpdate.Location = new Point(869, 451);
+            btnInventoryUpdate.Name = "btnInventoryUpdate";
+            btnInventoryUpdate.Size = new Size(141, 40);
+            btnInventoryUpdate.TabIndex = 15;
+            btnInventoryUpdate.Text = "&Update";
+            btnInventoryUpdate.UseVisualStyleBackColor = true;
+            btnInventoryUpdate.Click += btnInventoryUpdate_Click;
             // 
             // tabLoss
             // 
@@ -327,6 +395,7 @@
             tabctrlAdminUsers.Controls.Add(tabAdminUsersEmployees);
             tabctrlAdminUsers.Controls.Add(tabAdminUsersPermissions);
             tabctrlAdminUsers.Controls.Add(tabAdminItems);
+            tabctrlAdminUsers.Controls.Add(tabAdminLocations);
             tabctrlAdminUsers.Dock = DockStyle.Fill;
             tabctrlAdminUsers.Location = new Point(0, 0);
             tabctrlAdminUsers.MinimumSize = new Size(1119, 466);
@@ -703,6 +772,91 @@
             // 
             itemBindingSource.DataSource = typeof(Models.Item);
             // 
+            // tabAdminLocations
+            // 
+            tabAdminLocations.Controls.Add(dgvLocations);
+            tabAdminLocations.Controls.Add(btnAdminLocationRemove);
+            tabAdminLocations.Controls.Add(btnAdminLocationAdd);
+            tabAdminLocations.Controls.Add(btnAdminLocationEdit);
+            tabAdminLocations.Controls.Add(btnAdminLocationRefresh);
+            tabAdminLocations.Location = new Point(4, 37);
+            tabAdminLocations.Name = "tabAdminLocations";
+            tabAdminLocations.Padding = new Padding(3);
+            tabAdminLocations.Size = new Size(1224, 499);
+            tabAdminLocations.TabIndex = 3;
+            tabAdminLocations.Text = "Locations";
+            tabAdminLocations.UseVisualStyleBackColor = true;
+            // 
+            // dgvLocations
+            // 
+            dgvLocations.AllowUserToAddRows = false;
+            dgvLocations.AllowUserToDeleteRows = false;
+            dgvLocations.AllowUserToResizeColumns = false;
+            dgvLocations.AllowUserToResizeRows = false;
+            dgvLocations.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            dgvLocations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvLocations.Location = new Point(6, 6);
+            dgvLocations.MultiSelect = false;
+            dgvLocations.Name = "dgvLocations";
+            dgvLocations.ReadOnly = true;
+            dgvLocations.RowHeadersVisible = false;
+            dgvLocations.RowHeadersWidth = 51;
+            dgvLocations.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvLocations.Size = new Size(1212, 398);
+            dgvLocations.TabIndex = 12;
+            dgvLocations.CellFormatting += dgvLocations_CellFormatting;
+            // 
+            // btnAdminLocationRemove
+            // 
+            btnAdminLocationRemove.Anchor = AnchorStyles.Bottom;
+            btnAdminLocationRemove.Enabled = false;
+            btnAdminLocationRemove.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminLocationRemove.Location = new Point(1059, 435);
+            btnAdminLocationRemove.Name = "btnAdminLocationRemove";
+            btnAdminLocationRemove.Size = new Size(114, 29);
+            btnAdminLocationRemove.TabIndex = 11;
+            btnAdminLocationRemove.Text = "Re&move";
+            btnAdminLocationRemove.UseVisualStyleBackColor = true;
+            btnAdminLocationRemove.Click += btnAdminLocationRemove_Click;
+            // 
+            // btnAdminLocationAdd
+            // 
+            btnAdminLocationAdd.Anchor = AnchorStyles.Bottom;
+            btnAdminLocationAdd.Enabled = false;
+            btnAdminLocationAdd.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminLocationAdd.Location = new Point(399, 435);
+            btnAdminLocationAdd.Name = "btnAdminLocationAdd";
+            btnAdminLocationAdd.Size = new Size(114, 29);
+            btnAdminLocationAdd.TabIndex = 10;
+            btnAdminLocationAdd.Text = "&Add";
+            btnAdminLocationAdd.UseVisualStyleBackColor = true;
+            btnAdminLocationAdd.Click += btnAdminLocationAdd_Click;
+            // 
+            // btnAdminLocationEdit
+            // 
+            btnAdminLocationEdit.Anchor = AnchorStyles.Bottom;
+            btnAdminLocationEdit.Enabled = false;
+            btnAdminLocationEdit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminLocationEdit.Location = new Point(729, 435);
+            btnAdminLocationEdit.Name = "btnAdminLocationEdit";
+            btnAdminLocationEdit.Size = new Size(114, 29);
+            btnAdminLocationEdit.TabIndex = 9;
+            btnAdminLocationEdit.Text = "&Edit";
+            btnAdminLocationEdit.UseVisualStyleBackColor = true;
+            btnAdminLocationEdit.Click += btnAdminLocationEdit_Click;
+            // 
+            // btnAdminLocationRefresh
+            // 
+            btnAdminLocationRefresh.Anchor = AnchorStyles.Bottom;
+            btnAdminLocationRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminLocationRefresh.Location = new Point(69, 435);
+            btnAdminLocationRefresh.Name = "btnAdminLocationRefresh";
+            btnAdminLocationRefresh.Size = new Size(114, 29);
+            btnAdminLocationRefresh.TabIndex = 8;
+            btnAdminLocationRefresh.Text = "&Refresh";
+            btnAdminLocationRefresh.UseVisualStyleBackColor = true;
+            btnAdminLocationRefresh.Click += btnAdminLocationRefresh_Click;
+            // 
             // bdnOrderType
             // 
             bdnOrderType.DataSource = typeof(Models.Txntype);
@@ -855,11 +1009,41 @@
             picHelpItems.Visible = false;
             picHelpItems.Click += picHelpItems_Click;
             // 
+            // picHelpInventory
+            // 
+            picHelpInventory.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            picHelpInventory.Cursor = Cursors.Hand;
+            picHelpInventory.Image = (Image)resources.GetObject("picHelpInventory.Image");
+            picHelpInventory.Location = new Point(1242, 99);
+            picHelpInventory.Name = "picHelpInventory";
+            picHelpInventory.Size = new Size(29, 29);
+            picHelpInventory.SizeMode = PictureBoxSizeMode.Zoom;
+            picHelpInventory.TabIndex = 39;
+            picHelpInventory.TabStop = false;
+            picHelpInventory.Visible = false;
+            picHelpInventory.Click += picHelpInventory_Click;
+            // 
+            // picAdminLocation
+            // 
+            picAdminLocation.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            picAdminLocation.Cursor = Cursors.Hand;
+            picAdminLocation.Image = (Image)resources.GetObject("picAdminLocation.Image");
+            picAdminLocation.Location = new Point(1242, 99);
+            picAdminLocation.Name = "picAdminLocation";
+            picAdminLocation.Size = new Size(29, 29);
+            picAdminLocation.SizeMode = PictureBoxSizeMode.Zoom;
+            picAdminLocation.TabIndex = 40;
+            picAdminLocation.TabStop = false;
+            picAdminLocation.Visible = false;
+            picAdminLocation.Click += picAdminLocation_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1332, 803);
+            Controls.Add(picAdminLocation);
+            Controls.Add(picHelpInventory);
             Controls.Add(picHelpItems);
             Controls.Add(picHelpOrders);
             Controls.Add(lnkResetPassword);
@@ -885,6 +1069,9 @@
             tabOrders.ResumeLayout(false);
             tabOrders.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
+            tabInventory.ResumeLayout(false);
+            tabInventory.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).EndInit();
             tabAdmin.ResumeLayout(false);
             tabctrlAdminUsers.ResumeLayout(false);
             tabAdminUsersEmployees.ResumeLayout(false);
@@ -897,11 +1084,15 @@
             tabAdminItems.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).EndInit();
+            tabAdminLocations.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvLocations).EndInit();
             ((System.ComponentModel.ISupportInitialize)bdnOrderType).EndInit();
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHelpOrders).EndInit();
             ((System.ComponentModel.ISupportInitialize)picHelpItems).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picHelpInventory).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picAdminLocation).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -975,5 +1166,17 @@
         private PictureBox picHelpOrders;
         private PictureBox picHelpItems;
         private Button btnOrdersFulfil;
+        private Button btnInventoryUpdate;
+        private PictureBox picHelpInventory;
+        private DataGridView dgvInventory;
+        private Label label10;
+        private TextBox txtInventorySearch;
+        private TabPage tabAdminLocations;
+        private DataGridView dgvLocations;
+        private Button btnAdminLocationRemove;
+        private Button btnAdminLocationAdd;
+        private Button btnAdminLocationEdit;
+        private Button btnAdminLocationRefresh;
+        private PictureBox picAdminLocation;
     }
 }

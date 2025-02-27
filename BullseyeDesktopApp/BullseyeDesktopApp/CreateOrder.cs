@@ -16,8 +16,11 @@ namespace BullseyeDesktopApp
 {
     public partial class CreateOrder : Form
     {
-        List<Inventory> inventory = new List<Inventory>(); // All inventory
-        List<InventoryDisplay> order = new List<InventoryDisplay>(); // Order inventory
+        List<Inventory> inventory = new List<Inventory>(); // All Inventory
+        List<InventoryDisplay> order = new List<InventoryDisplay>(); // Order Inventory
+        bool BackOrderEdit = false; // Changes to true if user edits backorder instead of creating a new one
+        bool cmbLoading = false;
+        Txn selectedOrder = new Txn();
 
 
         //              FORM LOAD
@@ -29,9 +32,13 @@ namespace BullseyeDesktopApp
         }
         private void CreateOrder_Load(object sender, EventArgs e)
         {
+            Employee user = StaticHelpers.UserSession.CurrentUser;
+
             PopulateLabels();
             ResetOrderList();
             CheckPastOrders();
+            radBackorder.Enabled = user.PositionId == 9999 || user.PositionId == 3; // Backorder only available to admin, warehouse manager
+            InitializeComboBox();
         }
 
         //             CHECK PAST ORDERS
@@ -99,9 +106,7 @@ namespace BullseyeDesktopApp
         //
         private void radEmergency_CheckedChanged(object sender, EventArgs e)
         {
-            // Hide/Show Label
-            lblEmergency.Visible = radEmergency.Checked;
-            lblStandard.Visible = !radEmergency.Checked;
+            ShowLabels();
 
             // Limit line items to 5
             if (radEmergency.Checked)
@@ -112,6 +117,46 @@ namespace BullseyeDesktopApp
                 order = order.Take(5).ToList();
                 FormatAndAttachBindingSource();
             }
+        }
+
+
+        //         RAD REGULAR 
+        //
+        //
+        private void radRegular_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowLabels();
+        }
+
+
+        //         RAD BACKORDER
+        //
+        //
+        private void radBackorder_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowLabels();
+
+        }
+
+
+        //           SHOW LABELS
+        //
+        //
+        private void ShowLabels()
+        {
+            // Hide/Show Label
+            lblEmergency.Visible = radEmergency.Checked;
+            lblStandard.Visible = radRegular.Checked;
+            lblBackorder.Visible = radBackorder.Checked;
+
+            // Enabled disable refresh button
+            btnOrdersRefresh.Enabled = !radBackorder.Checked;
+
+            // Hide show backorder combo box / DateTimePicker
+            cmbStores.Visible = radBackorder.Checked;
+            lblStoreTo.Visible = radBackorder.Checked;
+            lblShipDate.Visible = radBackorder.Checked;
+            dtpShip.Visible = radBackorder.Checked;
         }
 
 
@@ -147,7 +192,7 @@ namespace BullseyeDesktopApp
             try
             {
                 using (var context = new Models.BullseyeContext())
-                {   //Gets all inventory objects from current users store
+                {   //Gets all Inventory objects from current users store
                     inventory = context.Inventories.Where(i => i.SiteId == StaticHelpers.UserSession.CurrentUser.SiteId).Include(i => i.Item).Include(i => i.Site).ToList();
 
                     //Displays all results for admin and only items below min redorder quant for everybody else
@@ -218,15 +263,6 @@ namespace BullseyeDesktopApp
             foreach (DataGridViewColumn column in dgvOrders.Columns)
             {
                 column.ReadOnly = true;
-
-                //if (column.Name != "Ordered")
-                //{
-                //    column.ReadOnly = true;
-                //}
-                //else
-                //{
-                //    column.ReadOnly = false;
-                //}
             }
         }
 
@@ -301,12 +337,12 @@ namespace BullseyeDesktopApp
                 return;
             }
 
-            // Find matching inventory item, if not found default object created and error shown
+            // Find matching Inventory item, if not found default object created and error shown
             Inventory selectedItem = inventory.FirstOrDefault(i => i.Item.Name.ToLower() == searchText.ToLower()) ?? new Inventory();
 
             if (selectedItem.ItemId == 0)
             {
-                MessageBox.Show("Item not found in inventory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Item not found in Inventory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -353,7 +389,8 @@ namespace BullseyeDesktopApp
         //
         private void picHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("\u2022Use up and down arrows to change order quantity by case size\n\u2022Search and item and press \"Add\" to add to order", "Info");
+            MessageBox.Show("\u2022Use up and down arrows to change order quantity by case size\n\u2022Search and item and press \"Add\" to add to order" +
+                "\n\u2022If a backorder is already submitted for selected store you may update existing or create a new one", "Info");
         }
 
 
@@ -405,6 +442,111 @@ namespace BullseyeDesktopApp
                 return;
             }
 
+            // If regular or emergency is checked do reg emerg order
+            if (radEmergency.Checked || radRegular.Checked)
+                await SubmitStandardOrEmergencyOrder();
+            else // If hbackorder is checked do backorder
+                await SubmitBackorder(); 
+
+            
+        }
+
+
+        //         SUBMIT BACKORDER
+        //
+        // Updates or creates new backorder
+        private async Task SubmitBackorder()
+        {
+            if (BackOrderEdit) // Update order
+            {
+                // Send selected order and new item lists
+                // Create Item List
+                List<Txnitem> txnItems = new List<Txnitem>();
+
+                foreach (InventoryDisplay item in order) // order is local list used to populate dgv
+                {
+                    if (item.Ordered > 0)
+                    {
+                        txnItems.Add(new Txnitem()
+                        {
+                            TxnId = selectedOrder.TxnId,
+                            ItemId = item.ItemId,
+                            Quantity = item.Ordered ?? 0
+                        });
+                    }
+                }
+
+                // Update delivery date
+                selectedOrder.ShipDate = dtpShip.Value;
+
+                // Call DBHelper to update back order, send selected order and new list of txn items
+                string txnResult = await StaticHelpers.DBOperations.UpdateOrderWithAudit(selectedOrder, txnItems);
+
+                if (txnResult == "ok")
+                {
+                    OrderSuccess();
+                }
+                else
+                {
+                    MessageBox.Show(txnResult, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            else // New order
+            {
+                Employee user = StaticHelpers.UserSession.CurrentUser ?? new Employee();
+                Site selectedSite = cmbStores.SelectedItem as Site;
+
+                int siteIDTo = selectedSite.SiteId; // Selected site to
+                int siteIDFrom = 2; // Warehouse for now
+                int employeeID = user.EmployeeId;
+                string status = "submitted".ToUpper();
+                DateTime deliveryDate = dtpShip.Value;
+                string orderType = "Back Order";
+                sbyte emergencyOrder = 0;
+                string barCode = GenerateBarCode();
+                string notes = "";
+                if (txtNotes.Text != String.Empty)
+                    notes = "\tUser: " + UserSession.CurrentUser.Username + " - Added At: " + DateTime.Now + " Note:" + txtNotes.Text;
+                DateTime createdDate = DateTime.Now; // CREATED DATE MAYBE GOES HERE!!!!!!!!!!!
+
+                Txn newTxn = new Txn(employeeID, siteIDTo, siteIDFrom, status, orderType, deliveryDate, barCode, createdDate, emergencyOrder, notes);
+
+                // Create Item List and add to txn
+                List<Txnitem> txnItems = new List<Txnitem>();
+
+                foreach (InventoryDisplay item in order) // order is local list used to populate dgv
+                {
+                    if (item.Ordered > 0)
+                    {
+                        txnItems.Add(new Txnitem()
+                        {
+                            TxnId = 0,
+                            ItemId = item.ItemId,
+                            Quantity = item.Ordered ?? 0
+                        });
+                    }
+                }
+
+                // Call DBHelper to send txn, txnItems, and Txn audit
+                string txnResult = await StaticHelpers.DBOperations.CreateOrderWithAudit(newTxn, txnItems, String.Empty);
+                if (txnResult == "ok")
+                {
+                    OrderSuccess();
+                }
+                else
+                {
+                    MessageBox.Show(txnResult, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+        //         SUBMIT STANDARD OR EMERGENCY ORDER
+        //
+        //
+        private async Task SubmitStandardOrEmergencyOrder()
+        {
             Employee user = StaticHelpers.UserSession.CurrentUser ?? new Employee();
             int siteIDTo = user.SiteId;
             int siteIDFrom = 2; // Warehouse for now
@@ -448,14 +590,18 @@ namespace BullseyeDesktopApp
                 MessageBox.Show(txnResult, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        //
+
+
+        //           SHOW ORDER SUCCESS
         //
         private void OrderSuccess() // Shows success and closes form
         {
             MessageBox.Show("Order Placed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
-        //
+
+
+        //          GENERATE RANDOM BAR CODE
         //
         private string GenerateBarCode()
         {
@@ -468,6 +614,128 @@ namespace BullseyeDesktopApp
             }
 
             return res;
+        }
+
+
+        //         INITIALIZE COMBO BOX DATA
+        //
+        //
+        private void InitializeComboBox()
+        {
+            cmbLoading = true;
+            try
+            {
+                // Bind your data to the combo box here
+                using (var context = new BullseyeContext())
+                {
+                    var stores = context.Sites.Where(s => s.SiteName.ToLower().Contains("retail")).ToList();
+                    cmbStores.DataSource = stores;
+                    cmbStores.DisplayMember = "SiteName";
+                }
+            }
+            finally
+            {
+                cmbLoading = false;
+                cmbStores.SelectedIndex = -1;
+            }
+        }
+
+
+        //          BACKORDER STORE CMB SELECTION CHANGED
+        //
+        //
+        // Populates datetime picker with selected stores next ship date
+        private void cmbStores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbLoading) // Does not perform method if cmb is still loading data
+                return;
+
+            if (cmbStores.SelectedItem != null)
+            {
+                Site? selectedSite = cmbStores.SelectedItem as Site;
+
+                dtpShip.Value = StaticHelpers.MiscHelper.CalculateDeliveryDate(selectedSite.DayOfWeek);
+            }
+
+            PopulatePreviousBackOrder();
+        }
+
+
+        //           POPULATE PREVIOUS BACKORDER
+        //
+        // Checks if a backorder has already been submitted for that store and populates if user desires
+        private void PopulatePreviousBackOrder()
+        {
+            try
+            {
+                // Ensure a store is selected.
+                if (cmbStores.SelectedItem != null)
+                {
+                    Site? selectedSite = cmbStores.SelectedItem as Site;
+
+                    using (var context = new BullseyeContext())
+                    {
+                        // Find if an existing backorder has been placed
+                        var existingBackorder = context.Txns
+                            .Include(t => t.Txnitems)
+                            .FirstOrDefault(t => t.SiteIdto == selectedSite.SiteId &&
+                                                 t.TxnType == "Back Order" &&
+                                                 t.TxnStatus.ToUpper() == "SUBMITTED");
+
+                        if (existingBackorder != null)
+                        {
+                            // Ask user if they want to edit
+                            DialogResult result = MessageBox.Show(
+                                "A backorder has already been submitted for this store. Would you like to edit it?",
+                                "Edit Backorder", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                BackOrderEdit = true; // Bool changed to true
+
+                                selectedOrder = existingBackorder; // Selected order = order found in db
+
+                                order.Clear();
+
+                                // Convert TxnItem to display object
+                                foreach (var txnItem in existingBackorder.Txnitems)
+                                {
+                                    var inventoryRecord = context.Inventories
+                                        .Include(i => i.Item)
+                                        .FirstOrDefault(i => i.ItemId == txnItem.ItemId &&
+                                                             i.SiteId == selectedSite.SiteId);
+
+                                    // If Inventory record is found create display object
+                                    if (inventoryRecord != null)
+                                    {
+                                        InventoryDisplay displayItem = new InventoryDisplay
+                                        {
+                                            ItemId = inventoryRecord.ItemId,
+                                            Description = inventoryRecord.Item.Description,
+                                            Quantity = inventoryRecord.Quantity,
+                                            MinimumThreshold = (int)inventoryRecord.ReorderThreshold,
+                                            CaseSize = inventoryRecord.Item.CaseSize,
+                                            OptimumThreshold = (int)inventoryRecord.OptimumThreshold,
+                                            Ordered = txnItem.Quantity
+                                        };
+
+                                        order.Add(displayItem);
+                                    }
+                                }
+
+                                //Refresh DGV
+                                FormatAndAttachBindingSource();
+                            }
+                            else
+                                BackOrderEdit = false; // Creating a new backorder
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+            }
         }
 
     }

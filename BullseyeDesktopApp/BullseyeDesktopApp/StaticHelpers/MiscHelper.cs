@@ -11,9 +11,13 @@ namespace BullseyeDesktopApp.StaticHelpers
 
         //        CALCULATE DELIVERY DATE
         //
-        // Receives delivery day, returns date of next delivery for that store
+        // Receives delivery day for that store, returns date of next delivery for that store or Now if bad data sent in
         public static DateTime CalculateDeliveryDate(string day)
         {
+            // Returns default date if bad data sent
+            if (String.IsNullOrEmpty(day))
+                return DateTime.Now;
+
             // Convert sent date into DayOfWeek object
             DayOfWeek deliveryDay = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), day, true);
 

@@ -15,7 +15,7 @@ namespace BullseyeDesktopApp
     {
 
         List<Txn> orders;
-        bool defaultLoad = true;
+        bool defaultOrdersLoad = true;
 
 
         //             FULFILL ORDER CLICK
@@ -245,7 +245,7 @@ namespace BullseyeDesktopApp
         //
         private void btnOrdersRefresh_Click(object sender, EventArgs e)
         {
-            if (defaultLoad)
+            if (defaultOrdersLoad)
             {
                 PopulateCmbs(); // Set default values in cmbs first
             }
@@ -334,7 +334,7 @@ namespace BullseyeDesktopApp
                     // Gets all orders with location, item list, and approritate item
                     orders = context.Txns.Include(o => o.SiteIdtoNavigation).Include(o=>o.Txnitems).ThenInclude(i=>i.Item).ToList(); // ORDERS SET HERE
 
-                    defaultLoad = false;
+                    defaultOrdersLoad = false;
                     string location = cmbOrdersLocation.SelectedValue.ToString();
                     string status = cmbOrdersStatus.SelectedValue.ToString();
                     string type = cmbOrdersType.SelectedValue.ToString();
@@ -368,7 +368,7 @@ namespace BullseyeDesktopApp
                     dgvOrders.Columns["DeliveryDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgvOrders.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-                    defaultLoad = false; // So selected index cmb change only fires after first load
+                    defaultOrdersLoad = false; // So selected index cmb change only fires after first load
 
                 }
             }
@@ -430,19 +430,19 @@ namespace BullseyeDesktopApp
         //
         private void cmbOrdersLocation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!defaultLoad) 
+            if (!defaultOrdersLoad) 
                 RefreshOrders();
         }
 
         private void cmbOrdersType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!defaultLoad)
+            if (!defaultOrdersLoad)
                 RefreshOrders();
         }
 
         private void cmbOrdersStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!defaultLoad)
+            if (!defaultOrdersLoad)
                 RefreshOrders();
         }
     }
