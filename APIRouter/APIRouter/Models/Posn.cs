@@ -9,5 +9,7 @@ public partial class Posn
 
     public string PermissionLevel { get; set; } = null!;
 
+    public sbyte Active { get; set; }
+
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 }

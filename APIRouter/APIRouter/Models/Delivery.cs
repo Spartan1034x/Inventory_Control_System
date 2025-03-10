@@ -7,6 +7,8 @@ public partial class Delivery
 {
     public int DeliveryId { get; set; }
 
+    public DateTime DeliveryDate { get; set; }
+
     public decimal DistanceCost { get; set; }
 
     public string VehicleType { get; set; } = null!;

@@ -1,0 +1,1010 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "APIRouter",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Delivery": {
+      "post": {
+        "tags": [
+          "Delivery"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliveryDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Delivery/{id}": {
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Delivery"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Delivery"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Delivery"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Txn": {
+      "get": {
+        "tags": [
+          "Txn"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxnDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxnDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TxnDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Txn/{id}": {
+      "get": {
+        "tags": [
+          "Txn"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Category": {
+        "type": "object",
+        "properties": {
+          "categoryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Delivery": {
+        "type": "object",
+        "properties": {
+          "deliveryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliveryDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "distanceCost": {
+            "type": "number",
+            "format": "double"
+          },
+          "vehicleType": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "txnaudits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txnaudit"
+            },
+            "nullable": true
+          },
+          "txns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txn"
+            },
+            "nullable": true
+          },
+          "vehicleTypeNavigation": {
+            "$ref": "#/components/schemas/Vehicle"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeliveryDTO": {
+        "type": "object",
+        "properties": {
+          "txnID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliveryDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "emergencyOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "barCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "siteIDTo": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Deliverymethod": {
+        "type": "object",
+        "properties": {
+          "deliveryMethodId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "address1": {
+            "type": "string",
+            "nullable": true
+          },
+          "address2": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalcode": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "contact": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "province": {
+            "$ref": "#/components/schemas/Province"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Employee": {
+        "type": "object",
+        "properties": {
+          "employeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "siteId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "locked": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "firstInsert": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "position": {
+            "$ref": "#/components/schemas/Posn"
+          },
+          "site": {
+            "$ref": "#/components/schemas/Site"
+          },
+          "txnaudits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txnaudit"
+            },
+            "nullable": true
+          },
+          "txns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txn"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Inventory": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "siteId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "itemLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "reorderThreshold": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "optimumThreshold": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "item": {
+            "$ref": "#/components/schemas/Item"
+          },
+          "site": {
+            "$ref": "#/components/schemas/Site"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Item": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "format": "double"
+          },
+          "caseSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "costPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "retailPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "supplierId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "imageLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryNavigation": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "inventories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Inventory"
+            },
+            "nullable": true
+          },
+          "supplier": {
+            "$ref": "#/components/schemas/Supplier"
+          },
+          "txnitems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txnitem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Posn": {
+        "type": "object",
+        "properties": {
+          "positionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "permissionLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Employee"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Province": {
+        "type": "object",
+        "properties": {
+          "provinceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliverymethods": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Deliverymethod"
+            },
+            "nullable": true
+          },
+          "sites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Site"
+            },
+            "nullable": true
+          },
+          "suppliers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Supplier"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Site": {
+        "type": "object",
+        "properties": {
+          "siteId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "siteName": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "address2": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "dayOfWeek": {
+            "type": "string",
+            "nullable": true
+          },
+          "distanceFromWh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Employee"
+            },
+            "nullable": true
+          },
+          "inventories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Inventory"
+            },
+            "nullable": true
+          },
+          "province": {
+            "$ref": "#/components/schemas/Province"
+          },
+          "txnSiteIdfromNavigations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txn"
+            },
+            "nullable": true
+          },
+          "txnSiteIdtoNavigations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txn"
+            },
+            "nullable": true
+          },
+          "txnaudits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txnaudit"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Supplier": {
+        "type": "object",
+        "properties": {
+          "supplierId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "address1": {
+            "type": "string",
+            "nullable": true
+          },
+          "address2": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "province": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalcode": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "contact": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
+            },
+            "nullable": true
+          },
+          "provinceNavigation": {
+            "$ref": "#/components/schemas/Province"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Txn": {
+        "type": "object",
+        "properties": {
+          "txnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "siteIdto": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "siteIdfrom": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "txnStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "txnType": {
+            "type": "string",
+            "nullable": true
+          },
+          "barCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deliveryId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "emergencyDelivery": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "delivery": {
+            "$ref": "#/components/schemas/Delivery"
+          },
+          "employee": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "siteIdfromNavigation": {
+            "$ref": "#/components/schemas/Site"
+          },
+          "siteIdtoNavigation": {
+            "$ref": "#/components/schemas/Site"
+          },
+          "txnStatusNavigation": {
+            "$ref": "#/components/schemas/Txnstatus"
+          },
+          "txnTypeNavigation": {
+            "$ref": "#/components/schemas/Txntype"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TxnDTO": {
+        "type": "object",
+        "properties": {
+          "txnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "siteTo": {
+            "type": "string",
+            "nullable": true
+          },
+          "txnStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "barCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "deliveryId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "emergencyDelivery": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "totalWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalItems": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Txnaudit": {
+        "type": "object",
+        "properties": {
+          "txnAuditId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "txnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "txnType": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "txnDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "siteId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliveryId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "delivery": {
+            "$ref": "#/components/schemas/Delivery"
+          },
+          "employee": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "site": {
+            "$ref": "#/components/schemas/Site"
+          },
+          "txnTypeNavigation": {
+            "$ref": "#/components/schemas/Txntype"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Txnitem": {
+        "type": "object",
+        "properties": {
+          "txnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "itemId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "item": {
+            "$ref": "#/components/schemas/Item"
+          },
+          "txn": {
+            "$ref": "#/components/schemas/Txn"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Txnstatus": {
+        "type": "object",
+        "properties": {
+          "statusName": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "txns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txn"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Txntype": {
+        "type": "object",
+        "properties": {
+          "txnType1": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "txnaudits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txnaudit"
+            },
+            "nullable": true
+          },
+          "txns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Txn"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Vehicle": {
+        "type": "object",
+        "properties": {
+          "vehicleType": {
+            "type": "string",
+            "nullable": true
+          },
+          "maxWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "hourlyTruckCost": {
+            "type": "number",
+            "format": "double"
+          },
+          "costPerKm": {
+            "type": "number",
+            "format": "double"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -263,3 +263,4 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\APIRouter\APIRouter\
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\APIRouter\APIRouter\obj\Debug\net8.0\APIRouter.pdb
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\APIRouter\APIRouter\obj\Debug\net8.0\APIRouter.genruntimeconfig.cache
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\APIRouter\APIRouter\obj\Debug\net8.0\ref\APIRouter.dll
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\APIRouter\APIRouter\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
