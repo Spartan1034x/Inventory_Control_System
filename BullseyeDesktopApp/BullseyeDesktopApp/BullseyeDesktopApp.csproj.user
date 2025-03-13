@@ -10,16 +10,22 @@
     <Compile Update="AuditRecords.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="CreateOrder.cs">
+    <Compile Update="OrderCreate.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DeliveryItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DeliveryPortal.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="EditItem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FulfilOrder.cs">
+    <Compile Update="OrderFulfil.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="LogIn.cs">
@@ -37,7 +43,10 @@
     <Compile Update="Main.Orders.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ReceiveOrder.cs">
+    <Compile Update="OrderEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="OrderReceive.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="ResetPass.cs">

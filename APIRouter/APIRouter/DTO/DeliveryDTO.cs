@@ -2,18 +2,18 @@
 {
     public class DeliveryDTO
     {
-        public int TxnID { get; set; }
+        public int DeliveryId { get; set; }
 
-        public DateTime DeliveryDate { get; set; }
+        public bool EmergencyOrder { get; set; }
 
-        public int EmergencyOrder { get; set; }
+        public string? DeliveryDate { get; set; }
 
         public string? Notes { get; set; }
 
         public decimal TotalWeight { get; set; }
 
-        public string? BarCode { get; set; }
+        public string? VehicleType { get; set; }
 
-        public int SiteIDTo { get; set; }
+        public List<int> TxnIDs  { get; set; }
     }
 }

@@ -17,6 +17,41 @@ namespace BullseyeDesktopApp
         List<Txn> orders;
         bool defaultOrdersLoad = true;
 
+        //              EDIT ORDER BUTTON
+        //
+        //
+        private void btnOrdersEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvOrders.SelectedRows.Count > 0)
+            {
+                // Get selected order
+                var selection = orders.Where(o => o.TxnId == (int)dgvOrders.SelectedRows[0].Cells[0].Value).FirstOrDefault();
+
+                // If it is not null then open edit page
+                if (selection != null)
+                {
+                    StaticHelpers.UserSession.SelectedOrder = selection;
+
+                    OrderEdit frm = new OrderEdit();
+                    frm.ShowDialog();
+
+                    StaticHelpers.UserSession.SelectedOrder = null; // Resets selected order
+
+                    RefreshOrders();
+                }
+            }
+        }
+
+        //              DELIVERY PORTAL CLICK
+        //
+        //
+        private void btnOrdersDelivery_Click(object sender, EventArgs e)
+        {
+            Form form = new DeliveryPortal();
+            form.ShowDialog();
+            RefreshOrders();
+        }
+
 
         //             FULFILL ORDER CLICK
         //
@@ -39,7 +74,7 @@ namespace BullseyeDesktopApp
                     // If order set open receive order page
                     if (UserSession.SelectedOrder != null)
                     {
-                        FulfilOrder frm = new FulfilOrder();
+                        OrderFulfil frm = new OrderFulfil();
                         frm.ShowDialog();
                         UserSession.SelectedOrder = null; // Resets selected order
                         RefreshOrders();
@@ -85,6 +120,9 @@ namespace BullseyeDesktopApp
 
                 // Fulfil Button
                 btnOrdersFulfil.Enabled = (status == "ASSEMBLING") && (userID == 9999 || userID == 3 || userID == 5);
+
+                // Edit Button
+                btnOrdersEdit.Enabled = (userID == 9999 && (status != "CANCELLED" && status != "COMPLETE" && status != "REJECTED"));
             }
         }
 
@@ -111,7 +149,7 @@ namespace BullseyeDesktopApp
                     // If order set open receive order page
                     if (UserSession.SelectedOrder != null)
                     {
-                        ReceiveOrder frm = new ReceiveOrder();
+                        OrderReceive frm = new OrderReceive();
                         frm.ShowDialog();
                         UserSession.SelectedOrder = null; // Resets selected order
                         RefreshOrders();
@@ -134,8 +172,9 @@ namespace BullseyeDesktopApp
         //
         private void picHelpOrders_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("•Click on column header to order by that column\n•Use Combo Boxes to filter results in display\n" +
-                "•Only 1 Standard order allowed per location per week, unlimited emergency orders", "Orders Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("•Click on column header to order by that column\n\n•Use Combo Boxes to filter results in display\n\n" +
+                "•Only 1 Standard order allowed per location per week, unlimited emergency orders\\n\u2022" +
+                "Admin can double click on txn to edit", "Orders Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
@@ -332,7 +371,7 @@ namespace BullseyeDesktopApp
                 using (var context = new BullseyeContext())
                 {
                     // Gets all orders with location, item list, and approritate item
-                    orders = context.Txns.Include(o => o.SiteIdtoNavigation).Include(o=>o.Txnitems).ThenInclude(i=>i.Item).ToList(); // ORDERS SET HERE
+                    orders = context.Txns.Include(o=>o.SiteIdfromNavigation).Include(o => o.SiteIdtoNavigation).Include(o=>o.Txnitems).ThenInclude(i=>i.Item).ToList(); // ORDERS SET HERE
 
                     defaultOrdersLoad = false;
                     string location = cmbOrdersLocation.SelectedValue.ToString();
@@ -419,7 +458,7 @@ namespace BullseyeDesktopApp
         //
         private void btnOrdersCreate_Click(object sender, EventArgs e)
         {
-            Form create = new CreateOrder();
+            Form create = new OrderCreate();
             create.ShowDialog();
             RefreshOrders();
         }

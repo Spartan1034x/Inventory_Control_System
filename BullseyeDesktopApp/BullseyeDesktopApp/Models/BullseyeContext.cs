@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 using System.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace BullseyeDesktopApp.Models;
 
@@ -93,6 +94,18 @@ public partial class BullseyeContext : DbContext
             entity.Property(e => e.VehicleType)
                 .HasMaxLength(20)
                 .HasColumnName("vehicleType");
+            entity.Property(e => e.Signature)
+                .HasColumnType("BLOB")
+                .HasColumnName("signature");
+            entity.Property(e => e.Enroute)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("enRoute");
+            entity.Property(e => e.Delivered)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("delivered");
+            entity.Property(e => e.Accepted)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("accepted");
 
             entity.HasOne(d => d.VehicleTypeNavigation).WithMany(p => p.Deliveries)
                 .HasForeignKey(d => d.VehicleType)
@@ -562,6 +575,9 @@ public partial class BullseyeContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("notes");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e=>e.ItemLocation)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("itemLocation"); 
 
             entity.HasOne(d => d.Item).WithMany(p => p.Txnitems)
                 .HasForeignKey(d => d.ItemId)

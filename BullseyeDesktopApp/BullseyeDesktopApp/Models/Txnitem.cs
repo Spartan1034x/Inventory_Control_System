@@ -11,6 +11,8 @@ public partial class Txnitem
 
     public int Quantity { get; set; }
 
+    public int ItemLocation { get; set; }
+
     public string? Notes { get; set; }
 
     public virtual Item Item { get; set; } = null!;

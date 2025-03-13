@@ -34,6 +34,42 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Delivery"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Delivery"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Delivery"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Delivery"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/Delivery/{id}": {
@@ -136,6 +172,18 @@
           }
         }
       }
+    },
+    "/api/Vehicle": {
+      "get": {
+        "tags": [
+          "Vehicle"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -207,17 +255,16 @@
       "DeliveryDTO": {
         "type": "object",
         "properties": {
-          "txnID": {
+          "deliveryId": {
             "type": "integer",
             "format": "int32"
+          },
+          "emergencyOrder": {
+            "type": "boolean"
           },
           "deliveryDate": {
             "type": "string",
-            "format": "date-time"
-          },
-          "emergencyOrder": {
-            "type": "integer",
-            "format": "int32"
+            "nullable": true
           },
           "notes": {
             "type": "string",
@@ -227,13 +274,17 @@
             "type": "number",
             "format": "double"
           },
-          "barCode": {
+          "vehicleType": {
             "type": "string",
             "nullable": true
           },
-          "siteIDTo": {
-            "type": "integer",
-            "format": "int32"
+          "txnIDs": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -820,9 +871,7 @@
             "nullable": true
           },
           "emergencyDelivery": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "type": "boolean"
           },
           "totalWeight": {
             "type": "number",

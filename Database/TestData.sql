@@ -68,3 +68,10 @@ INSERT INTO `txnaudit` (
 DELETE FROM `txnaudit`
 WHERE `txnAuditID` = 32094823844039;
 
+/* Add a new column to the delivery table type blob default null and named 'signature' */
+ALTER TABLE delivery ADD COLUMN 'signature' BLOB DEFAULT NULL;
+
+/* Set quantity to 0 for all items in the inventory table where siteID = 3 */
+UPDATE inventory
+SET quantity = 0
+WHERE siteID = 3;

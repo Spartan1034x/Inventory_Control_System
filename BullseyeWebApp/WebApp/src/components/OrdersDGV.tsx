@@ -6,6 +6,7 @@ import {
 	flexRender,
 } from "@tanstack/react-table";
 import { useOrders } from "../contexts/OrdersContext";
+import { useDeliveries } from "../contexts/DeliveryContext";
 
 function OrdersDataTable() {
 	// From context, orders data, and selected order state
@@ -16,6 +17,9 @@ function OrdersDataTable() {
 		setSelectedOrder,
 		setFilteredOrders,
 	} = useOrders();
+
+	// From context newDelivery
+	const { newDelivery } = useDeliveries();
 
 	// Add a sorting state
 	const [sorting, setSorting] = useState([]);
@@ -29,6 +33,11 @@ function OrdersDataTable() {
 		{ header: "Total Weight (kgs)", accessorKey: "totalWeight" },
 		{ header: "Ship Date", accessorKey: "shipDate" },
 		{ header: "Status", accessorKey: "txnStatus" },
+		{
+			header: "Emergency",
+			accessorKey: "emergencyDelivery",
+			cell: ({ getValue }) => (getValue() ? "YES" : "NO"),
+		},
 	];
 
 	// Initially sort orders to just show orders that are submitted
@@ -52,14 +61,11 @@ function OrdersDataTable() {
 
 	// Handle row selection
 	const handleRowClick = (row) => {
-		const orderId = String(row.original.txnId);
-		setSelectedOrder(orderId);
+		const orderId = Number(row.original.txnId);
+		const weight = Number(row.original.totalWeight);
+		const date = row.original.shipDate;
+		setSelectedOrder({ txnId: orderId, totalWeight: weight, shipDate: date });
 	};
-
-	// Log selected order when it changes
-	useEffect(() => {
-		console.log("Selected Order ID:", selectedOrder);
-	}, [selectedOrder]);
 
 	return (
 		<div className="table-responsive border border-dark border-2">
@@ -90,22 +96,30 @@ function OrdersDataTable() {
 					))}
 				</thead>
 				<tbody>
-					{table.getRowModel().rows.map((row) => (
-						<tr
-							key={row.original.txnId}
-							className={
-								String(selectedOrder) === String(row.original.txnId)
-									? "table-primary"
-									: ""
-							}
-							onClick={() => handleRowClick(row)}>
-							{row.getVisibleCells().map((cell) => (
-								<td key={cell.id}>
-									{flexRender(cell.column.columnDef.cell, cell.getContext())}
-								</td>
-							))}
-						</tr>
-					))}
+					{table.getRowModel().rows.map((row) => {
+						const isInDelivery = newDelivery?.txnIDs?.includes(
+							row.original.txnId
+						);
+
+						return (
+							<tr
+								key={row.original.txnId}
+								className={`${
+									String(selectedOrder?.txnId) === String(row.original.txnId)
+										? "table-primary" // Highlight selected row
+										: isInDelivery
+										? "table-success" // Highlight rows in delivery
+										: ""
+								}`}
+								onClick={() => handleRowClick(row)}>
+								{row.getVisibleCells().map((cell) => (
+									<td key={cell.id}>
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</td>
+								))}
+							</tr>
+						);
+					})}
 				</tbody>
 			</table>
 		</div>

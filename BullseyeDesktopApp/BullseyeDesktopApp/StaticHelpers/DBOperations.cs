@@ -125,11 +125,19 @@ namespace BullseyeDesktopApp.StaticHelpers
                 using (var dbTransaction = context.Database.BeginTransaction())
                 {
                     try
-                    {   
+                    {
+                        // Need to detach siteidfromnavigation to update siteidfrom
+                        var entry = context.Entry(order);
+                        entry.Reference(e => e.SiteIdfromNavigation).CurrentValue = null;
+                        entry.Property(e => e.SiteIdfrom).IsModified = true;
+
                         context.Update(order);
+
                         await context.SaveChangesAsync();
 
+
                         // If items list is not empty find all items currently attached to this order, delete and add all new ones (updates item quantity)
+                        // This is for WH manager or WH worker to update order items (not for moving item quantity)
                         if (newItems.Count > 0)
                         {
                             var oldItems = context.Txnitems.Where(i => i.TxnId == order.TxnId).ToList(); // Find all old items
@@ -210,12 +218,32 @@ namespace BullseyeDesktopApp.StaticHelpers
                             siteFrom = 9999; // Truck
                             siteTo = order.SiteIdto; // Site to delivered
                         }
+                        // CANCELLED ORDER (inventory current location to original location)
+                        else if (order.TxnStatus == "CANCELLED")
+                        {
+                            foreach (var txnItem in items)
+                            {
+                                txnItem.Notes +=  "\n***Order Cancelled***\n";
+                                // Sets once the siteFrom, this is where the items are currently located takes them from there
+                                if (siteFrom == -1)
+                                    siteFrom = txnItem.ItemLocation;
+                            }
+
+                            siteTo = 2; // Warehouse !FOR NOW! FOR STORE TO STORE MUST CHANGE!
+                        }
 
                         // If order has been populated with approriate siteIDs
                         if (siteFrom != -1 && siteTo != -1)
                         {
                             foreach (var txnItem in items)
                             {
+                                // Set ItemLocation to siteTo, this way the itemLocation in each txnItem shows the location it is currently at, this will only be set if it moves to the WH bay at minimum
+                                txnItem.ItemLocation = siteTo;
+
+                                // Update each txnItem in the db
+                                context.Attach(txnItem).State = EntityState.Modified;
+                                context.Txnitems.Update(txnItem);
+
                                 // Retrieve the source Inventory record.
                                 var sourceInventory = await context.Inventories
                                     .FirstOrDefaultAsync(i => i.ItemId == txnItem.ItemId

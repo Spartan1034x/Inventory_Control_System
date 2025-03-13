@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "APIRouter.Controllers.DeliveryController",
-    "Method": "CreateTransaction",
+    "Method": "CreateDelivery",
     "RelativePath": "api/Delivery",
     "HttpMethod": "POST",
     "IsController": true,
@@ -14,6 +14,26 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APIRouter.Controllers.DeliveryController",
+    "Method": "GetAllDeliveries",
+    "RelativePath": "api/Delivery",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[APIRouter.Models.Delivery, APIRouter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "APIRouter.Controllers.DeliveryController",
@@ -75,6 +95,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APIRouter.Controllers.VehicleController",
+    "Method": "Index",
+    "RelativePath": "api/Vehicle",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

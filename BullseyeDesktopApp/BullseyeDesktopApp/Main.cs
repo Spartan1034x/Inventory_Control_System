@@ -75,10 +75,12 @@ namespace BullseyeDesktopApp
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersPermissions);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
 
-                // Enabled Create Order/Receive/Fulfil Order Button
+                // Enabled ORDER Buttons
                 btnOrdersCreate.Enabled = true;
                 btnOrdersReceive.Enabled = true;
                 btnOrdersFulfil.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
+                btnOrdersEdit.Enabled = true;
 
                 // Enable Employee CRUD buttons
                 btnAdminEmployeeDelete.Enabled = true;
@@ -123,6 +125,7 @@ namespace BullseyeDesktopApp
                 btnOrdersCreate.Enabled = true;
                 btnOrdersReceive.Enabled = true;
                 btnOrdersFulfil.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
 
             }
             // STORE MANAGER
@@ -135,6 +138,7 @@ namespace BullseyeDesktopApp
 
                 // Enabled Create Order Button
                 btnOrdersCreate.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
             }
             // WAREHOUSE WORKER
             else if (permissionLevel == 5)
@@ -338,6 +342,5 @@ namespace BullseyeDesktopApp
             picHelpInventory.Visible = selection == tabInventory; // Inventory help
             picAdminLocation.Visible = selection == tabAdmin && adminSelection == tabAdminLocations; // Location Help
         }
-
     }
 }

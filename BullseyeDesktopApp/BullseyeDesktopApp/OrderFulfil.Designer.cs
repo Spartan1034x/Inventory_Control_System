@@ -1,6 +1,6 @@
 ﻿namespace BullseyeDesktopApp
 {
-    partial class FulfilOrder
+    partial class OrderFulfil
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FulfilOrder));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderFulfil));
             btnSubmit = new Button();
             btnExit = new Button();
             dgvOrderItems = new DataGridView();

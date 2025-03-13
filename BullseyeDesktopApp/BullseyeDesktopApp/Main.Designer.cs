@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             tabctrlMain = new TabControl();
             tabOrders = new TabPage();
+            btnOrdersEdit = new Button();
+            btnOrdersDelivery = new Button();
             btnOrdersFulfil = new Button();
             label8 = new Label();
             label7 = new Label();
@@ -154,6 +156,8 @@
             // 
             // tabOrders
             // 
+            tabOrders.Controls.Add(btnOrdersEdit);
+            tabOrders.Controls.Add(btnOrdersDelivery);
             tabOrders.Controls.Add(btnOrdersFulfil);
             tabOrders.Controls.Add(label8);
             tabOrders.Controls.Add(label7);
@@ -173,12 +177,38 @@
             tabOrders.Text = "Orders";
             tabOrders.UseVisualStyleBackColor = true;
             // 
+            // btnOrdersEdit
+            // 
+            btnOrdersEdit.Anchor = AnchorStyles.Bottom;
+            btnOrdersEdit.Enabled = false;
+            btnOrdersEdit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnOrdersEdit.Location = new Point(395, 489);
+            btnOrdersEdit.Name = "btnOrdersEdit";
+            btnOrdersEdit.Size = new Size(141, 40);
+            btnOrdersEdit.TabIndex = 16;
+            btnOrdersEdit.Text = "&Edit Order";
+            btnOrdersEdit.UseVisualStyleBackColor = true;
+            btnOrdersEdit.Click += btnOrdersEdit_Click;
+            // 
+            // btnOrdersDelivery
+            // 
+            btnOrdersDelivery.Anchor = AnchorStyles.Bottom;
+            btnOrdersDelivery.Enabled = false;
+            btnOrdersDelivery.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnOrdersDelivery.Location = new Point(395, 428);
+            btnOrdersDelivery.Name = "btnOrdersDelivery";
+            btnOrdersDelivery.Size = new Size(141, 40);
+            btnOrdersDelivery.TabIndex = 15;
+            btnOrdersDelivery.Text = "&Delivery Portal";
+            btnOrdersDelivery.UseVisualStyleBackColor = true;
+            btnOrdersDelivery.Click += btnOrdersDelivery_Click;
+            // 
             // btnOrdersFulfil
             // 
             btnOrdersFulfil.Anchor = AnchorStyles.Bottom;
             btnOrdersFulfil.Enabled = false;
             btnOrdersFulfil.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOrdersFulfil.Location = new Point(293, 489);
+            btnOrdersFulfil.Location = new Point(207, 489);
             btnOrdersFulfil.Name = "btnOrdersFulfil";
             btnOrdersFulfil.Size = new Size(141, 40);
             btnOrdersFulfil.TabIndex = 14;
@@ -251,7 +281,7 @@
             btnOrdersReceive.Anchor = AnchorStyles.Bottom;
             btnOrdersReceive.Enabled = false;
             btnOrdersReceive.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOrdersReceive.Location = new Point(293, 428);
+            btnOrdersReceive.Location = new Point(207, 428);
             btnOrdersReceive.Name = "btnOrdersReceive";
             btnOrdersReceive.Size = new Size(141, 40);
             btnOrdersReceive.TabIndex = 7;
@@ -264,7 +294,7 @@
             btnOrdersCreate.Anchor = AnchorStyles.Bottom;
             btnOrdersCreate.Enabled = false;
             btnOrdersCreate.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOrdersCreate.Location = new Point(69, 489);
+            btnOrdersCreate.Location = new Point(19, 489);
             btnOrdersCreate.Name = "btnOrdersCreate";
             btnOrdersCreate.Size = new Size(141, 40);
             btnOrdersCreate.TabIndex = 6;
@@ -276,11 +306,11 @@
             // 
             btnOrdersRefresh.Anchor = AnchorStyles.Bottom;
             btnOrdersRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnOrdersRefresh.Location = new Point(69, 428);
+            btnOrdersRefresh.Location = new Point(19, 428);
             btnOrdersRefresh.Name = "btnOrdersRefresh";
             btnOrdersRefresh.Size = new Size(141, 40);
             btnOrdersRefresh.TabIndex = 5;
-            btnOrdersRefresh.Text = "&Refresh";
+            btnOrdersRefresh.Text = "Re&fresh";
             btnOrdersRefresh.UseVisualStyleBackColor = true;
             btnOrdersRefresh.Click += btnOrdersRefresh_Click;
             // 
@@ -288,6 +318,8 @@
             // 
             dgvOrders.AllowUserToAddRows = false;
             dgvOrders.AllowUserToDeleteRows = false;
+            dgvOrders.AllowUserToResizeColumns = false;
+            dgvOrders.AllowUserToResizeRows = false;
             dgvOrders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOrders.Location = new Point(6, 6);
@@ -779,10 +811,10 @@
             tabAdminLocations.Controls.Add(btnAdminLocationAdd);
             tabAdminLocations.Controls.Add(btnAdminLocationEdit);
             tabAdminLocations.Controls.Add(btnAdminLocationRefresh);
-            tabAdminLocations.Location = new Point(4, 37);
+            tabAdminLocations.Location = new Point(4, 29);
             tabAdminLocations.Name = "tabAdminLocations";
             tabAdminLocations.Padding = new Padding(3);
-            tabAdminLocations.Size = new Size(1224, 499);
+            tabAdminLocations.Size = new Size(1224, 507);
             tabAdminLocations.TabIndex = 3;
             tabAdminLocations.Text = "Locations";
             tabAdminLocations.UseVisualStyleBackColor = true;
@@ -811,7 +843,7 @@
             btnAdminLocationRemove.Anchor = AnchorStyles.Bottom;
             btnAdminLocationRemove.Enabled = false;
             btnAdminLocationRemove.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdminLocationRemove.Location = new Point(1059, 435);
+            btnAdminLocationRemove.Location = new Point(1059, 443);
             btnAdminLocationRemove.Name = "btnAdminLocationRemove";
             btnAdminLocationRemove.Size = new Size(114, 29);
             btnAdminLocationRemove.TabIndex = 11;
@@ -824,7 +856,7 @@
             btnAdminLocationAdd.Anchor = AnchorStyles.Bottom;
             btnAdminLocationAdd.Enabled = false;
             btnAdminLocationAdd.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdminLocationAdd.Location = new Point(399, 435);
+            btnAdminLocationAdd.Location = new Point(399, 443);
             btnAdminLocationAdd.Name = "btnAdminLocationAdd";
             btnAdminLocationAdd.Size = new Size(114, 29);
             btnAdminLocationAdd.TabIndex = 10;
@@ -837,7 +869,7 @@
             btnAdminLocationEdit.Anchor = AnchorStyles.Bottom;
             btnAdminLocationEdit.Enabled = false;
             btnAdminLocationEdit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdminLocationEdit.Location = new Point(729, 435);
+            btnAdminLocationEdit.Location = new Point(729, 443);
             btnAdminLocationEdit.Name = "btnAdminLocationEdit";
             btnAdminLocationEdit.Size = new Size(114, 29);
             btnAdminLocationEdit.TabIndex = 9;
@@ -849,7 +881,7 @@
             // 
             btnAdminLocationRefresh.Anchor = AnchorStyles.Bottom;
             btnAdminLocationRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAdminLocationRefresh.Location = new Point(69, 435);
+            btnAdminLocationRefresh.Location = new Point(69, 443);
             btnAdminLocationRefresh.Name = "btnAdminLocationRefresh";
             btnAdminLocationRefresh.Size = new Size(114, 29);
             btnAdminLocationRefresh.TabIndex = 8;
@@ -1178,5 +1210,7 @@
         private Button btnAdminLocationEdit;
         private Button btnAdminLocationRefresh;
         private PictureBox picAdminLocation;
+        private Button btnOrdersDelivery;
+        private Button btnOrdersEdit;
     }
 }

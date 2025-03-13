@@ -16,7 +16,7 @@ namespace APIRouter.DTO
 
         public int? DeliveryId { get; set; }
 
-        public sbyte? EmergencyDelivery { get; set; }
+        public bool EmergencyDelivery { get; set; }
 
         public decimal TotalWeight { get; set; }
 

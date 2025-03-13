@@ -38,7 +38,7 @@ namespace APIRouter.Controllers
                     .ToListAsync(); // List of all orders with txnitems and items tables
 
                 // Sort by ASSEMBLED then by soonest date to ship
-                txn = txn.OrderBy(t=>t.TxnStatus!="ASSEMBLED").ThenBy(t => t.ShipDate).ToList();
+                txn = txn.OrderBy(t=>t.TxnStatus!="ASSEMBLED").ThenByDescending(t=>t.EmergencyDelivery).ThenBy(t => t.ShipDate).ToList();
 
                 List<TxnDTO> txnDTO = new List<TxnDTO>(); // List of txnDTO to return
 
@@ -53,7 +53,7 @@ namespace APIRouter.Controllers
                         ShipDate = order.ShipDate,
                         BarCode = order.BarCode,
                         DeliveryId = null,
-                        EmergencyDelivery = order.EmergencyDelivery
+                        EmergencyDelivery = order.EmergencyDelivery == 1 ? true : false
                     };
 
                     decimal weight = 0;

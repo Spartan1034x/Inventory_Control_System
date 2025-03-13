@@ -13,14 +13,14 @@ using BullseyeDesktopApp.StaticHelpers;
 
 namespace BullseyeDesktopApp
 {
-    public partial class FulfilOrder : Form
+    public partial class OrderFulfil : Form
     {
         private Txn selectedOrder = new Txn();
         private List<FulfilOrderDisplay> display = new List<FulfilOrderDisplay>(); // Bound to dgv so changes there reflect here
         private bool firstLoad = true;
 
 
-        public FulfilOrder()
+        public OrderFulfil()
         {
             InitializeComponent();
         }

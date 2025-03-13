@@ -7,11 +7,18 @@ import {
 } from "react";
 import { getOrders } from "../DatabaseOps";
 
+// Selected Order type
+type SelectedOrderType = {
+	txnId: string;
+	totalWeight: number;
+	shipDate: string;
+};
+
 // Define the shape of the context
 interface OrdersContextType {
 	orders: any[];
-	selectedOrder: string | null;
-	setSelectedOrder: (orderId: string | null) => void;
+	selectedOrder: SelectedOrderType | null;
+	setSelectedOrder: (order: any | null) => void;
 	setFilteredOrders: (orders: any[]) => void;
 	filteredOrders: any[];
 }
@@ -24,8 +31,22 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
 	// useState stores the initial state of the context and provides a function to update it
 
 	const [orders, setOrders] = useState<any[]>([]); // Add a state to all store orders
-	const [selectedOrder, setSelectedOrder] = useState<string | null>(null); // Add a state to store selected order
+	const [selectedOrder, setSelectedOrder] = useState<SelectedOrderType | null>(
+		null
+	); // Add a state to store selected order
 	const [filteredOrders, setFilteredOrders] = useState<any[]>([]); // Add a state to store filtered orders
+
+	/*useEffect(() => {
+		console.log("Selected Order ID:", selectedOrder);
+	}, [selectedOrder]);*/
+
+	/* useEffect(() => {
+		console.log("Orders:", orders);
+	}, [orders]); */
+
+	/* useEffect(() => {
+		console.log("Filtered Orders:", filteredOrders);
+	}, [filteredOrders]); */
 
 	// useEffect is used to fetch orders from the database
 	// It runs once when the component is mounted

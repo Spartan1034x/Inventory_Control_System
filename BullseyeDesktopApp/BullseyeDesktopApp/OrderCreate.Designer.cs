@@ -1,6 +1,6 @@
 ﻿namespace BullseyeDesktopApp
 {
-    partial class CreateOrder
+    partial class OrderCreate
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateOrder));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderCreate));
             lblUser = new Label();
             lblLocation = new Label();
             label3 = new Label();

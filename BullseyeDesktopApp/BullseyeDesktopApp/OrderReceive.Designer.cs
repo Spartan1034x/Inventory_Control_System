@@ -1,6 +1,6 @@
 ﻿namespace BullseyeDesktopApp
 {
-    partial class ReceiveOrder
+    partial class OrderReceive
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiveOrder));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderReceive));
             picHelp = new PictureBox();
             label1 = new Label();
             lblUser = new Label();

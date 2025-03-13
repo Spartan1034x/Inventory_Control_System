@@ -14,7 +14,7 @@ using BullseyeDesktopApp.Models.DisplayObjects;
 
 namespace BullseyeDesktopApp
 {
-    public partial class ReceiveOrder : Form
+    public partial class OrderReceive : Form
     {
         // Local var for selected order
         private Txn selectedOrder = new Txn();
@@ -23,7 +23,7 @@ namespace BullseyeDesktopApp
         private bool firstLoad = true;
         private Txn backorder = new Txn();
 
-        public ReceiveOrder()
+        public OrderReceive()
         {
             InitializeComponent();
         }

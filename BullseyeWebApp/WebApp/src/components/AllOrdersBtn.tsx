@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 
 import { useOrders } from "../contexts/OrdersContext";
 
@@ -23,8 +23,10 @@ function ShowAllButton() {
 			: "Show All Orders";
 
 	return (
-		<div className="d-flex justify-content-center">
-			<button className="btn btn-primary" onClick={() => handleShowAllClick()}>
+		<div className="d-flex justify-content-center col">
+			<button
+				className="btn btn-secondary"
+				onClick={() => handleShowAllClick()}>
 				{buttonText}
 			</button>
 		</div>

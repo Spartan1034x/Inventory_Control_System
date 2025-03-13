@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace BullseyeDesktopApp
 {
-    public partial class CreateOrder : Form
+    public partial class OrderCreate : Form
     {
         List<Inventory> inventory = new List<Inventory>(); // All Inventory
         List<InventoryDisplay> order = new List<InventoryDisplay>(); // Order Inventory
@@ -26,7 +26,7 @@ namespace BullseyeDesktopApp
         //              FORM LOAD
         //
         //
-        public CreateOrder()
+        public OrderCreate()
         {
             InitializeComponent();
         }

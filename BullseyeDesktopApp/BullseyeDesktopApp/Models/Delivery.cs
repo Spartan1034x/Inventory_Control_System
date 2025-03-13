@@ -15,6 +15,14 @@ public partial class Delivery
 
     public string? Notes { get; set; }
 
+    public byte[]? Signature { get; set; }
+
+    public bool Enroute { get; set; }   
+
+    public bool Delivered { get; set; }
+
+    public bool Accepted { get; set; }
+
     public virtual ICollection<Txnaudit> Txnaudits { get; set; } = new List<Txnaudit>();
 
     public virtual ICollection<Txn> Txns { get; set; } = new List<Txn>();
