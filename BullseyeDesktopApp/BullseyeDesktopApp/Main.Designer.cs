@@ -94,6 +94,12 @@
             btnAdminLocationAdd = new Button();
             btnAdminLocationEdit = new Button();
             btnAdminLocationRefresh = new Button();
+            tabAdminSuppliers = new TabPage();
+            btnAdminSuppliersRemove = new Button();
+            btnAdminSupplierAdd = new Button();
+            btnAdminSupplierEdit = new Button();
+            btnAdminSupplierRefresh = new Button();
+            dgvSuppliers = new DataGridView();
             bdnOrderType = new BindingSource(components);
             posnBindingSource = new BindingSource(components);
             label3 = new Label();
@@ -129,6 +135,8 @@
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).BeginInit();
             tabAdminLocations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvLocations).BeginInit();
+            tabAdminSuppliers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvSuppliers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bdnOrderType).BeginInit();
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
@@ -193,6 +201,7 @@
             // btnOrdersDelivery
             // 
             btnOrdersDelivery.Anchor = AnchorStyles.Bottom;
+            btnOrdersDelivery.BackColor = Color.Violet;
             btnOrdersDelivery.Enabled = false;
             btnOrdersDelivery.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnOrdersDelivery.Location = new Point(395, 428);
@@ -200,7 +209,7 @@
             btnOrdersDelivery.Size = new Size(141, 40);
             btnOrdersDelivery.TabIndex = 15;
             btnOrdersDelivery.Text = "&Delivery Portal";
-            btnOrdersDelivery.UseVisualStyleBackColor = true;
+            btnOrdersDelivery.UseVisualStyleBackColor = false;
             btnOrdersDelivery.Click += btnOrdersDelivery_Click;
             // 
             // btnOrdersFulfil
@@ -292,6 +301,7 @@
             // btnOrdersCreate
             // 
             btnOrdersCreate.Anchor = AnchorStyles.Bottom;
+            btnOrdersCreate.BackColor = Color.YellowGreen;
             btnOrdersCreate.Enabled = false;
             btnOrdersCreate.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnOrdersCreate.Location = new Point(19, 489);
@@ -299,7 +309,7 @@
             btnOrdersCreate.Size = new Size(141, 40);
             btnOrdersCreate.TabIndex = 6;
             btnOrdersCreate.Text = "&Create Order";
-            btnOrdersCreate.UseVisualStyleBackColor = true;
+            btnOrdersCreate.UseVisualStyleBackColor = false;
             btnOrdersCreate.Click += btnOrdersCreate_Click;
             // 
             // btnOrdersRefresh
@@ -428,6 +438,7 @@
             tabctrlAdminUsers.Controls.Add(tabAdminUsersPermissions);
             tabctrlAdminUsers.Controls.Add(tabAdminItems);
             tabctrlAdminUsers.Controls.Add(tabAdminLocations);
+            tabctrlAdminUsers.Controls.Add(tabAdminSuppliers);
             tabctrlAdminUsers.Dock = DockStyle.Fill;
             tabctrlAdminUsers.Location = new Point(0, 0);
             tabctrlAdminUsers.MinimumSize = new Size(1119, 466);
@@ -889,6 +900,86 @@
             btnAdminLocationRefresh.UseVisualStyleBackColor = true;
             btnAdminLocationRefresh.Click += btnAdminLocationRefresh_Click;
             // 
+            // tabAdminSuppliers
+            // 
+            tabAdminSuppliers.Controls.Add(btnAdminSuppliersRemove);
+            tabAdminSuppliers.Controls.Add(btnAdminSupplierAdd);
+            tabAdminSuppliers.Controls.Add(btnAdminSupplierEdit);
+            tabAdminSuppliers.Controls.Add(btnAdminSupplierRefresh);
+            tabAdminSuppliers.Controls.Add(dgvSuppliers);
+            tabAdminSuppliers.Location = new Point(4, 37);
+            tabAdminSuppliers.Name = "tabAdminSuppliers";
+            tabAdminSuppliers.Padding = new Padding(3);
+            tabAdminSuppliers.Size = new Size(1224, 499);
+            tabAdminSuppliers.TabIndex = 4;
+            tabAdminSuppliers.Text = "Suppliers";
+            tabAdminSuppliers.UseVisualStyleBackColor = true;
+            // 
+            // btnAdminSuppliersRemove
+            // 
+            btnAdminSuppliersRemove.Anchor = AnchorStyles.Bottom;
+            btnAdminSuppliersRemove.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminSuppliersRemove.Location = new Point(1071, 443);
+            btnAdminSuppliersRemove.Name = "btnAdminSuppliersRemove";
+            btnAdminSuppliersRemove.Size = new Size(114, 29);
+            btnAdminSuppliersRemove.TabIndex = 12;
+            btnAdminSuppliersRemove.Text = "&Remove";
+            btnAdminSuppliersRemove.UseVisualStyleBackColor = true;
+            btnAdminSuppliersRemove.Click += btnAdminSuppliersRemove_Click;
+            // 
+            // btnAdminSupplierAdd
+            // 
+            btnAdminSupplierAdd.Anchor = AnchorStyles.Bottom;
+            btnAdminSupplierAdd.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminSupplierAdd.Location = new Point(653, 443);
+            btnAdminSupplierAdd.Name = "btnAdminSupplierAdd";
+            btnAdminSupplierAdd.Size = new Size(114, 29);
+            btnAdminSupplierAdd.TabIndex = 11;
+            btnAdminSupplierAdd.Text = "&Add";
+            btnAdminSupplierAdd.UseVisualStyleBackColor = true;
+            btnAdminSupplierAdd.Click += btnAdminSupplierAdd_Click;
+            // 
+            // btnAdminSupplierEdit
+            // 
+            btnAdminSupplierEdit.Anchor = AnchorStyles.Bottom;
+            btnAdminSupplierEdit.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminSupplierEdit.Location = new Point(862, 443);
+            btnAdminSupplierEdit.Name = "btnAdminSupplierEdit";
+            btnAdminSupplierEdit.Size = new Size(114, 29);
+            btnAdminSupplierEdit.TabIndex = 10;
+            btnAdminSupplierEdit.Text = "&Edit";
+            btnAdminSupplierEdit.UseVisualStyleBackColor = true;
+            btnAdminSupplierEdit.Click += btnAdminSupplierEdit_Click;
+            // 
+            // btnAdminSupplierRefresh
+            // 
+            btnAdminSupplierRefresh.Anchor = AnchorStyles.Bottom;
+            btnAdminSupplierRefresh.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAdminSupplierRefresh.Location = new Point(96, 443);
+            btnAdminSupplierRefresh.Name = "btnAdminSupplierRefresh";
+            btnAdminSupplierRefresh.Size = new Size(114, 29);
+            btnAdminSupplierRefresh.TabIndex = 9;
+            btnAdminSupplierRefresh.Text = "&Refresh";
+            btnAdminSupplierRefresh.UseVisualStyleBackColor = true;
+            btnAdminSupplierRefresh.Click += btnAdminSupplierRefresh_Click;
+            // 
+            // dgvSuppliers
+            // 
+            dgvSuppliers.AllowUserToAddRows = false;
+            dgvSuppliers.AllowUserToDeleteRows = false;
+            dgvSuppliers.AllowUserToResizeColumns = false;
+            dgvSuppliers.AllowUserToResizeRows = false;
+            dgvSuppliers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvSuppliers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSuppliers.Location = new Point(3, 3);
+            dgvSuppliers.Name = "dgvSuppliers";
+            dgvSuppliers.ReadOnly = true;
+            dgvSuppliers.RowHeadersVisible = false;
+            dgvSuppliers.RowHeadersWidth = 51;
+            dgvSuppliers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvSuppliers.Size = new Size(1218, 409);
+            dgvSuppliers.TabIndex = 1;
+            // 
             // bdnOrderType
             // 
             bdnOrderType.DataSource = typeof(Models.Txntype);
@@ -1118,6 +1209,8 @@
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).EndInit();
             tabAdminLocations.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvLocations).EndInit();
+            tabAdminSuppliers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvSuppliers).EndInit();
             ((System.ComponentModel.ISupportInitialize)bdnOrderType).EndInit();
             ((System.ComponentModel.ISupportInitialize)posnBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
@@ -1212,5 +1305,11 @@
         private PictureBox picAdminLocation;
         private Button btnOrdersDelivery;
         private Button btnOrdersEdit;
+        private TabPage tabAdminSuppliers;
+        private DataGridView dgvSuppliers;
+        private Button btnAdminSupplierRefresh;
+        private Button btnAdminSupplierAdd;
+        private Button btnAdminSupplierEdit;
+        private Button btnAdminSuppliersRemove;
     }
 }

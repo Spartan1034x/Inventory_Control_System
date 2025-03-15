@@ -70,10 +70,11 @@ namespace BullseyeDesktopApp
             // ADMIN
             if (permissionLevel == 9999)
             {
-                // Add employee and permission tab if admin
+                // Add Admin tabs
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersPermissions);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
+                tabctrlAdminUsers.TabPages.Add(tabAdminSuppliers);
 
                 // Enabled ORDER Buttons
                 btnOrdersCreate.Enabled = true;
@@ -120,6 +121,7 @@ namespace BullseyeDesktopApp
                 // Show allowed Admin tabs
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
+                tabctrlAdminUsers.TabPages.Add(tabAdminSuppliers);
 
                 // Enabled Create Order/Receive/Fulfil Order Button
                 btnOrdersCreate.Enabled = true;

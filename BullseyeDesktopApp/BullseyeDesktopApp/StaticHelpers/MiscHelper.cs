@@ -10,6 +10,22 @@ namespace BullseyeDesktopApp.StaticHelpers
     public static class MiscHelper
     {
 
+        // STATIC LISTS FOR COUNTRIES AND PROVINCES
+        public static List<String> provCodes = new List<string>() { "AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT", "US" };
+
+        public static List<string> countries = new List<string>
+                {
+                    "United States", "Canada", "United Kingdom", "Germany", "France",
+                    "Italy", "Spain", "Australia", "Japan", "China",
+                    "India", "Brazil", "Mexico", "Russia", "South Korea",
+                    "Netherlands", "Sweden", "Switzerland", "Argentina", "South Africa",
+                    "Turkey", "Saudi Arabia", "United Arab Emirates", "Indonesia", "Thailand",
+                    "Vietnam", "Malaysia", "Philippines", "Egypt", "Pakistan",
+                    "Bangladesh", "Nigeria", "Colombia", "Poland", "Chile",
+                    "Belgium", "Austria", "Denmark", "Norway", "Finland"
+                };
+
+
         //        CALCULATE DELIVERY DATE
         //
         // Receives delivery day for that store, returns date of next delivery for that store or Now if bad data sent in

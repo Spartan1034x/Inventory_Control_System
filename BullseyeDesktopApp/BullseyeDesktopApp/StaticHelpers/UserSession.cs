@@ -24,6 +24,9 @@ namespace BullseyeDesktopApp.StaticHelpers
         // Selected Delivery for item confirmation
         public static Delivery? SelectedDelivery { get; set; }
 
+        // Selected Supplier
+        public static Supplier? SelectedSupplier { get; set; }
+
 
         //String for username from current user variable
         public static String UserName { 

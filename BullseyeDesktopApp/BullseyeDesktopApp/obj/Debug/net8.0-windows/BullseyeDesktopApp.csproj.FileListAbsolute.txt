@@ -114,3 +114,4 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\B
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.OrderEdit.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.OrderFulfil.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.OrderReceive.resources
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.SupplierEdit.resources
