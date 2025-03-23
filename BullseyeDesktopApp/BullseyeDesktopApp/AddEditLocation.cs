@@ -88,8 +88,7 @@ namespace BullseyeDesktopApp
             cmbDeliveryDay.SelectedItem = DayOfWeek.Monday;
 
             // Province cmb
-            List<String> provCodes = new List<string>() { "AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT", "US" };
-            cmbProv.DataSource = provCodes;
+            cmbProv.DataSource = StaticHelpers.MiscHelper.provCodes;
             cmbProv.SelectedItem = "NB";
 
             // Site types
@@ -98,17 +97,7 @@ namespace BullseyeDesktopApp
             cmbSiteType.SelectedItem = "Retail";
 
             // Countries
-            List<string> countries = new List<string>
-                {
-                    "United States", "Canada", "United Kingdom", "Germany", "France",
-                    "Italy", "Spain", "Australia", "Japan", "China",
-                    "India", "Brazil", "Mexico", "Russia", "South Korea",
-                    "Netherlands", "Sweden", "Switzerland", "Argentina", "South Africa",
-                    "Turkey", "Saudi Arabia", "United Arab Emirates", "Indonesia", "Thailand",
-                    "Vietnam", "Malaysia", "Philippines", "Egypt", "Pakistan",
-                    "Bangladesh", "Nigeria", "Colombia", "Poland", "Chile",
-                    "Belgium", "Austria", "Denmark", "Norway", "Finland"
-                };
+            List<string> countries = StaticHelpers.MiscHelper.countries;
             countries.Sort();
             cmbCountry.DataSource = countries;
             cmbCountry.SelectedItem = "Canada";

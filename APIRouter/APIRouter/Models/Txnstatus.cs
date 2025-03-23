@@ -9,5 +9,7 @@ public partial class Txnstatus
 
     public string StatusDescription { get; set; } = null!;
 
+    public sbyte Active { get; set; }
+
     public virtual ICollection<Txn> Txns { get; set; } = new List<Txn>();
 }

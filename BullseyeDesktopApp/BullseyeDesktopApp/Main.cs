@@ -70,15 +70,18 @@ namespace BullseyeDesktopApp
             // ADMIN
             if (permissionLevel == 9999)
             {
-                // Add employee and permission tab if admin
+                // Add Admin tabs
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersPermissions);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
+                tabctrlAdminUsers.TabPages.Add(tabAdminSuppliers);
 
-                // Enabled Create Order/Receive/Fulfil Order Button
+                // Enabled ORDER Buttons
                 btnOrdersCreate.Enabled = true;
                 btnOrdersReceive.Enabled = true;
                 btnOrdersFulfil.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
+                btnOrdersEdit.Enabled = true;
 
                 // Enable Employee CRUD buttons
                 btnAdminEmployeeDelete.Enabled = true;
@@ -118,11 +121,13 @@ namespace BullseyeDesktopApp
                 // Show allowed Admin tabs
                 tabctrlAdminUsers.TabPages.Add(tabAdminUsersEmployees);
                 tabctrlAdminUsers.TabPages.Add(tabAdminItems);
+                tabctrlAdminUsers.TabPages.Add(tabAdminSuppliers);
 
                 // Enabled Create Order/Receive/Fulfil Order Button
                 btnOrdersCreate.Enabled = true;
                 btnOrdersReceive.Enabled = true;
                 btnOrdersFulfil.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
 
             }
             // STORE MANAGER
@@ -135,6 +140,9 @@ namespace BullseyeDesktopApp
 
                 // Enabled Create Order Button
                 btnOrdersCreate.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
+
             }
             // WAREHOUSE WORKER
             else if (permissionLevel == 5)
@@ -338,6 +346,5 @@ namespace BullseyeDesktopApp
             picHelpInventory.Visible = selection == tabInventory; // Inventory help
             picAdminLocation.Visible = selection == tabAdmin && adminSelection == tabAdminLocations; // Location Help
         }
-
     }
 }

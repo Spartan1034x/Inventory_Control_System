@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogIn));
             picLogo = new PictureBox();
             label1 = new Label();
-            btnHelp = new Button();
             label2 = new Label();
             label3 = new Label();
             txtUsername = new TextBox();
@@ -62,21 +61,6 @@
             label1.Size = new Size(110, 46);
             label1.TabIndex = 2;
             label1.Text = "Login";
-            // 
-            // btnHelp
-            // 
-            btnHelp.FlatAppearance.BorderColor = Color.Black;
-            btnHelp.FlatAppearance.MouseOverBackColor = Color.Silver;
-            btnHelp.FlatStyle = FlatStyle.Flat;
-            btnHelp.Font = new Font("Segoe UI", 12F);
-            btnHelp.Location = new Point(752, 13);
-            btnHelp.Name = "btnHelp";
-            btnHelp.Size = new Size(36, 34);
-            btnHelp.TabIndex = 3;
-            btnHelp.Text = "?";
-            btnHelp.TextAlign = ContentAlignment.TopCenter;
-            btnHelp.UseVisualStyleBackColor = true;
-            btnHelp.Visible = false;
             // 
             // label2
             // 
@@ -161,7 +145,6 @@
             btnHashAll.TabIndex = 21;
             btnHashAll.Text = "Hash All";
             btnHashAll.UseVisualStyleBackColor = true;
-            btnHashAll.Visible = false;
             btnHashAll.Click += btnHashAll_Click_1;
             // 
             // LogIn
@@ -177,7 +160,6 @@
             Controls.Add(txtUsername);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(btnHelp);
             Controls.Add(label1);
             Controls.Add(picLogo);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -195,7 +177,6 @@
 
         private PictureBox picLogo;
         private Label label1;
-        private Button btnHelp;
         private Label label2;
         private Label label3;
         private TextBox txtUsername;

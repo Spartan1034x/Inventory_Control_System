@@ -11,6 +11,10 @@ public partial class Province
 
     public string CountryCode { get; set; } = null!;
 
+    public sbyte Active { get; set; }
+
+    public virtual ICollection<Deliverymethod> Deliverymethods { get; set; } = new List<Deliverymethod>();
+
     public virtual ICollection<Site> Sites { get; set; } = new List<Site>();
 
     public virtual ICollection<Supplier> Suppliers { get; set; } = new List<Supplier>();

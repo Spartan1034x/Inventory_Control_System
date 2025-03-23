@@ -17,6 +17,41 @@ namespace BullseyeDesktopApp
         List<Txn> orders;
         bool defaultOrdersLoad = true;
 
+        //              EDIT ORDER BUTTON
+        //
+        //
+        private void btnOrdersEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvOrders.SelectedRows.Count > 0)
+            {
+                // Get selected order
+                var selection = orders.Where(o => o.TxnId == (int)dgvOrders.SelectedRows[0].Cells[0].Value).FirstOrDefault();
+
+                // If it is not null then open edit page
+                if (selection != null)
+                {
+                    StaticHelpers.UserSession.SelectedOrder = selection;
+
+                    OrderEdit frm = new OrderEdit();
+                    frm.ShowDialog();
+
+                    StaticHelpers.UserSession.SelectedOrder = null; // Resets selected order
+
+                    RefreshOrders();
+                }
+            }
+        }
+
+        //              DELIVERY PORTAL CLICK
+        //
+        //
+        private void btnOrdersDelivery_Click(object sender, EventArgs e)
+        {
+            Form form = new DeliveryPortal();
+            form.ShowDialog();
+            RefreshOrders();
+        }
+
 
         //             FULFILL ORDER CLICK
         //
@@ -25,7 +60,20 @@ namespace BullseyeDesktopApp
         {
             int posID = StaticHelpers.UserSession.CurrentUser.PositionId;
 
-            if (dgvOrders.SelectedRows.Count > 0 && (posID == 9999 || posID == 3 || posID == 5)) // Only admin and warehouse man can fulfil
+            // If selected order is not for users location confirm they want to continue
+            string selectedLocation = dgvOrders.SelectedRows[0].Cells["Location"].Value.ToString();
+            string usersLocation = StaticHelpers.UserSession.CurrentUser.Site.SiteName;
+            
+            if (selectedLocation != usersLocation && posID != 9999)
+            {
+                DialogResult dia = MessageBox.Show("This order is not for your location confirm continue?", "Fulfil Order?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dia != DialogResult.Yes)
+                    return;
+                
+            }
+
+            if (dgvOrders.SelectedRows.Count > 0 && (posID == 9999 || posID == 3 || posID == 5 || posID == 4)) // Only admin and warehouse man can fulfil
             {
                 // Get selected order Txn type
                 var selection = orders.Where(o => o.TxnId == (int)dgvOrders.SelectedRows[0].Cells[0].Value).FirstOrDefault();
@@ -39,7 +87,7 @@ namespace BullseyeDesktopApp
                     // If order set open receive order page
                     if (UserSession.SelectedOrder != null)
                     {
-                        FulfilOrder frm = new FulfilOrder();
+                        OrderFulfil frm = new OrderFulfil();
                         frm.ShowDialog();
                         UserSession.SelectedOrder = null; // Resets selected order
                         RefreshOrders();
@@ -53,7 +101,7 @@ namespace BullseyeDesktopApp
                     MessageBox.Show("Order must be of status \"ASSEMBLING\" to be fulfilled", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-                MessageBox.Show("Please select an order to fulfil it", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select an order to fulfil it, you may not have priviliges to perform this action", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         //            FORMAT WEIGHT CELL
@@ -81,10 +129,13 @@ namespace BullseyeDesktopApp
                 int userID = StaticHelpers.UserSession.CurrentUser.PositionId;
 
                 // Receive Button
-                btnOrdersReceive.Enabled = (status == "SUBMITTED" || status == "RECEIVED") && (userID == 9999 || userID == 3);
+                btnOrdersReceive.Enabled = (status == "SUBMITTED" || status == "RECEIVED") && ((userID == 9999 || userID == 3) || (type.ToLower() == "Online".ToLower() && (userID == 9999 || userID == 4)));
 
                 // Fulfil Button
-                btnOrdersFulfil.Enabled = (status == "ASSEMBLING") && (userID == 9999 || userID == 3 || userID == 5);
+                btnOrdersFulfil.Enabled = (status == "ASSEMBLING") && ((userID == 9999 || userID == 3 || userID == 5) || (type.ToLower() == "Online".ToLower() && (userID == 9999 || userID == 4)));
+
+                // Edit Button
+                btnOrdersEdit.Enabled = (userID == 9999 && (status != "CANCELLED" && status != "COMPLETE" && status != "REJECTED"));
             }
         }
 
@@ -97,7 +148,20 @@ namespace BullseyeDesktopApp
         {
             int posID = StaticHelpers.UserSession.CurrentUser.PositionId;
 
-            if (dgvOrders.SelectedRows.Count > 0 && (posID == 9999 || posID == 3)) // Only admin and warehouse man can receive
+            // If selected order is not for users location confirm they want to continue
+            string selectedLocation = dgvOrders.SelectedRows[0].Cells["Location"].Value.ToString();
+            string usersLocation = StaticHelpers.UserSession.CurrentUser.Site.SiteName;
+
+            if (selectedLocation != usersLocation && posID != 9999)
+            {
+                DialogResult dia = MessageBox.Show("This order is not for your location confirm continue?", "Fulfil Order?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dia != DialogResult.Yes)
+                    return;
+
+            }
+
+            if (dgvOrders.SelectedRows.Count > 0 && (posID == 9999 || posID == 3 || posID == 4)) // Only admin and warehouse man can receive
             {
                 // Get selected order Txn type
                 var selection = orders.Where(o => o.TxnId == (int)dgvOrders.SelectedRows[0].Cells[0].Value).FirstOrDefault();
@@ -111,7 +175,7 @@ namespace BullseyeDesktopApp
                     // If order set open receive order page
                     if (UserSession.SelectedOrder != null)
                     {
-                        ReceiveOrder frm = new ReceiveOrder();
+                        OrderReceive frm = new OrderReceive();
                         frm.ShowDialog();
                         UserSession.SelectedOrder = null; // Resets selected order
                         RefreshOrders();
@@ -125,7 +189,7 @@ namespace BullseyeDesktopApp
                     MessageBox.Show("Order must be of status \"SUBMITTED\" to be Received", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-                MessageBox.Show("Please select an order to receive it", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select an order to receive it, you may not have privileges to perform this action", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -134,8 +198,9 @@ namespace BullseyeDesktopApp
         //
         private void picHelpOrders_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("•Click on column header to order by that column\n•Use Combo Boxes to filter results in display\n" +
-                "•Only 1 Standard order allowed per location per week, unlimited emergency orders", "Orders Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("• Click on column header to order by that column\n\n• Use Combo Boxes to filter results in display\n\n" +
+                "• Only 1 Standard order allowed per location per week, unlimited emergency orders\n\n\u2022" +
+                " Double click an online order to confirm pickup", "Orders Help", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
@@ -332,7 +397,7 @@ namespace BullseyeDesktopApp
                 using (var context = new BullseyeContext())
                 {
                     // Gets all orders with location, item list, and approritate item
-                    orders = context.Txns.Include(o => o.SiteIdtoNavigation).Include(o=>o.Txnitems).ThenInclude(i=>i.Item).ToList(); // ORDERS SET HERE
+                    orders = context.Txns.Include(o=>o.SiteIdfromNavigation).Include(o => o.SiteIdtoNavigation).Include(o=>o.Txnitems).ThenInclude(i=>i.Item).ToList(); // ORDERS SET HERE
 
                     defaultOrdersLoad = false;
                     string location = cmbOrdersLocation.SelectedValue.ToString();
@@ -419,7 +484,7 @@ namespace BullseyeDesktopApp
         //
         private void btnOrdersCreate_Click(object sender, EventArgs e)
         {
-            Form create = new CreateOrder();
+            Form create = new OrderCreate();
             create.ShowDialog();
             RefreshOrders();
         }

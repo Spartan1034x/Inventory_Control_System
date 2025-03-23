@@ -7,7 +7,11 @@ public partial class Txnaudit
 {
     public int TxnAuditId { get; set; }
 
+    public DateTime CreatedDate { get; set; }
+
     public int TxnId { get; set; }
+
+    public int EmployeeId { get; set; }
 
     public string TxnType { get; set; } = null!;
 
@@ -19,7 +23,11 @@ public partial class Txnaudit
 
     public int? DeliveryId { get; set; }
 
+    public string? Notes { get; set; }
+
     public virtual Delivery? Delivery { get; set; }
+
+    public virtual Employee Employee { get; set; } = null!;
 
     public virtual Site Site { get; set; } = null!;
 

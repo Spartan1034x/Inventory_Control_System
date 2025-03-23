@@ -9,6 +9,32 @@ SET SQL_SAFE_UPDATES = 0;
 UPDATE employee SET firstInsert = FALSE;
 SET SQL_SAFE_UPDATES = 1;
 
+/* Trigger for inserting records on the inventory table, never allows quantity to go below 0 */
+DROP TRIGGER IF EXISTS inventory_insert;
+DELIMITER #
+CREATE TRIGGER inventory_insert
+    BEFORE INSERT ON inventory
+    FOR EACH ROW
+BEGIN
+    IF NEW.quantity < 0 THEN
+        SET NEW.quantity = 0;
+    END IF;
+END #
+DELIMITER ;
+
+/* Trigger for updating records on the inventory table, never allows quantity to go below 0 */
+DROP TRIGGER IF EXISTS inventory_update;
+DELIMITER #
+CREATE TRIGGER inventory_update
+    BEFORE UPDATE ON inventory
+    FOR EACH ROW
+BEGIN
+    IF NEW.quantity < 0 THEN
+        SET NEW.quantity = 0;
+    END IF;
+END #
+DELIMITER ;
+
 /*Trigger for creating username and email if first insert is true */
 DROP TRIGGER IF EXISTS employee_insert;
 DELIMITER #
@@ -85,3 +111,23 @@ VALUES ('All');
 /* Adds "All" to site table, sets siteID to 11, siteName to "All", province to 'NB' */
 INSERT INTO site (siteID, siteName, provinceID, address, city, country, postalCode, phone, distanceFromWH)
 VALUES (11, 'All', 'NB', "", "", "", "", "", 0);
+
+/* Adds bool field to delivery table to say wheter the delivery is enroute or not */
+ALTER TABLE delivery ADD COLUMN enRoute boolean DEFAULT false;
+
+/* Adds bool field to delivery table to say wheter the delivery is delivered or not */
+ALTER TABLE delivery ADD COLUMN delivered boolean DEFAULT false;
+
+/* Adds bool field to delivery table to say wheter the delivery is accepted or not */
+ALTER TABLE delivery ADD COLUMN accepted boolean DEFAULT false;
+
+/* Adds int field to txnItems to track their location */
+ALTER TABLE txnitems ADD COLUMN itemLocation int DEFAULT 0;
+
+/* Add status to txnstatus table */
+INSERT INTO txnstatus (StatusName, statusDescription)
+VALUES ('READY', 'The order is ready to be picked up at store location');
+
+/* Add online vehicle type to allow online delivery insertions, inactive so won't be sent through the API */
+INSERT INTO vehicle (vehicleType, maxWeight, HourlyTruckCost, costPerKm, notes, active)
+VALUES ('Online', 0, 0, 0, 'For online orders', 0);

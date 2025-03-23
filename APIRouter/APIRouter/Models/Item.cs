@@ -25,9 +25,11 @@ public partial class Item
 
     public int SupplierId { get; set; }
 
-    public bool Active { get; set; }
-
     public string? Notes { get; set; }
+
+    public sbyte Active { get; set; }
+
+    public string? ImageLocation { get; set; }
 
     public virtual Category CategoryNavigation { get; set; } = null!;
 

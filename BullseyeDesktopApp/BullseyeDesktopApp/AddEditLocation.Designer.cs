@@ -181,7 +181,7 @@
             label7.Name = "label7";
             label7.Size = new Size(114, 28);
             label7.TabIndex = 31;
-            label7.Text = "PostalCode:";
+            label7.Text = "Postal:";
             // 
             // label8
             // 

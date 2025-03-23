@@ -46,6 +46,8 @@ namespace BullseyeDesktopApp
                 RefreshItemsDGV(20);
             else if (tabctrlAdminUsers.SelectedTab == tabAdminLocations)
                 RefreshLocationsDGV();
+            else if (tabctrlAdminUsers.SelectedTab == tabAdminSuppliers)
+                RefreshSupplierDGV();
 
         }
 
@@ -60,6 +62,142 @@ namespace BullseyeDesktopApp
             this.Size = (selection == tabAdminUsersEmployees || selection == tabAdminLocations) ? new Size(1550, 850) : new Size(1350, 850);
             dgvEmployees.Size = (selection == tabAdminUsersEmployees) ? new Size(1425, 426) : new Size(1225, 426);
         }
+
+
+
+        //            **** SUPPLIERS TAB ****
+        //
+        //
+        //                REFRESH DGV
+        private void RefreshSupplierDGV()
+        {
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    List<Supplier> suppliers = context.Suppliers.ToList();
+
+                    List<SupplierDisplay> supplierDisplay = new List<SupplierDisplay>();
+
+                    foreach (var s in suppliers)
+                    {
+                        supplierDisplay.Add(new SupplierDisplay()
+                        {
+                            ID = s.SupplierId,
+                            Name = s.Name,
+                            Address = s.Address1,
+                            City = s.City,
+                            Country = s.Country,
+                            Province = s.Province,
+                            Postal = s.Postalcode,
+                            Phone = s.Phone,
+                            Contact = s.Contact,
+                            Active = s.Active
+                        });
+                    }
+
+                    dgvSuppliers.DataSource = new BindingSource() { DataSource = supplierDisplay };
+
+                    dgvSuppliers.Columns["Active"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvSuppliers.Columns["Province"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvSuppliers.Columns["Country"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvSuppliers.Columns["Postal"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dgvSuppliers.Columns["Address"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgvSuppliers.Columns["ID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error");
+            }
+        }
+
+
+        //            REFRESH BUTTON
+        //
+        private void btnAdminSupplierRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshSupplierDGV();
+        }
+
+
+        //            REMOVE BUTTON
+        //
+        private void btnAdminSuppliersRemove_Click(object sender, EventArgs e)
+        {
+            if (dgvSuppliers.SelectedRows.Count > 0)
+            {
+                SupplierDisplay selected = (SupplierDisplay)dgvSuppliers.SelectedRows[0].DataBoundItem;
+
+                DialogResult dia = MessageBox.Show($"Are you sure you want to remove {selected.Name} from the active status?", "Confirm Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dia == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using (var context = new BullseyeContext())
+                        {
+                            Supplier supplier = context.Suppliers.First(s => s.SupplierId == selected.ID);
+                            supplier.Active = 0;
+
+                            context.Update(supplier);
+
+                            context.SaveChanges();
+
+                            RefreshSupplierDGV();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "DB Error(Supplier Removal)");
+                    }
+                }
+            }
+        }
+
+
+        //            ADD BUTTON
+        //
+        private void btnAdminSupplierAdd_Click(object sender, EventArgs e)
+        {
+            SupplierEdit frm = new SupplierEdit(false);
+            frm.ShowDialog();
+
+            if (frm.DialogResult == DialogResult.OK)
+                RefreshSupplierDGV();
+        }
+
+
+        //            EDIT BUTTON
+        //
+        private void btnAdminSupplierEdit_Click(object sender, EventArgs e)
+        {
+            SupplierDisplay selectedDisplay = (SupplierDisplay)dgvSuppliers.SelectedRows[0].DataBoundItem;
+
+            try
+            {
+                using (var context = new BullseyeContext())
+                {
+                    Supplier selected = context.Suppliers.First(s => s.SupplierId == selectedDisplay.ID);
+
+                    StaticHelpers.UserSession.SelectedSupplier = selected;
+
+                    SupplierEdit frm = new SupplierEdit(true);
+                    frm.ShowDialog();
+
+                    if (frm.DialogResult == DialogResult.OK)
+                        RefreshSupplierDGV();
+
+                    StaticHelpers.UserSession.SelectedSupplier = null;  
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DB Error (Find Supplier)");
+            }
+        }
+        //          **** END SUPPLIERS TAB ****
+
 
 
         //            **** LOCATIONS TAB ****
