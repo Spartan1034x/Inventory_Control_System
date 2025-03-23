@@ -53,7 +53,9 @@ namespace APIRouter.Controllers
                         ShipDate = order.ShipDate,
                         BarCode = order.BarCode,
                         DeliveryId = null,
-                        EmergencyDelivery = order.EmergencyDelivery == 1 ? true : false
+                        EmergencyDelivery = order.EmergencyDelivery == 1 ? true : false,
+                        TxnType = order.TxnType,
+                        Notes = order.Notes
                     };
 
                     decimal weight = 0;
@@ -97,6 +99,59 @@ namespace APIRouter.Controllers
                 return NotFound(new { message = $"Transaction with ID {id} not found" });
 
             return Ok(txn);
+        }
+
+
+        // POST: api/Txn
+        [HttpPost]
+        public async Task<ActionResult> CreateTransaction([FromBody] NewTxnDTO txn)
+        {
+            if (txn == null || txn.Items == null)
+                return BadRequest(new { message = "Invalid data provided (Null)" });
+
+            try
+            {
+                // Create new txn
+                Txn newTxn = new Txn()
+                {
+                    EmployeeId = 10000, // Emp id for online
+                    SiteIdfrom = txn.SiteIdTo,
+                    SiteIdto = txn.SiteIdTo,
+                    ShipDate = DateTime.Now,
+                    TxnStatus = "SUBMITTED",
+                    TxnType = "Online",
+                    BarCode = "N/A",
+                    EmergencyDelivery = 0,
+                    Notes = txn.Notes
+                };
+
+                _context.Txns.Add(newTxn);
+
+                await _context.SaveChangesAsync();
+
+                List<Txnitem> txnItems = new List<Txnitem>();
+
+                // Create txnItems
+                foreach (var item in txn.Items)
+                {
+                    txnItems.Add(new Txnitem()
+                    {
+                        TxnId = newTxn.TxnId,
+                        ItemId = item.ItemId,
+                        Quantity = item.Quantity
+                    });
+                }
+
+                _context.Txnitems.AddRange(txnItems);
+
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("GetTransactionById", new { id = newTxn.TxnId, itemsAdded = txnItems.Count }, txn);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating transaction: {ex.Message + ex.InnerException}");
+                return StatusCode(500, new { message = "DB Error", details = ex.Message + ex.InnerException });
+            }
         }
     }
 }

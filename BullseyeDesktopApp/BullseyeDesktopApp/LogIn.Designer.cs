@@ -145,7 +145,6 @@
             btnHashAll.TabIndex = 21;
             btnHashAll.Text = "Hash All";
             btnHashAll.UseVisualStyleBackColor = true;
-            btnHashAll.Visible = false;
             btnHashAll.Click += btnHashAll_Click_1;
             // 
             // LogIn

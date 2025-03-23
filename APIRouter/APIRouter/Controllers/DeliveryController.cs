@@ -48,10 +48,16 @@ namespace APIRouter.Controllers
                         return BadRequest(new { message = "TXN not found in DB in distance loop" });
                     }
                     else
-                        distance += txn1.SiteIdtoNavigation.DistanceFromWh;
+                        distance += txn1.SiteIdtoNavigation.DistanceFromWh * 2; // There and back
                 }
 
-                decimal deliveryCost = distance * vehicle.CostPerKm;
+                decimal deliveryCost = distance * vehicle.CostPerKm; // DISTANCE COST
+
+                double hours = Math.Round((double)distance / 100, 0); // 100km/h speed rounded up
+
+                hours = hours > 2 ? hours : 2; // Minimum 2 hours
+
+                deliveryCost += ((decimal)hours * vehicle.HourlyTruckCost) + ((decimal)hours * 35); // TRUCK HOURLY + DRIVER COST
 
                 var newDelivery = new Delivery
                 {

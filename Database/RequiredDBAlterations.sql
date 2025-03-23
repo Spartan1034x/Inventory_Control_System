@@ -123,3 +123,11 @@ ALTER TABLE delivery ADD COLUMN accepted boolean DEFAULT false;
 
 /* Adds int field to txnItems to track their location */
 ALTER TABLE txnitems ADD COLUMN itemLocation int DEFAULT 0;
+
+/* Add status to txnstatus table */
+INSERT INTO txnstatus (StatusName, statusDescription)
+VALUES ('READY', 'The order is ready to be picked up at store location');
+
+/* Add online vehicle type to allow online delivery insertions, inactive so won't be sent through the API */
+INSERT INTO vehicle (vehicleType, maxWeight, HourlyTruckCost, costPerKm, notes, active)
+VALUES ('Online', 0, 0, 0, 'For online orders', 0);

@@ -84,9 +84,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 105);
             label1.Name = "label1";
-            label1.Size = new Size(61, 20);
+            label1.Size = new Size(86, 20);
             label1.TabIndex = 51;
-            label1.Text = "Item ID:";
+            label1.Text = "Supplier ID:";
             // 
             // btnExit
             // 

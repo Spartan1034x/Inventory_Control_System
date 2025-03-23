@@ -22,5 +22,9 @@ namespace APIRouter.DTO
 
         public int TotalItems { get; set; }
 
+        public string? Notes { get; set; }
+
+        public string? TxnType { get; set; }    
+
     }
 }

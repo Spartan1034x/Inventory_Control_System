@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// Librarys
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+// Components
+import NavBar from "./components/navbar";
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+// Pages
+import Index from "./pages/index";
+import Store from "./pages/store";
+import Checkout from "./pages/checkout";
+import Profile from "./pages/profile";
 
-export default App
+// Contexts (Wrap in main.tsx in future)
+import { SiteProvider } from "./contexts/SiteContext";
+import { InventoryProvider } from "./contexts/InventoryContext";
+
+const App: React.FC = () => {
+	//const [canCheckout, setCanCheckout] = useState<boolean>(false); // State to store the sites
+
+	return (
+		<Router>
+			<SiteProvider>
+				<InventoryProvider>
+					<NavBar />
+
+					<Routes>
+						<Route path="/" element={<Index />} />
+						<Route path="/store" element={<Store />} />
+						<Route path="/checkout" element={<Checkout />} />
+						<Route path="/profile" element={<Profile />} />
+					</Routes>
+				</InventoryProvider>
+			</SiteProvider>
+		</Router>
+	);
+};
+
+export default App;

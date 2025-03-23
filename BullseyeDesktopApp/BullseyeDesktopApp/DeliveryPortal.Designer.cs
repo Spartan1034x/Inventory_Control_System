@@ -37,6 +37,7 @@
             label2 = new Label();
             picHelp = new PictureBox();
             grpStatus = new GroupBox();
+            radOnline = new RadioButton();
             radAccept = new RadioButton();
             radHistory = new RadioButton();
             radDelivering = new RadioButton();
@@ -137,6 +138,7 @@
             // grpStatus
             // 
             grpStatus.BackColor = Color.MistyRose;
+            grpStatus.Controls.Add(radOnline);
             grpStatus.Controls.Add(radAccept);
             grpStatus.Controls.Add(radHistory);
             grpStatus.Controls.Add(radDelivering);
@@ -147,6 +149,17 @@
             grpStatus.TabIndex = 64;
             grpStatus.TabStop = false;
             grpStatus.Text = "Status";
+            // 
+            // radOnline
+            // 
+            radOnline.AutoSize = true;
+            radOnline.Location = new Point(184, 23);
+            radOnline.Name = "radOnline";
+            radOnline.Size = new Size(73, 24);
+            radOnline.TabIndex = 4;
+            radOnline.Text = "Online";
+            radOnline.UseVisualStyleBackColor = true;
+            radOnline.CheckedChanged += radOnline_CheckedChanged;
             // 
             // radAccept
             // 
@@ -162,13 +175,13 @@
             // radHistory
             // 
             radHistory.AutoSize = true;
-            radHistory.Location = new Point(184, 53);
+            radHistory.Location = new Point(184, 81);
             radHistory.Name = "radHistory";
             radHistory.Size = new Size(77, 24);
             radHistory.TabIndex = 2;
             radHistory.Text = "History";
             radHistory.UseVisualStyleBackColor = true;
-            radHistory.CheckedChanged += radDelivered_CheckedChanged;
+            radHistory.CheckedChanged += radHistory_CheckedChanged;
             // 
             // radDelivering
             // 
@@ -304,5 +317,6 @@
         private Button btnClear;
         private RadioButton radHistory;
         private RadioButton radAccept;
+        private RadioButton radOnline;
     }
 }

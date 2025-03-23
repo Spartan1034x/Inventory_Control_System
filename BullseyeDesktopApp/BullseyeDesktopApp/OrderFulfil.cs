@@ -173,11 +173,14 @@ namespace BullseyeDesktopApp
 
             }
 
-            // Sets status to assembled, add notes
+            // Sets status to assembled if regular order, ready if online, add notes
             if (txtNotes.Text != String.Empty)
                 selectedOrder.Notes += "\n\tUser: " + UserSession.CurrentUser.Username + " - Added At: " + DateTime.Now + " Note:" + txtNotes.Text;
             
-            selectedOrder.TxnStatus = "ASSEMBLED";
+            if (selectedOrder.TxnType.ToUpper() == "ONLINE".ToUpper())
+                selectedOrder.TxnStatus = "READY";
+            else
+                selectedOrder.TxnStatus = "ASSEMBLED";
 
             // Submit updated order
             string res = await DBOperations.UpdateOrderWithAudit(selectedOrder, newItems);
@@ -188,8 +191,21 @@ namespace BullseyeDesktopApp
                 return;
             }
 
-            // Update Inventory location
-            string res2 = await DBOperations.MoveInventory(newItems, selectedOrder);
+            // Update Inventory location, if online order use online ftn
+            string res2 = "";
+
+            // Create new detached list of items could be causing double tracking error?????
+            List<Txnitem> detatchedItems = newItems.Select(i => new Txnitem { TxnId = i.TxnId, ItemId = i.ItemId, Quantity = i.Quantity }).ToList();
+
+            if (selectedOrder.TxnType.ToUpper() == "ONLINE".ToUpper())
+            {
+                // Create delivery for in store pickup so delivery portal can reconize order
+                // Create new order copy of selected order
+                res2 = await DBOperations.CreateDeliveryForInStorePickup(selectedOrder.TxnId);
+                txtNotes.Text = res2;
+            }
+            else
+                res2 = await DBOperations.MoveInventory(detatchedItems, selectedOrder);
 
             if (res2 != "ok")
             {

@@ -140,7 +140,7 @@ namespace BullseyeDesktopApp.StaticHelpers
                         // This is for WH manager or WH worker to update order items (not for moving item quantity)
                         if (newItems.Count > 0)
                         {
-                            var oldItems = context.Txnitems.Where(i => i.TxnId == order.TxnId).ToList(); // Find all old items
+                            var oldItems = context.Txnitems.AsNoTracking().Where(i => i.TxnId == order.TxnId).ToList(); // Find all old items
 
                             context.Txnitems.RemoveRange(oldItems); // Remove all old items
                             await context.SaveChangesAsync();
@@ -170,7 +170,9 @@ namespace BullseyeDesktopApp.StaticHelpers
                         context.Txnaudits.Add(audit);
                         await context.SaveChangesAsync(); // Save txnAudit 
 
+
                         await dbTransaction.CommitAsync(); // Commit database transaction
+
 
                         return "ok";
                     }
@@ -237,11 +239,11 @@ namespace BullseyeDesktopApp.StaticHelpers
                         {
                             foreach (var txnItem in items)
                             {
+
                                 // Set ItemLocation to siteTo, this way the itemLocation in each txnItem shows the location it is currently at, this will only be set if it moves to the WH bay at minimum
                                 txnItem.ItemLocation = siteTo;
 
                                 // Update each txnItem in the db
-                                context.Attach(txnItem).State = EntityState.Modified;
                                 context.Txnitems.Update(txnItem);
 
                                 // Retrieve the source Inventory record.
@@ -257,6 +259,8 @@ namespace BullseyeDesktopApp.StaticHelpers
 
                                 // Subtract the quantity from the source.
                                 sourceInventory.Quantity -= txnItem.Quantity;
+
+                                //context.Inventories.Update(sourceInventory);
 
                                 // Retrieve the destination Inventory record and set the itemLocation to destination ID for some reason?
                                 string destLocation = order.TxnId.ToString();
@@ -280,6 +284,8 @@ namespace BullseyeDesktopApp.StaticHelpers
                                 // Add the quantity to the destination.
                                 destinationInventory.Quantity += txnItem.Quantity;
 
+                                //context.Inventories.Update(destinationInventory);
+
                                 //       ***      MAY CREATE AUDIT TABLE HERE IF TIME ALLOWS *******
                             }
 
@@ -302,6 +308,57 @@ namespace BullseyeDesktopApp.StaticHelpers
             
         }
 
+
+        //                  MOVE INVENTORY ONLINE ORDER
+        //
+        // Receives order and list of txnitems, removes quantities from source inventory
+        public static async Task<string> MoveInventoryOnlineOrder(List<Txnitem> items, Txn order)
+        {
+
+            using (var context = new BullseyeContext())
+            {
+                using (var dbTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        context.ChangeTracker.Clear();
+
+                        int siteFrom = order.SiteIdfrom;
+
+
+                        foreach (var txnItem in items)
+                        {
+
+                            // Retrieve the source Inventory record.
+                            var sourceInventory = await context.Inventories
+                                .FirstOrDefaultAsync(i => i.ItemId == txnItem.ItemId
+                                    && i.SiteId == siteFrom);
+
+                            if (sourceInventory == null)
+                            {
+                                return $"Source Inventory record not found for item {txnItem.ItemId} at site {siteFrom}.";
+                            }
+
+
+                            // Subtract the quantity from the source.
+                            sourceInventory.Quantity -= txnItem.Quantity;
+                        }
+
+                        await context.SaveChangesAsync(); // Save changes
+
+                        await dbTransaction.CommitAsync(); // Commit transaction
+
+                        return "ok";
+                    }
+                    catch (Exception ex)
+                    {
+                        await dbTransaction.RollbackAsync(); // Rollback if database transaction fails
+                        return ex.Message + "\nInner Error: " + ex.InnerException;
+                    }
+                }
+            }
+
+        }
 
         //              UPDATE INVENTORY THRESHOLD
         //
@@ -393,6 +450,55 @@ namespace BullseyeDesktopApp.StaticHelpers
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "DB Error");
+            }
+        }
+
+
+        //              CREATE DELIVERY FOR IN STORE PICKUP
+        //
+        //
+        public static async Task<string> CreateDeliveryForInStorePickup(int orderID)
+        {
+            using (var context = new BullseyeContext())
+            {
+                using (var dbTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        context.ChangeTracker.Clear();
+
+                        // Create new delivery record
+                        var delivery = new Delivery
+                        {
+                            DeliveryDate = DateTime.UtcNow,
+                            DistanceCost = 0,
+                            VehicleType = "Online",
+                            Notes = "ONLINE ORDER: txnID: " + orderID,
+                            Enroute = true,
+                            Delivered = true,
+                            Accepted = false
+                        };
+                        context.Deliveries.Add(delivery);
+                        await context.SaveChangesAsync();
+
+                        // Update order with delivery ID
+                        Txn order = context.Txns.FirstOrDefault(o => o.TxnId == orderID);
+
+                        if (order != null)
+                        {
+                            order.DeliveryId = delivery.DeliveryId; // CANT UPDATE?!??!!?!?!?!?
+                            //context.Update(order);
+                        }
+                        await context.SaveChangesAsync();
+                        await dbTransaction.CommitAsync(); // Commit transaction
+                        return "ok";
+                    }
+                    catch (Exception ex)
+                    {
+                        await dbTransaction.RollbackAsync(); // Rollback if database transaction fails
+                        return "CREATE DELIVERY ERROR: " + ex.Message + "\nInner Error: " + ex.InnerException;
+                    }
+                }
             }
         }
     }

@@ -34,8 +34,30 @@ namespace BullseyeDesktopApp
             InitializeSignatureBlock();
             PopulateLabels();
             DeliveryDBCall();
+            HandleStoreManager();
             PopulateDGV();
+
         }
+
+
+        //           HANDLE STORE MANAGER USAGE
+        //
+        //
+        private void HandleStoreManager()
+        {
+            if (StaticHelpers.UserSession.CurrentUser.PositionId == 4)
+            {
+                radPickup.Enabled = false;
+                radDelivering.Enabled = false;
+                radAccept.Enabled = false;
+
+                if (!radHistory.Checked && !radOnline.Checked)
+                {
+                    radHistory.Checked = true; // Ensure there's a valid filter
+                }
+            }
+        }
+
 
 
         //           POPULATE DGV
@@ -60,6 +82,25 @@ namespace BullseyeDesktopApp
             else if (radHistory.Checked)
             {
                 filteredDeliveries = deliveries.Where(d => d.Accepted == true).ToList();
+            }
+            else if (radOnline.Checked)
+            {
+                int siteID = StaticHelpers.UserSession.CurrentUser.SiteId;
+                int positionID = StaticHelpers.UserSession.CurrentUser.PositionId;
+
+                // Gets online orders only for users location, unless admin he sees all
+                if (positionID != 9999)
+                {
+                    filteredDeliveries = deliveries.Where(d => d.VehicleType == "Online"
+                                                    && d.Txns.Any()
+                                                    && d.Txns.First().SiteIdfrom == siteID
+                                                    && d.Accepted == false).ToList();
+
+                }
+                else
+                {
+                    filteredDeliveries = deliveries.Where(d => d.VehicleType == "Online" && d.Accepted == false).ToList();
+                }
             }
 
             List<DeliveryDisplay> deliveryDisplays = new List<DeliveryDisplay>();
@@ -96,12 +137,19 @@ namespace BullseyeDesktopApp
 
             dgvDeliveries.DataSource = new BindingSource() { DataSource = deliveryDisplays };
 
+            dgvDeliveries.Refresh();
+
             // Format the Delivery Date column
             dgvDeliveries.Columns["DeliveryDate"].DefaultCellStyle.Format = "ddd MMMM d, yyyy";
 
             dgvDeliveries.Columns["DeliveryId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 
             dgvDeliveries.Columns["DeliveryId"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDeliveries.Columns["TotalCases"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDeliveries.Columns["Weight"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvDeliveries.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dgvDeliveries.Columns["Notes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
         }
 
 
@@ -251,28 +299,52 @@ namespace BullseyeDesktopApp
         //
         private void radPickup_CheckedChanged(object sender, EventArgs e)
         {
-            PopulateDGV();
-            ButtonChange();
-        }
-        private void radDelivered_CheckedChanged(object sender, EventArgs e)
-        {
-            PopulateDGV();
-            ButtonChange();
+            if (radPickup.Checked)
+            {
+                PopulateDGV();
+                ButtonChange();
+            }
         }
 
         private void radDelivering_CheckedChanged(object sender, EventArgs e)
         {
-            PopulateDGV();
-            ButtonChange();
+            if (radDelivering.Checked)
+            {
+                PopulateDGV();
+                ButtonChange();
+            }
+            
         }
 
         private void radAccept_CheckedChanged(object sender, EventArgs e)
         {
-            PopulateDGV();
-            ButtonChange();
+            if (radAccept.Checked)
+            {
+                PopulateDGV();
+                ButtonChange();
+            }
+        }
 
+        private void radOnline_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radOnline.Checked)
+            {
+                PopulateDGV(); // Call the population method
+                ButtonChange();
+            }
 
         }
+
+        private void radHistory_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radHistory.Checked)
+            {
+                PopulateDGV(); // Call the population method
+                ButtonChange();
+            }
+        }
+
+
 
         private void ButtonChange()
         {
@@ -334,12 +406,12 @@ namespace BullseyeDesktopApp
             {
                 selectedDelivery.Delivered = true;
             }
-            else if (radAccept.Checked) // If accepted is confirmed accepted is true
+            else if (radAccept.Checked || radOnline.Checked) // If accepted is confirmed accepted is true
             {
                 selectedDelivery.Accepted = true;
             }
 
-            
+
             var context = new BullseyeContext();
 
             try
@@ -347,11 +419,37 @@ namespace BullseyeDesktopApp
                 context.Deliveries.Update(selectedDelivery);
                 await context.SaveChangesAsync();
 
-                string status = radPickup.Checked ? "IN TRANSIT" : radDelivering.Checked ? "DELIVERED" : "COMPLETE";
+                if (radOnline.Checked)
+                {
+                    // Update txn with audit
+                    Txn txn = selectedDelivery.Txns.First();
+                    txn.TxnStatus = "COMPLETE";
 
-                await UpdateTxnAndInventory(context, selectedDelivery, status);
+                    string res = await StaticHelpers.DBOperations.UpdateOrderWithAudit(txn, new List<Txnitem>());
+                    if (res != "ok")
+                    {
+                        MessageBox.Show(res, "DB Error (UpdateOrderWithAudit)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    // Move inventory for online order
+                    res = await StaticHelpers.DBOperations.MoveInventoryOnlineOrder(txn.Txnitems.ToList(), txn);
 
-                MessageBox.Show("Delivery Confirmed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (res != "ok")
+                    {
+                        MessageBox.Show(res, "DB Error (Move Inventory)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    MessageBox.Show("Delivery Accepted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+
+
+                    string status = radPickup.Checked ? "IN TRANSIT" : radDelivering.Checked ? "DELIVERED" : "COMPLETE";
+
+                    await UpdateTxnAndInventory(context, selectedDelivery, status);
+
+                    MessageBox.Show("Delivery Confirmed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 PopulateDGV();
                 InitializeSignatureBlock();
                 picHelp.Invalidate();
@@ -366,7 +464,7 @@ namespace BullseyeDesktopApp
                 context.Dispose();
             }
 
-            } // End of Confirm Button Click Event
+        } // End of Confirm Button Click Event
 
 
         //         UPDATE TXN AND INVENTORY

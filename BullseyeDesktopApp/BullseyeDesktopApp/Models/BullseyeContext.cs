@@ -51,7 +51,7 @@ public partial class BullseyeContext : DbContext
     public virtual DbSet<Vehicle> Vehicles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql(ConfigurationManager.ConnectionStrings["BullseyeDB"].ConnectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.3.0-mysql"));
+        => optionsBuilder.UseMySql(ConfigurationManager.ConnectionStrings["BullseyeDB"].ConnectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.3.0-mysql")).EnableSensitiveDataLogging();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

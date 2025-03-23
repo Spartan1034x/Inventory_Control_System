@@ -54,7 +54,14 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
 		const fetchOrders = async () => {
 			try {
 				const data = await getOrders();
-				setOrders(data?.$values || []);
+
+				// Filter orders to not show online orders
+				const filteredOrders =
+					data?.$values.filter(
+						(order) => order.txnType.toLowerCase() !== "Online".toLowerCase()
+					) || [];
+
+				setOrders(filteredOrders);
 			} catch (error) {
 				console.error("Failed to fetch orders:", error);
 			}

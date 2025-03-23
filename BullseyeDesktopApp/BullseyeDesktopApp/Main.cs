@@ -141,6 +141,8 @@ namespace BullseyeDesktopApp
                 // Enabled Create Order Button
                 btnOrdersCreate.Enabled = true;
                 btnOrdersDelivery.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
+
             }
             // WAREHOUSE WORKER
             else if (permissionLevel == 5)
