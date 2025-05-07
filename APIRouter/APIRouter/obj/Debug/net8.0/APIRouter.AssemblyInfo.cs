@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("APIRouter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a9b3c1c002a72de9b2c3b9628af4a94c2007fa7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d06c3fb3c9c24e475c3b84ebcb061d9f1cbb6117")]
 [assembly: System.Reflection.AssemblyProductAttribute("APIRouter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("APIRouter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

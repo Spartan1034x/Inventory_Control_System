@@ -33,7 +33,7 @@ namespace APIRouter.Controllers
 
                 List<VehicleDTO> vehicleDTO = new List<VehicleDTO>(); // List of vehicleDTO to return
 
-                // Add each active vehicle
+                // Add each active vehicle 
                 foreach (var vehicle in vehicles) {
                     if (vehicle.Active == 1)
                     {

@@ -360,6 +360,92 @@ namespace BullseyeDesktopApp.StaticHelpers
 
         }
 
+
+        //              PROCESS LOSS OR DAMAGE
+        //
+        //
+        public static async Task<string> ProcessLossOrDamage(Txn txn, List<Txnitem> items)
+        {
+            using (var context = new BullseyeContext())
+            {
+                using (var dbTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // Remove inventory from site for quantity required
+                        foreach (var txnItem in items)
+                        {
+                            // Retrieve the source Inventory record.
+                            var sourceInventory = context.Inventories
+                                .FirstOrDefault(i => i.ItemId == txnItem.ItemId
+                                    && i.SiteId == txn.SiteIdto);
+
+                            if (sourceInventory == null)
+                            {
+                                return $"Source Inventory record not found for item {txnItem.ItemId} at site {txn.SiteIdto}.";
+                            }
+
+                            // Subtract the quantity from the source.
+                            sourceInventory.Quantity -= txnItem.Quantity;
+                        }
+
+
+                        
+                        await context.SaveChangesAsync(); // Save txnAudit 
+                        await dbTransaction.CommitAsync(); // Commit database transaction
+                        return "ok";
+                    }
+                    catch (Exception ex)
+                    {
+                        await dbTransaction.RollbackAsync(); // Rollback if database transaction fails
+                        return ex.Message + "\nInner Error: " + ex.InnerException;
+                    }
+                }
+            }
+        }
+
+
+        //              PROCESS RETURN
+        //
+        // Receives txn and list of items, adds quantities to source inventory
+        public static async Task<string> ProcessReturn(int siteIdFrom, List<Txnitem> items)
+        {
+            using (var context = new BullseyeContext())
+            {
+                using (var dbTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // Add inventory to site for quantity required
+                        foreach (var txnItem in items)
+                        {
+                            // Retrieve the source Inventory record, siteidfrom is the site the items are being returned to
+                            var sourceInventory = context.Inventories
+                                .FirstOrDefault(i => i.ItemId == txnItem.ItemId
+                                    && i.SiteId == siteIdFrom);
+
+
+                            if (sourceInventory == null)
+                            {
+                                return $"Source Inventory record not found for item {txnItem.ItemId} at site {siteIdFrom}.";
+                            }
+
+                            // Add the quantity to the source.
+                            sourceInventory.Quantity += txnItem.Quantity;
+                        }
+                        await context.SaveChangesAsync(); // Save txnAudit 
+                        await dbTransaction.CommitAsync(); // Commit database transaction
+                        return "ok";
+                    }
+                    catch (Exception ex)
+                    {
+                        await dbTransaction.RollbackAsync(); // Rollback if database transaction fails
+                        return ex.Message + "\nInner Error: " + ex.InnerException;
+                    }
+                }
+            }
+        }
+
         //              UPDATE INVENTORY THRESHOLD
         //
         //

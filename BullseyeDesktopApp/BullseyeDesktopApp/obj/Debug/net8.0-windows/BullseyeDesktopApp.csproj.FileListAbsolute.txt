@@ -93,7 +93,6 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\B
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Dashboard.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.DeliveryItems.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.DeliveryPortal.resources
-C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.EditItem.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.LogIn.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Main.resources
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.OrderCreate.resources
@@ -115,3 +114,5 @@ C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\B
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.pdb
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.genruntimeconfig.cache
 C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\ref\BullseyeDesktopApp.dll
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.Loss.resources
+C:\0 - Programming\Projects\IDSP\isdp2025_gregory_keirstead\BullseyeDesktopApp\BullseyeDesktopApp\obj\Debug\net8.0-windows\BullseyeDesktopApp.AddEditItem.resources

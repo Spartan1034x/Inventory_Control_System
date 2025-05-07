@@ -155,6 +155,7 @@ namespace BullseyeDesktopApp
 
                 // Show Order fulfil button
                 btnOrdersFulfil.Enabled = true;
+                btnOrdersDelivery.Enabled = true;
             }
 
 
@@ -332,6 +333,10 @@ namespace BullseyeDesktopApp
             {
                 InitialInventoryPopulation();
             }
+            else if (selection == tabLoss && DefaultLossLoad)
+            {
+                FormatLossTab();
+            }
         }
 
         //           Shows help buttons depending on tab selected, callled from selection changed events
@@ -345,6 +350,8 @@ namespace BullseyeDesktopApp
             picHelpItems.Visible = selection == tabAdmin && adminSelection == tabAdminItems; // Items help
             picHelpInventory.Visible = selection == tabInventory; // Inventory help
             picAdminLocation.Visible = selection == tabAdmin && adminSelection == tabAdminLocations; // Location Help
+            picLoss.Visible = selection == tabLoss; // Loss Help
         }
+
     }
 }
