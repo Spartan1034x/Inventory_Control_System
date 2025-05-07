@@ -661,7 +661,24 @@ namespace BullseyeDesktopApp
         private void dgvItems_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Item selectedItem = (Item)dgvItems.SelectedRows[0].DataBoundItem;
-            Form editItemForm = new EditItem(selectedItem);
+            Form editItemForm = new AddEditItem(selectedItem);
+            StaticHelpers.UserSession.AddItem = false;
+
+            if (editItemForm.ShowDialog() == DialogResult.OK)
+            {
+                RefreshItemsDGV(20); // Refresh only if changes were made
+            }
+        }
+
+
+        //          ADD ITEM BUTTON
+        //
+        //
+        private void btnAdminItemsAdd_Click(object sender, EventArgs e)
+        {
+            Form editItemForm = new AddEditItem(new Item()); // Empty item bc old way of doing it 
+
+            StaticHelpers.UserSession.AddItem = true;
 
             if (editItemForm.ShowDialog() == DialogResult.OK)
             {

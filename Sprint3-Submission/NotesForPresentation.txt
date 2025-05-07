@@ -1,6 +1,0 @@
-1. So in web usually dates that are not today cannot be added to delivery. This has been disabled to allow for testing, as such
-	the delivery date for the delivery is changed to today, but the shipdate in txn will stay the original ship date (determined by day of week ftn)
-	
-2. Item location tracked in txnItems instead of inventory
-
-3. Online ordere details sent in email

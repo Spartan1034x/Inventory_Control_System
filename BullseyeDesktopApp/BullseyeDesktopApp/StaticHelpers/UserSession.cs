@@ -27,6 +27,15 @@ namespace BullseyeDesktopApp.StaticHelpers
         // Selected Supplier
         public static Supplier? SelectedSupplier { get; set; }
 
+        // Bool for processing damaged return items
+        public static bool DamagedReturnProcessed = true;
+
+        // Selected SiteId for return txn
+        public static int SelectedReturnSiteId { get; set; }
+
+        // Bool for add or edit item page
+        public static bool AddItem { get; set; }
+
 
         //String for username from current user variable
         public static String UserName { 

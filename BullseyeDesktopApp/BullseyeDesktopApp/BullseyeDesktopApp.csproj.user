@@ -10,6 +10,12 @@
     <Compile Update="AuditRecords.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Loss.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Main.Loss.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="OrderCreate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -22,7 +28,7 @@
     <Compile Update="DeliveryPortal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="EditItem.cs">
+    <Compile Update="AddEditItem.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="OrderFulfil.cs">
