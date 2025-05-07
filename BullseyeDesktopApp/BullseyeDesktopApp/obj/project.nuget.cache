@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EV4pRI4RapU=",
+  "dgSpecHash": "feqSnBa0+u8=",
   "success": true,
-  "projectFilePath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj",
+  "projectFilePath": "C:\\0 - School\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Spart\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Spart\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

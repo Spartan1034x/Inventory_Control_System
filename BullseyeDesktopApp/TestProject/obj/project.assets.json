@@ -1759,11 +1759,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\TestProject\\TestProject.csproj",
+      "projectUniqueName": "C:\\0 - School\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\TestProject\\TestProject.csproj",
       "projectName": "TestProject",
-      "projectPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\TestProject\\TestProject.csproj",
+      "projectPath": "C:\\0 - School\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\TestProject\\TestProject.csproj",
       "packagesPath": "C:\\Users\\Spart\\.nuget\\packages\\",
-      "outputPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\TestProject\\obj\\",
+      "outputPath": "C:\\0 - School\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\TestProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1785,8 +1785,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj": {
-              "projectPath": "C:\\0 - Programming\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj"
+            "C:\\0 - School\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj": {
+              "projectPath": "C:\\0 - School\\Projects\\IDSP\\isdp2025_gregory_keirstead\\BullseyeDesktopApp\\BullseyeDesktopApp\\BullseyeDesktopApp.csproj"
             }
           }
         }
@@ -1844,7 +1844,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
